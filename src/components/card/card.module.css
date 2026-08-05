@@ -1,0 +1,338 @@
+/* ==========================================================================
+   Card
+   ========================================================================== */
+
+.cardCustom {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  box-sizing: border-box;
+  min-width: 0;
+  overflow: hidden;
+
+  border: var(--border-default);
+  /* border-radius: var(--radius-m); */
+
+  /* box-shadow: 0 2px 8px rgb(0 0 0 / 12%); */
+}
+
+/* ==========================================================================
+   Sizes
+   ========================================================================== */
+
+.XS {
+  padding: 5px 8px;
+  border-radius: 4px;
+  gap: 2px;
+}
+
+.S {
+  padding: 6px 9px;
+  border-radius: 4px;
+  gap: 3px;
+}
+
+.M {
+  padding: 7px 10px;
+  border-radius: 5px;
+  gap: 5px;
+}
+
+.L {
+  padding: 8px 10px;
+  border-radius: 6px;
+  gap: 7px;
+}
+
+.XL {
+  padding: 9px 13px;
+  border-radius: 7px;
+  gap: 10px;
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.cardHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+/* ==========================================================================
+   Icon
+   ========================================================================== */
+
+.cardIcon {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+
+  max-height: 100%;
+  overflow: hidden;
+
+  color: var(--color-info);
+}
+
+.cardIcon > * {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+}
+
+/* ==========================================================================
+   Title
+   ========================================================================== */
+
+.cardTitle {
+  display: block;
+
+  min-width: 0;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.XS .cardTitle {
+  font-size: 11px;
+  /* line-height: var(--line-height-xs); */
+}
+
+.S .cardTitle {
+  font-size: 13px;
+  /* line-height: var(--line-height-xs); */
+}
+
+.M .cardTitle {
+  font-size: 16px;
+  /* line-height: var(--line-height-sm); */
+}
+
+.L .cardTitle {
+  font-size: 19px;
+  /* line-height: var(--line-height-sm); */
+}
+
+.XL .cardTitle {
+  font-size: 22px;
+  /* line-height: var(--line-height-md); */
+}
+
+/* ==========================================================================
+   Subtitle
+   ========================================================================== */
+
+.cardSubtitle {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--color-grey-heavy);
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.XS .cardSubtitle {
+  font-size: 9px;
+  line-height: var(--line-height-xs);
+}
+
+.S .cardSubtitle {
+  font-size: 10px;
+  line-height: var(--line-height-xs);
+}
+
+.M .cardSubtitle {
+  font-size: 11px;
+  line-height: var(--line-height-xs);
+}
+
+.L .cardSubtitle {
+  font-size: 12px;
+  line-height: var(--line-height-sm);
+}
+
+.XL .cardSubtitle {
+  font-size: 13px;
+  line-height: var(--line-height-sm);
+}
+
+/* ==========================================================================
+   Actions
+   ========================================================================== */
+
+.cardActions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+
+  min-width: fit-content;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.XS .cardActions {
+  gap: 3px;
+}
+
+.S .cardActions {
+  gap: 5px;
+}
+
+.M .cardActions {
+  gap: 8px;
+}
+
+.L .cardActions {
+  gap: 13px;
+}
+
+.XL .cardActions {
+  gap: 21px;
+}
+
+/* ==========================================================================
+   Content
+   ========================================================================== */
+
+.cardContent {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  box-sizing: border-box;
+  min-width: 0;
+  overflow: hidden;
+
+  padding: var(--padding-m);
+}
+
+.XS .cardContent {
+  padding: var(--padding-xs);
+}
+
+.S .cardContent {
+  padding: var(--padding-s);
+}
+
+.M .cardContent {
+  padding: var(--padding-m);
+}
+
+.L .cardContent {
+  padding: var(--padding-l);
+}
+
+.XL .cardContent {
+  padding: var(--padding-xl);
+}
+
+/* ==========================================================================
+   Resize
+   ========================================================================== */
+
+.resizable {
+  min-width: 120px;
+  min-height: 80px;
+  overflow: auto;
+  resize: both;
+}
+
+.resizeHandle {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+
+  width: 6px;
+  height: 6px;
+
+  pointer-events: none;
+  opacity: 0.4;
+
+  border-right: var(--border-default-heavy);
+  border-bottom: var(--border-default-heavy);
+}
+
+.XS .resizeHandle {
+  width: 4px;
+  height: 4px;
+}
+
+.S .resizeHandle {
+  width: 5px;
+  height: 5px;
+}
+
+.M .resizeHandle {
+  width: 8px;
+  height: 8px;
+}
+
+.L .resizeHandle {
+  width: 10px;
+  height: 10px;
+}
+
+.XL .resizeHandle {
+  width: 13px;
+  height: 13px;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .cardHeader {
+    align-items: flex-start;
+  }
+
+  .cardActions {
+    flex-wrap: wrap;
+  }
+
+  .XL {
+    padding: var(--padding-l);
+  }
+
+  .XL .cardHeader,
+  .XL .cardContent {
+    padding: var(--padding-l);
+  }
+
+  .XL .cardHeader,
+  .XL .cardActions {
+    gap: 13px;
+  }
+}
+
+/* ==========================================================================
+   Dark theme
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  .cardCustom {
+    border-color: var(--color-grey-heavy);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 30%);
+  }
+
+  .cardSubtitle {
+    color: var(--color-grey-light);
+  }
+
+  .resizeHandle {
+    border-color: var(--color-grey-light);
+  }
+}

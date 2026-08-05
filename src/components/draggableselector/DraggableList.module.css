@@ -1,0 +1,229 @@
+.draggableSelector {
+  position: relative;
+
+  display: flex;
+  flex-direction: row;
+
+  width: 100%;
+  height: 100%;
+  gap: var(--space-3);
+
+  color: var(--color-text);
+}
+
+.draggableColumnsContainer {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  min-width: 0;
+  overflow-x: auto;
+
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-card);
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+
+  border-bottom: var(--border-width-sm) solid var(--color-border);
+  background: color-mix(in srgb, var(--color-brand) 10%, var(--color-card));
+  color: var(--color-text);
+}
+
+.headerContainer h3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: var(--space-1);
+  margin: 0;
+
+  color: var(--color-text);
+  line-height: var(--line-height-sm);
+}
+
+.headerContainer h3 span {
+  color: var(--color-brand);
+  font-weight: var(--font-weight-regular);
+}
+
+.fastSetterHeader {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+
+  gap: var(--space-3);
+}
+
+.draggableInput {
+  width: 70px;
+  height: 30px;
+  padding: 0 var(--space-3);
+
+  border: var(--border-width-sm) solid var(--color-border-control);
+  border-radius: var(--radius-control);
+  outline: var(--outline-none);
+  background: var(--color-card);
+  color: var(--color-text);
+
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.draggableInput:hover {
+  border-color: var(--color-border-control-hover);
+}
+
+.draggableInput:focus {
+  border-color: var(--color-border-control-focus);
+  box-shadow: 0 0 0 var(--border-width-md) color-mix(in srgb, var(--color-brand-focus) 18%, transparent);
+}
+
+.sortableContainer {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  gap: 6px;
+  padding: var(--space-1) var(--space-3);
+
+  overflow: auto;
+
+  background: var(--color-card-soft);
+}
+
+.draggableItem {
+  z-index: var(--z-index-dropdown);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--color-text);
+  background: var(--color-card);
+
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-control);
+  box-shadow: var(--shadow-none);
+
+  cursor: grab;
+
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+.draggableItem:hover {
+  color: var(--color-brand);
+  background: color-mix(in srgb, var(--color-brand) 8%, var(--color-card));
+  border-color: var(--color-border-brand-hover);
+}
+
+.draggableItem.active {
+  color: var(--color-brand);
+  background: color-mix(in srgb, var(--color-brand) 12%, var(--color-card));
+  border-color: var(--color-border-brand);
+  box-shadow: inset 0 0 0 var(--border-width-sm) color-mix(in srgb, var(--color-brand) 18%, transparent);
+}
+
+.draggableItem.selected {
+  color: var(--color-brand);
+  border-color: color-mix(in srgb, var(--color-brand) 45%, var(--color-border));
+  background: var(--color-card);
+}
+
+.draggingItem {
+  position: relative;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  border: var(--border-width-sm) solid var(--color-border-brand);
+  border-radius: var(--radius-control);
+  background: var(--color-card);
+  color: var(--color-brand);
+
+  box-shadow: var(--shadow-lg);
+
+  cursor: grabbing;
+
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.overlay {
+  position: relative;
+  cursor: grabbing;
+}
+
+.draggingTitle {
+  font-size: var(--FontTitle);
+}
+
+.draggingDescription {
+  color: var(--color-brand);
+  font-size: var(--FontList);
+}
+
+/* Clases globales de componentes externos dentro del scope local */
+.draggableSelector :global(.action-button) {
+  height: 25px;
+}
+
+.draggableItem :global(.action-button) {
+  height: 25px;
+}
+
+.fastSetterHeader :global(.select-all) {
+  height: fit-content;
+  padding: var(--space-1);
+}
+
+.droppableTitle {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+@supports not (color: color-mix(in srgb, black, white)) {
+  .headerContainer {
+    background: rgba(91, 86, 255, 0.1);
+  }
+
+  .draggableInput:focus {
+    box-shadow: 0 0 0 2px rgba(118, 113, 254, 0.18);
+  }
+
+  .draggableItem:hover {
+    background: rgba(91, 86, 255, 0.08);
+  }
+
+  .draggableItem.active {
+    background: rgba(91, 86, 255, 0.12);
+    box-shadow: inset 0 0 0 1px rgba(91, 86, 255, 0.18);
+  }
+}

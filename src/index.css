@@ -1,0 +1,190 @@
+/* ==========================================================================
+   styles.css — Global design tokens
+   ========================================================================== */
+body {
+  height: 100vh;
+  width: 100%;
+  margin: 0px;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+/*
+
+ ==========================================================================
+   SIZES
+ ========================================================================== 
+ 
+*/
+
+:root {
+  color-scheme: light dark;
+
+  /* ==========================================================================
+     Typography
+     ========================================================================== */
+
+  font-family:
+    'Helvetica',
+    Helvetica,
+    Arial,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+
+  /* 
+  
+  --font-family-base: 'Helvetica Neue', Helvetica, Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+  
+  */
+
+  /* 
+  
+  --font-size-xs: 9px;
+  --font-size-s: 11px;
+  --font-size-m: 13px;
+  --font-size-l: 14px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 24px; 
+  
+  */
+
+  /* 
+  
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700; 
+  
+  */
+
+  /* 
+  
+  --line-height-xs: 14px;
+  --line-height-s: 18px;
+  --line-height-m: 22px;
+  --line-height-l: 24px;
+  --line-height-xl: 28px; 
+  
+  */
+
+  /* 
+  
+  ==========================================================================
+     Semantic colors
+     ==========================================================================
+     
+   */
+
+  --color-success: #157347;
+  --color-success-focus: #1f9f63;
+  --color-success-hover: #46eb9ebb;
+  --color-success-active: #0f5132;
+
+  --color-info: #25cff2;
+  --color-info-focus: #4fd9f5;
+  --color-info-hover: #4fd9f5;
+  --color-info-active: #1aa6c2;
+
+  --color-error: #b02a37;
+  --color-error-focus: #dc3545;
+  --color-error-hover: #dc3545;
+  --color-error-active: #b40715;
+
+  --color-warning: #ffcd39;
+  --color-warning-focus: #ffd966;
+  --color-warning-hover: #ffd966;
+  --color-warning-active: #cc9a06;
+
+  /* ==========================================================================
+     Neutral colors
+     ========================================================================== */
+
+  --color-grey-light: #d3d3d3;
+  --color-grey-heavy: #b1b1b1;
+
+  /* ==========================================================================
+     Surfaces
+     ========================================================================== */
+
+  /* ==========================================================================
+     Text
+     ========================================================================== */
+
+  /* ==========================================================================
+   Borders
+   ========================================================================== */
+
+  --border-default: 1px solid var(--color-grey-light);
+  --border-default-heavy: 1px solid var(--color-grey-heavy);
+  --border-heavy: 2px solid var(--color-grey-light);
+  --border-extra-heavy: 2px solid var(--color-grey-heavy);
+
+  /* ==========================================================================
+   Shadows
+   ========================================================================== */
+  /* ==========================================================================
+   Spacing
+   ========================================================================== */
+
+  /* ==========================================================================
+   Radius
+   ========================================================================== */
+
+  /* --radius-none: 0;
+     --radius-control: var(--radius-md);
+  --radius-circle: 50%;
+
+  --radius-card: var(--radius-lg);
+  --radius-panel: var(--radius-xl); */
+  /* ==========================================================================
+     Layout
+     ========================================================================== */
+  /* --container-xs: 480px;
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1440px;
+
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070; */
+  /* ==========================================================================
+     Transitions
+     ========================================================================== */
+  /* 
+  --transition-fast: 0.18s ease-in-out;
+  --transition-normal: 0.28s ease-in-out;
+  --transition-slow: 0.4s ease-in-out;
+
+  --transition-color:
+    background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast),
+    outline-color var(--transition-fast);
+
+  --transition-transform: transform var(--transition-fast), box-shadow var(--transition-fast); */
+  /* ==========================================================================
+     Reset tokens
+     ========================================================================== */
+  /* 
+  --border-none: none;
+  --outline-none: none;
+  --transparent: transparent; */
+}
+
+/* ==========================================================================
+   Dark theme
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+  }
+}

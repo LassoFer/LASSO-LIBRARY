@@ -1,0 +1,502 @@
+/* ==========================================================================
+   Wrapper
+   ========================================================================== */
+
+.wrapper {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  height: fit-content;
+}
+
+/* ==========================================================================
+   Left icon
+   ========================================================================== */
+
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 8px;
+  z-index: 2;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--color-grey-heavy);
+  pointer-events: none;
+
+  transform: translateY(-50%);
+  transition: color 0.08s ease;
+}
+
+.wrapper:hover .icon,
+.wrapper:focus-within .icon {
+  color: CanvasText;
+}
+
+.sizeXS .icon {
+  left: 5px;
+}
+
+.sizeS .icon {
+  left: 6px;
+}
+
+.sizeM .icon {
+  left: 8px;
+}
+
+.sizeL .icon {
+  left: 9px;
+}
+
+.sizeXL .icon {
+  left: 11px;
+}
+
+/* ==========================================================================
+   Input
+   ========================================================================== */
+
+.input {
+  display: block;
+  flex: 1;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+
+  color: CanvasText;
+  background-color: Canvas;
+  border: var(--border-default);
+  outline: 1px solid transparent;
+  outline-offset: 1px;
+
+  font-family: inherit;
+  line-height: 1;
+
+  box-shadow: 0 1px 2px rgb(0 0 0 / 3%);
+
+  transition:
+    background-color 0.08s ease,
+    border-color 0.08s ease,
+    color 0.08s ease,
+    outline-color 0.08s ease,
+    box-shadow 0.08s ease;
+}
+
+.input:hover:not(:disabled):not(:read-only) {
+  background-color: color-mix(in srgb, CanvasText 2%, Canvas);
+
+  border-color: var(--color-grey-heavy);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 4%);
+}
+
+.input:focus,
+.input:focus-visible {
+  background-color: Canvas;
+  border-color: var(--color-grey-heavy);
+
+  outline-color: color-mix(in srgb, CanvasText 18%, transparent);
+
+  box-shadow: 0 1px 2px rgb(0 0 0 / 4%);
+}
+
+.input::placeholder {
+  color: var(--color-grey-heavy);
+  opacity: 1;
+}
+
+.input:disabled {
+  color: color-mix(in srgb, CanvasText 45%, transparent);
+
+  background-color: color-mix(in srgb, CanvasText 4%, Canvas);
+
+  border-color: var(--color-grey-light);
+  outline-color: transparent;
+  box-shadow: none;
+
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.input:read-only:not(:disabled) {
+  background-color: color-mix(in srgb, CanvasText 2%, Canvas);
+
+  cursor: default;
+}
+
+/* ==========================================================================
+   Sizes
+   ========================================================================== */
+
+.sizeXS.input {
+  height: 18px;
+  min-height: 18px;
+  padding: 2px 5px;
+
+  font-size: 9px;
+  border-radius: 2px;
+}
+
+.sizeS.input {
+  height: 20px;
+  min-height: 20px;
+  padding: 2px 7px;
+
+  font-size: 10px;
+  border-radius: 2px;
+}
+
+.sizeM.input {
+  height: 24px;
+  min-height: 24px;
+  padding: 3px 8px;
+
+  font-size: 12px;
+  border-radius: 3px;
+}
+
+.sizeL.input {
+  height: 28px;
+  min-height: 28px;
+  padding: 4px 9px;
+
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.sizeXL.input {
+  height: 34px;
+  min-height: 34px;
+  padding: 6px 11px;
+
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+/* ==========================================================================
+   Input spacing with controls
+   ========================================================================== */
+
+.sizeXS.hasIcon .input {
+  padding-left: 20px;
+}
+
+.sizeXS.hasSearch .input {
+  padding-right: 20px;
+}
+
+.sizeS.hasIcon .input {
+  padding-left: 24px;
+}
+
+.sizeS.hasSearch .input {
+  padding-right: 24px;
+}
+
+.sizeM.hasIcon .input {
+  padding-left: 28px;
+}
+
+.sizeM.hasSearch .input {
+  padding-right: 28px;
+}
+
+.sizeL.hasIcon .input {
+  padding-left: 32px;
+}
+
+.sizeL.hasSearch .input {
+  padding-right: 32px;
+}
+
+.sizeXL.hasIcon .input {
+  padding-left: 38px;
+}
+
+.sizeXL.hasSearch .input {
+  padding-right: 38px;
+}
+
+/* ==========================================================================
+   Textarea
+   ========================================================================== */
+
+.textarea {
+  height: auto;
+  resize: vertical;
+  line-height: 1.4;
+}
+
+.sizeXS.textarea {
+  min-height: 54px;
+}
+
+.sizeS.textarea {
+  min-height: 60px;
+}
+
+.sizeM.textarea {
+  min-height: 72px;
+}
+
+.sizeL.textarea {
+  min-height: 84px;
+}
+
+.sizeXL.textarea {
+  min-height: 96px;
+}
+
+/* ==========================================================================
+   Number
+   ========================================================================== */
+
+.input[type='number'] {
+  appearance: textfield;
+}
+
+.input[type='number']::-webkit-inner-spin-button,
+.input[type='number']::-webkit-outer-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+/* ==========================================================================
+   Search button
+   ========================================================================== */
+
+.searchButton {
+  position: absolute;
+  top: 50%;
+  right: 2px;
+  z-index: 2;
+
+  margin: 0;
+
+  color: var(--color-grey-heavy);
+
+  transform: translateY(-50%);
+}
+
+.searchButton:hover:not(:disabled),
+.searchButton:focus-visible {
+  color: CanvasText;
+}
+
+.searchButton:active:not(:disabled) {
+  transform: translateY(-50%);
+}
+
+.sizeXS .searchButton {
+  right: 0;
+}
+
+.sizeS .searchButton {
+  right: 0;
+}
+
+.sizeM .searchButton {
+  right: 1px;
+}
+
+.sizeL .searchButton {
+  right: 2px;
+}
+
+.sizeXL .searchButton {
+  right: 3px;
+}
+
+/* ==========================================================================
+   Options
+   ========================================================================== */
+
+.options {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  left: 0;
+  z-index: 30;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  box-sizing: border-box;
+  max-height: 360px;
+  padding: 4px;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  color: CanvasText;
+  background-color: Canvas;
+  border: var(--border-default);
+  border-radius: 5px;
+
+  box-shadow:
+    0 4px 12px rgb(0 0 0 / 8%),
+    0 1px 3px rgb(0 0 0 / 5%);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 32px;
+  padding: 6px 8px;
+
+  color: CanvasText;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  outline: 1px solid transparent;
+  outline-offset: -1px;
+
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.25;
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.08s ease,
+    border-color 0.08s ease,
+    color 0.08s ease,
+    outline-color 0.08s ease;
+}
+
+.option:hover:not(:disabled) {
+  background-color: color-mix(in srgb, CanvasText 4%, transparent);
+}
+
+.option:focus-visible {
+  background-color: color-mix(in srgb, CanvasText 3%, transparent);
+
+  outline-color: color-mix(in srgb, CanvasText 22%, transparent);
+}
+
+.option:active:not(:disabled) {
+  background-color: color-mix(in srgb, CanvasText 7%, transparent);
+
+  outline-color: transparent;
+}
+
+.option:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.emptyOptions {
+  padding: 6px 8px;
+
+  color: var(--color-grey-heavy);
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+/* ==========================================================================
+   Loader
+   ========================================================================== */
+
+.loaderIcon {
+  animation: inputSpin 0.8s linear infinite;
+}
+
+@keyframes inputSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   Dark theme
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  .input {
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+  }
+
+  .input:hover:not(:disabled):not(:read-only),
+  .input:focus,
+  .input:focus-visible {
+    box-shadow: 0 1px 2px rgb(0 0 0 / 14%);
+  }
+
+  .options {
+    border-color: var(--color-grey-heavy);
+
+    box-shadow:
+      0 4px 12px rgb(0 0 0 / 24%),
+      0 1px 3px rgb(0 0 0 / 18%);
+  }
+}
+
+/* ==========================================================================
+   color-mix fallback
+   ========================================================================== */
+
+@supports not (color: color-mix(in srgb, black, white)) {
+  .input:hover:not(:disabled):not(:read-only),
+  .input:read-only:not(:disabled) {
+    background-color: rgb(0 0 0 / 2%);
+  }
+
+  .input:focus,
+  .input:focus-visible {
+    outline-color: rgb(0 0 0 / 18%);
+  }
+
+  .option:hover:not(:disabled) {
+    background-color: rgb(0 0 0 / 4%);
+  }
+
+  .option:focus-visible {
+    background-color: rgb(0 0 0 / 3%);
+    outline-color: rgb(0 0 0 / 22%);
+  }
+
+  .option:active:not(:disabled) {
+    background-color: rgb(0 0 0 / 7%);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .input:hover:not(:disabled):not(:read-only),
+    .input:read-only:not(:disabled) {
+      background-color: rgb(255 255 255 / 2%);
+    }
+
+    .input:focus,
+    .input:focus-visible {
+      outline-color: rgb(255 255 255 / 18%);
+    }
+
+    .option:hover:not(:disabled) {
+      background-color: rgb(255 255 255 / 4%);
+    }
+
+    .option:focus-visible {
+      background-color: rgb(255 255 255 / 3%);
+      outline-color: rgb(255 255 255 / 22%);
+    }
+
+    .option:active:not(:disabled) {
+      background-color: rgb(255 255 255 / 7%);
+    }
+  }
+}

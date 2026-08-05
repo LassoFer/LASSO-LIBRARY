@@ -1,0 +1,76 @@
+.filterManager {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: auto;
+  padding: 3px;
+}
+
+.groupContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-radius: var(--border-radius);
+  padding: 10px;
+  box-shadow: var(--box-shadow);
+  max-height: fit-content;
+  flex: 1;
+}
+
+.union {
+  min-width: 100px;
+  max-width: 100px;
+  padding-left: 10px;
+  background-color: transparent;
+  border: none;
+}
+
+.union:hover {
+  color: var(--pink);
+}
+
+.ruleContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  flex: 1;
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.buttonsContainer :focus-visible {
+  outline: none;
+}
+
+.buttonsContainer button {
+  margin: 5px;
+  background-color: transparent;
+}
+
+.minusButton {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+}
+
+.addButtons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.groupChildren {
+  padding: 5px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}

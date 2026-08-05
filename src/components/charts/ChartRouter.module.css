@@ -1,0 +1,331 @@
+.circleLocation {
+  fill: var(--color-brand-hover);
+  stroke: var(--color-card);
+  stroke-width: 0;
+
+  transition:
+    fill var(--transition-normal),
+    stroke var(--transition-normal),
+    opacity var(--transition-normal),
+    transform var(--transition-normal);
+}
+
+.circleLocation:hover {
+  fill: var(--color-brand);
+  stroke: var(--color-brand);
+  opacity: 0.95;
+}
+
+.circleLocationSelected {
+  fill: var(--color-brand);
+  stroke: var(--color-brand);
+}
+
+.rect {
+  /* fill: var(--color-card-middle); */
+}
+
+.chartScroll {
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.chartCanvas {
+  height: 100%;
+}
+
+.chartRouter {
+  width: 100%;
+  height: 100%;
+  /* min-height: 260px; */
+}
+
+.chartShell {
+  width: 100%;
+  height: 100%;
+  /* min-height: 260px; */
+}
+
+.chartTitle {
+  color: var(--color-text);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  text-align: center;
+}
+
+.chartBody {
+  width: 100%;
+  height: 100%;
+  /* min-height: 230px; */
+  overflow: hidden;
+}
+
+.chartTooltip {
+  padding: var(--space-3) var(--space-4);
+
+  border: var(--border-width-sm) solid var(--color-border-brand);
+  border-radius: var(--radius-card);
+  background: var(--color-card);
+  color: var(--color-text);
+  box-shadow: var(--shadow-md);
+
+  font-size: var(--font-size-sm);
+}
+
+.chartTooltipTitle {
+  margin-bottom: 6px;
+
+  color: var(--color-text);
+  font-weight: var(--font-weight-bold);
+}
+
+.chartTooltipRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.chartTooltipDot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+
+  border-radius: var(--radius-circle);
+}
+
+.mapContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mapSvg {
+  width: 100%;
+  height: 100%;
+  /* touch-action: none; */
+  user-select: none;
+}
+
+.mapSvg:active {
+  cursor: grabbing;
+}
+
+/* Recharts interactions */
+.chartInteractiveShape {
+  cursor: pointer;
+
+  transition:
+    fill var(--transition-normal),
+    stroke var(--transition-normal),
+    opacity var(--transition-normal);
+}
+
+.chartInteractiveSector {
+  cursor: pointer;
+
+  transition:
+    fill var(--transition-normal),
+    stroke var(--transition-normal),
+    opacity var(--transition-normal),
+    filter var(--transition-normal);
+}
+
+.chartInteractiveSector:hover {
+  fill: var(--color-brand) !important;
+  stroke: var(--color-brand) !important;
+  filter: drop-shadow(0 4px 10px color-mix(in srgb, var(--color-brand) 25%, transparent));
+  opacity: 0.96;
+}
+
+/* Recharts generated shapes */
+.chartRouter :global(.recharts-rectangle:hover) {
+  fill: var(--color-brand) !important;
+  stroke: var(--color-brand) !important;
+}
+
+.chartRouter :global(.recharts-dot:hover) {
+  fill: var(--color-brand) !important;
+  stroke: var(--color-brand-focus) !important;
+}
+
+.chartRouter :global(.recharts-active-dot) {
+  fill: var(--color-brand) !important;
+  stroke: var(--color-brand-focus) !important;
+}
+
+.chartRouter :global(.recharts-tooltip-cursor) {
+  fill: color-mix(in srgb, var(--color-brand) 10%, transparent) !important;
+  stroke: var(--color-brand-focus) !important;
+}
+
+/* Brush */
+.chartBrush {
+  fill: var(--color-card);
+  stroke: var(--color-brand-focus);
+}
+
+.chartBrush :global(.recharts-brush-slide) {
+  fill: var(--color-brand-focus) !important;
+  fill-opacity: 0.18 !important;
+  stroke: var(--color-brand-focus) !important;
+}
+
+.chartBrush :global(.recharts-brush-traveller) {
+  stroke: var(--color-brand) !important;
+  stroke-width: var(--border-width-md);
+}
+
+.chartBrush :global(.recharts-brush-traveller:hover) {
+  fill: color-mix(in srgb, var(--color-brand) 10%, transparent) !important;
+  stroke: var(--color-brand) !important;
+}
+
+.chartBrush :global(.recharts-brush-texts text) {
+  fill: var(--color-text-muted) !important;
+  font-size: var(--font-size-xs);
+}
+
+/* Remove focus outline after clicking Recharts/SVG elements */
+.chartRouter :global(.recharts-wrapper:focus),
+.chartRouter :global(.recharts-wrapper:focus-visible),
+.chartRouter :global(.recharts-surface:focus),
+.chartRouter :global(.recharts-surface:focus-visible),
+.chartRouter :global(.recharts-layer:focus),
+.chartRouter :global(.recharts-layer:focus-visible),
+.chartRouter :global(.recharts-sector:focus),
+.chartRouter :global(.recharts-sector:focus-visible),
+.chartRouter :global(.recharts-rectangle:focus),
+.chartRouter :global(.recharts-rectangle:focus-visible),
+.chartRouter :global(.recharts-dot:focus),
+.chartRouter :global(.recharts-dot:focus-visible),
+.chartRouter :global(svg *:focus),
+.chartRouter :global(svg *:focus-visible),
+.mapSvg:focus,
+.mapSvg:focus-visible,
+.mapSvg *:focus,
+.mapSvg *:focus-visible {
+  outline: none !important;
+}
+
+.chartRouter :global(.recharts-wrapper),
+.chartRouter :global(.recharts-surface),
+.mapSvg {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Fallback */
+@supports not (color: color-mix(in srgb, black, white)) {
+  .chartInteractiveSector:hover {
+    filter: drop-shadow(0 4px 10px rgba(91, 86, 255, 0.25));
+  }
+
+  .chartRouter :global(.recharts-tooltip-cursor),
+  .chartBrush :global(.recharts-brush-traveller:hover) {
+    fill: rgba(91, 86, 255, 0.1) !important;
+  }
+}
+
+/*
+ * ChartRouter.module.css
+ *
+ * Sustituye las reglas indicadas y añade las clases nuevas al final del módulo.
+ */
+
+/* REEMPLAZAR */
+.chartRouter {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* REEMPLAZAR */
+.chartShell {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* REEMPLAZAR */
+.chartBody {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* REEMPLAZAR */
+.chartScroll {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+}
+
+/* REEMPLAZAR */
+.chartCanvas {
+  width: 100%;
+  min-width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+/* AÑADIR */
+.axisTickForeignObject {
+  overflow: hidden;
+}
+
+/*
+ * El texto se renderiza como HTML dentro de foreignObject porque
+ * text-overflow: ellipsis no funciona sobre un <text> SVG normal.
+ */
+.axisTickLabel {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+
+  /* overflow: hidden; */
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  line-height: 1;
+  /* text-align: center; */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  cursor: help;
+}
+
+.axisTickLabelRight {
+  /* justify-content: flex-end; */
+  padding-right: 2px;
+  /* text-align: right; */
+}
+
+/* Tick del radar: SVG puro, truncado desde TypeScript. */
+.axisSvgTick {
+  fill: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-regular);
+}
+
+.hoverReferenceLine,
+.hoverReferenceLine * {
+  pointer-events: none !important;
+}

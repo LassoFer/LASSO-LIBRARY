@@ -1,0 +1,502 @@
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: var(--border-default);
+  cursor: pointer;
+
+  outline: 1px solid transparent;
+  outline-offset: 2px;
+
+  box-shadow: 0 1px 2px rgb(0 0 0 / 3%);
+
+  transition:
+    background-color 0.08s ease,
+    border-color 0.08s ease,
+    color 0.08s ease,
+    outline-color 0.08s ease,
+    box-shadow 0.08s ease;
+}
+
+.button:hover:not(:disabled) {
+  background-color: color-mix(in srgb, currentColor 2%, transparent);
+
+  box-shadow: 0 1px 2px rgb(0 0 0 / 4%);
+}
+
+.button:focus-visible {
+  background-color: color-mix(in srgb, currentColor 2%, transparent);
+
+  outline-color: color-mix(in srgb, currentColor 18%, transparent);
+
+  box-shadow: 0 1px 2px rgb(0 0 0 / 4%);
+}
+
+.button:active:not(:disabled) {
+  background-color: color-mix(in srgb, currentColor 5%, transparent);
+
+  outline-color: transparent;
+  box-shadow: inset 0 1px 1px rgb(0 0 0 / 4%);
+}
+
+.button:disabled,
+.button[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+
+  box-shadow: none;
+}
+
+/* ==========================================================================
+   Ghost
+   ========================================================================== */
+
+.variantGhost {
+  color: CanvasText;
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.variantGhost:hover:not(:disabled) {
+  color: CanvasText;
+  background-color: color-mix(in srgb, currentColor 4%, transparent);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.variantGhost:focus-visible {
+  color: CanvasText;
+  background-color: color-mix(in srgb, currentColor 3%, transparent);
+  border-color: transparent;
+  outline: 1px solid color-mix(in srgb, currentColor 22%, transparent);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+.variantGhost:active:not(:disabled) {
+  color: CanvasText;
+  background-color: color-mix(in srgb, currentColor 7%, transparent);
+  border-color: transparent;
+  outline-color: transparent;
+  box-shadow: none;
+}
+/* ==========================================================================
+   Danger
+   ========================================================================== */
+
+.variantDanger {
+  background: color-mix(in srgb, var(--color-error) 12%, transparent);
+  color: var(--color-error);
+  border-color: color-mix(in srgb, var(--color-error) 36%, transparent);
+}
+
+.variantDanger:hover {
+  background: color-mix(in srgb, var(--color-error) 16%, transparent);
+  color: var(--color-error);
+  border-color: color-mix(in srgb, var(--color-error) 44%, transparent);
+}
+
+.variantDanger:focus-visible {
+  background: color-mix(in srgb, var(--color-error) 12%, transparent);
+  color: var(--color-error);
+  border-color: color-mix(in srgb, var(--color-error) 48%, transparent);
+  outline-color: color-mix(in srgb, var(--color-error) 38%, transparent);
+}
+
+.variantDanger:active:not(:disabled) {
+  background: color-mix(in srgb, var(--color-error) 20%, transparent);
+  color: var(--color-error);
+  border-color: color-mix(in srgb, var(--color-error) 56%, transparent);
+  outline-color: transparent;
+}
+
+/* ==========================================================================
+   Success
+   ========================================================================== */
+
+.variantSuccess {
+  background: color-mix(in srgb, var(--color-success) 12%, transparent);
+  color: var(--color-success);
+  border-color: color-mix(in srgb, var(--color-success) 36%, transparent);
+}
+
+.variantSuccess:hover {
+  background: color-mix(in srgb, var(--color-success) 16%, transparent);
+  color: var(--color-success);
+  border-color: color-mix(in srgb, var(--color-success) 44%, transparent);
+}
+
+.variantSuccess:focus-visible {
+  background: color-mix(in srgb, var(--color-success) 12%, transparent);
+  color: var(--color-success);
+  border-color: color-mix(in srgb, var(--color-success) 48%, transparent);
+  outline-color: color-mix(in srgb, var(--color-success) 38%, transparent);
+}
+
+.variantSuccess:active:not(:disabled) {
+  background: color-mix(in srgb, var(--color-success) 20%, transparent);
+  color: var(--color-success);
+  border-color: color-mix(in srgb, var(--color-success) 56%, transparent);
+  outline-color: transparent;
+}
+
+/* ==========================================================================
+   Warning
+   ========================================================================== */
+
+.variantWarning {
+  background: color-mix(in srgb, var(--color-warning) 18%, transparent);
+  color: var(--color-warning-active);
+  border-color: color-mix(in srgb, var(--color-warning) 42%, transparent);
+}
+
+.variantWarning:hover {
+  background: color-mix(in srgb, var(--color-warning) 23%, transparent);
+  color: var(--color-warning-active);
+  border-color: color-mix(in srgb, var(--color-warning) 50%, transparent);
+}
+
+.variantWarning:focus-visible {
+  background: color-mix(in srgb, var(--color-warning) 18%, transparent);
+  color: var(--color-warning-active);
+  border-color: color-mix(in srgb, var(--color-warning) 54%, transparent);
+  outline-color: color-mix(in srgb, var(--color-warning) 48%, transparent);
+}
+
+.variantWarning:active:not(:disabled) {
+  background: color-mix(in srgb, var(--color-warning) 28%, transparent);
+  color: var(--color-warning-active);
+  border-color: color-mix(in srgb, var(--color-warning) 62%, transparent);
+  outline-color: transparent;
+}
+
+/* ==========================================================================
+   Info
+   ========================================================================== */
+
+.variantInfo {
+  background: color-mix(in srgb, var(--color-info) 16%, transparent);
+  color: var(--color-info-active);
+  border-color: color-mix(in srgb, var(--color-info) 40%, transparent);
+}
+
+.variantInfo:hover {
+  background: color-mix(in srgb, var(--color-info) 21%, transparent);
+  color: var(--color-info-active);
+  border-color: color-mix(in srgb, var(--color-info) 48%, transparent);
+}
+
+.variantInfo:focus-visible {
+  background: color-mix(in srgb, var(--color-info) 16%, transparent);
+  color: var(--color-info-active);
+  border-color: color-mix(in srgb, var(--color-info) 52%, transparent);
+  outline-color: color-mix(in srgb, var(--color-info) 44%, transparent);
+}
+
+.variantInfo:active:not(:disabled) {
+  background: color-mix(in srgb, var(--color-info) 26%, transparent);
+  color: var(--color-info-active);
+  border-color: color-mix(in srgb, var(--color-info) 60%, transparent);
+  outline-color: transparent;
+}
+
+/* ==========================================================================
+   Icon variant
+   ========================================================================== */
+
+.variantIcon {
+  --button-icon-size: 16px;
+  --button-control-size: 30px;
+
+  flex: 0 0 auto;
+
+  width: var(--button-control-size);
+  min-width: var(--button-control-size);
+  height: var(--button-control-size);
+  padding: 0;
+
+  color: CanvasText;
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.variantIcon:hover:not(:disabled) {
+  color: CanvasText;
+  background-color: color-mix(in srgb, currentColor 4%, transparent);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.variantIcon:focus-visible {
+  color: CanvasText;
+  background-color: color-mix(in srgb, currentColor 3%, transparent);
+  border-color: transparent;
+  outline-color: color-mix(in srgb, currentColor 22%, transparent);
+  box-shadow: none;
+}
+
+.variantIcon:active:not(:disabled) {
+  color: CanvasText;
+  background-color: color-mix(in srgb, currentColor 7%, transparent);
+  border-color: transparent;
+  outline-color: transparent;
+  box-shadow: none;
+}
+
+/* Funciona con iconos directos y con iconos dentro del tooltip */
+.variantIcon svg {
+  display: block;
+  flex: 0 0 auto;
+
+  width: var(--button-icon-size);
+  height: var(--button-icon-size);
+}
+
+/* Wrapper generado cuando existe tooltip */
+.variantIcon .tooltipContent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+}
+
+/* ==========================================================================
+   Icon sizes
+   ========================================================================== */
+
+.XS.variantIcon {
+  --button-control-size: 18px;
+  --button-icon-size: 10px;
+}
+
+.S.variantIcon {
+  --button-control-size: 22px;
+  --button-icon-size: 12px;
+}
+
+.M.variantIcon {
+  --button-control-size: 30px;
+  --button-icon-size: 16px;
+}
+
+.L.variantIcon {
+  --button-control-size: 36px;
+  --button-icon-size: 18px;
+}
+
+.XL.variantIcon {
+  --button-control-size: 38px;
+  --button-icon-size: 22px;
+}
+
+/* ==========================================================================
+   Dark adjustments
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  .button {
+    font-weight: var(--font-weight-regular);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+  }
+
+  .button:hover,
+  .button:focus-visible {
+    box-shadow: 0 1px 3px rgb(0 0 0 / 14%);
+  }
+
+  .button:active:not(:disabled) {
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 14%);
+  }
+
+  .variantWarning,
+  .variantWarning:hover,
+  .variantWarning:focus-visible,
+  .variantWarning:active:not(:disabled) {
+    color: var(--color-warning-focus);
+  }
+
+  .variantInfo,
+  .variantInfo:hover,
+  .variantInfo:focus-visible,
+  .variantInfo:active:not(:disabled) {
+    color: var(--color-info-focus);
+  }
+
+  .variantGhost,
+  .variantGhost:hover,
+  .variantGhost:focus-visible,
+  .variantGhost:active:not(:disabled),
+  .variantIcon,
+  .variantIcon:hover,
+  .variantIcon:focus-visible,
+  .variantIcon:active:not(:disabled) {
+    box-shadow: none;
+  }
+}
+
+/* ==========================================================================
+   Sizes
+   ========================================================================== */
+
+.XS {
+  font-size: 10px;
+  min-width: 18px;
+  padding: 2px 4px;
+  border-radius: 2px;
+}
+
+.S {
+  font-size: 12px;
+  min-width: 22px;
+  padding: 3px 6px;
+  border-radius: 2px;
+}
+
+.M {
+  font-size: 14px;
+  min-width: 30px;
+  padding: 4px 7px;
+  border-radius: 3px;
+}
+
+.L {
+  font-size: 16px;
+  min-width: 36px;
+  height: 32px;
+  padding: 5px 8px;
+  border-radius: 4px;
+}
+
+.XL {
+  font-size: 18px;
+  min-width: 36px;
+  height: 32px;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.S.variantIcon {
+  width: 22px;
+  min-width: 22px;
+  padding: 0;
+}
+
+.M.variantIcon {
+  width: 30px;
+  min-width: 30px;
+  padding: 0;
+}
+
+.L.variantIcon {
+  width: 36px;
+  min-width: 36px;
+  padding: 0;
+}
+
+/* ==========================================================================
+   Dark adjustments
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  .button {
+    font-weight: var(--font-weight-regular);
+  }
+
+  .variantWarning {
+    color: var(--color-warning-focus);
+  }
+
+  .variantWarning:hover,
+  .variantWarning:focus-within {
+    color: var(--color-warning-focus);
+  }
+
+  .variantInfo {
+    color: var(--color-info-focus);
+  }
+
+  .variantInfo:hover,
+  .variantInfo:focus-within {
+    color: var(--color-info-focus);
+  }
+}
+
+/* ==========================================================================
+   color-mix fallback
+   ========================================================================== */
+
+@supports not (color: color-mix(in srgb, black, white)) {
+  .variantSolid:hover,
+  .variantSolid:focus-within {
+    outline-color: rgba(118, 113, 254, 0.55);
+  }
+
+  .variantGhost:hover,
+  .variantGhost:focus-within,
+  .variantIcon:hover,
+  .variantIcon:focus-within {
+    background: rgba(84, 77, 254, 0.08);
+  }
+
+  .variantGhost:active {
+    background: rgba(84, 77, 254, 0.14);
+  }
+
+  .variantDanger {
+    background: rgba(176, 42, 55, 0.14);
+    border-color: rgba(176, 42, 55, 0.42);
+  }
+
+  .variantDanger:hover,
+  .variantDanger:focus-within {
+    outline-color: rgba(220, 53, 69, 0.45);
+    background: rgba(220, 53, 69, 0.22);
+    border-color: rgba(220, 53, 69, 0.55);
+  }
+
+  .variantSuccess {
+    background: rgba(21, 115, 71, 0.14);
+    border-color: rgba(21, 115, 71, 0.42);
+  }
+
+  .variantSuccess:hover,
+  .variantSuccess:focus-within {
+    outline-color: rgba(31, 159, 99, 0.45);
+    background: rgba(31, 159, 99, 0.22);
+    border-color: rgba(31, 159, 99, 0.55);
+  }
+
+  .variantWarning {
+    background: rgba(255, 205, 57, 0.24);
+    border-color: rgba(255, 205, 57, 0.55);
+  }
+
+  .variantWarning:hover,
+  .variantWarning:focus-within {
+    outline-color: rgba(255, 217, 102, 0.55);
+    background: rgba(255, 217, 102, 0.36);
+    border-color: rgba(255, 217, 102, 0.7);
+  }
+
+  .variantInfo {
+    background: rgba(37, 207, 242, 0.2);
+    border-color: rgba(37, 207, 242, 0.5);
+  }
+
+  .variantInfo:hover,
+  .variantInfo:focus-within {
+    outline-color: rgba(79, 217, 245, 0.5);
+    background: rgba(79, 217, 245, 0.32);
+    border-color: rgba(79, 217, 245, 0.65);
+  }
+}

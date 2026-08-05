@@ -1,0 +1,207 @@
+.selector {
+  width: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  overflow: hidden;
+
+  border: var(--border-width-sm) solid var(--color-border) !important;
+  border-radius: var(--radius-card);
+  background: var(--color-card);
+  color: var(--color-text);
+
+  font-size: var(--font-size-sm);
+}
+
+.searchWrapper {
+  flex-shrink: 0;
+
+  padding: var(--space-2);
+  border-bottom: var(--border-width-sm) solid var(--color-border);
+}
+
+.summary {
+  flex-shrink: 0;
+
+  padding: 6px var(--space-2);
+  border-bottom: var(--border-width-sm) solid var(--color-border);
+
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.treeViewport {
+  flex: 1;
+  min-height: 0;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+
+  padding: var(--space-1);
+  padding-right: var(--space-5);
+}
+
+.tree,
+.children {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tree {
+  overflow: visible;
+}
+
+.node {
+  margin: 0;
+  padding: 0;
+}
+
+.nodeRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-3);
+
+  min-height: 28px;
+  box-sizing: border-box;
+
+  background: transparent;
+  color: var(--color-text);
+
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.nodeRow:hover .nodeText {
+  color: var(--color-brand);
+}
+
+.nodeRow[data-checked='true'] .nodeText,
+.nodeRow[data-indeterminate='true'] .nodeText {
+  color: var(--color-brand);
+  font-weight: var(--font-weight-medium);
+}
+
+.nodeRow[data-checked='true']:hover .nodeText,
+.nodeRow[data-indeterminate='true']:hover .nodeText {
+  color: var(--color-brand-hover);
+}
+
+.checkboxLabel {
+  position: relative;
+
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 7px;
+
+  min-width: 0;
+  height: 28px;
+
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkboxLabel input {
+  position: absolute;
+  top: 7px;
+  left: 0;
+
+  width: 14px;
+  height: 14px;
+  margin: 0;
+
+  opacity: 0;
+  pointer-events: none;
+}
+
+.customCheckbox {
+  position: relative;
+
+  width: 14px;
+  min-width: 14px;
+  height: 14px;
+  box-sizing: border-box;
+
+  border: var(--border-width-sm) solid var(--color-border-control);
+  border-radius: var(--radius-xs);
+  background: var(--color-card);
+
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.checkboxLabel:hover .customCheckbox {
+  border-color: var(--color-border-control-hover);
+}
+
+.checkboxLabel input:focus-visible + .customCheckbox {
+  outline: var(--border-focus);
+  outline-offset: 2px;
+}
+
+.checkboxLabel input:checked + .customCheckbox,
+.checkboxLabel input:indeterminate + .customCheckbox {
+  border-color: var(--color-brand);
+  background: var(--color-brand);
+}
+
+.checkboxLabel input:checked + .customCheckbox::after {
+  content: '' !important;
+  position: absolute;
+  left: 4px;
+  top: 1px;
+
+  width: 4px;
+  height: 8px;
+
+  border: solid var(--color-text-inverse);
+  border-width: 0 2px 2px 0;
+
+  transform: rotate(45deg);
+}
+
+.checkboxLabel input:indeterminate + .customCheckbox::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 6px;
+
+  width: 8px;
+  height: 2px;
+
+  border-radius: var(--radius-xs);
+  background: var(--color-text-inverse);
+}
+
+.nodeText {
+  min-width: 0;
+  overflow: hidden;
+
+  color: inherit;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.empty {
+  padding: var(--space-4);
+
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+@supports not (color: color-mix(in srgb, black, white)) {
+  .checkboxLabel input:focus-visible + .customCheckbox {
+    outline: var(--border-width-md) solid rgba(118, 113, 254, 0.55);
+  }
+}

@@ -1,0 +1,781 @@
+/* =============== Comex Grid =============== */
+
+.ctWrap {
+  --ct-header-font-size: 13px;
+  --ct-body-font-size: 11px;
+  --ct-header-padding-y: 3px;
+  --ct-header-padding-x: 6px;
+  --ct-cell-padding-x: 6px;
+  --ct-grid-radius: var(--radius-card);
+
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  max-height: 100%;
+
+  overflow: hidden;
+
+  color: var(--color-text);
+}
+
+.ctWrap *,
+.ctWrap *::before,
+.ctWrap *::after {
+  box-sizing: border-box;
+}
+
+/* =============== Layout =============== */
+
+.ctTable {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+
+  overflow: hidden;
+  border-radius: var(--ct-grid-radius);
+}
+
+.ctTableContainer {
+  display: flex;
+  flex: 1;
+
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+
+  overflow: hidden;
+}
+
+.ctGridClip {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  max-height: 100%;
+
+  overflow: hidden;
+
+  border: var(--border-card);
+  border-radius: var(--ct-grid-radius);
+  background: var(--color-card);
+  box-shadow: var(--shadow-sm);
+}
+
+.ctGridRenderer {
+  overflow: visible !important;
+
+  outline: none;
+  background: var(--color-card);
+}
+
+.ctGridRenderer:focus,
+.ctGridRenderer:focus-visible,
+.ctGridRenderer :global(*:focus),
+.ctGridRenderer :global(*:focus-visible) {
+  outline: none !important;
+}
+
+.ctGridRendererCornerTopLeft {
+  /* overflow: hidden !important; */
+
+  border-top-left-radius: var(--ct-grid-radius);
+  background: var(--color-card);
+}
+
+.ctGridRendererCornerTop {
+  /* overflow: hidden !important; */
+
+  border-top-right-radius: var(--ct-grid-radius);
+  background: var(--color-card);
+}
+
+.ctGridRendererCornerBottom {
+  overflow: auto !important;
+
+  border-bottom-right-radius: var(--ct-grid-radius);
+  background: var(--color-card);
+}
+
+.ctGridRendererConerBottomLeft {
+  /* overflow: hidden !important; */
+
+  border-right: var(--border-width-sm) solid var(--color-border);
+  border-bottom-left-radius: var(--ct-grid-radius);
+  background: var(--color-card);
+}
+
+/* =============== Header =============== */
+
+.ctHeaderCellOuter {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  background: var(--color-card);
+}
+
+.ctHeaderCellContainer {
+  display: flex;
+  flex: 1;
+
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  border-right: var(--border-width-sm) solid var(--color-border);
+  border-bottom: var(--border-width-sm) solid var(--color-border);
+  background: color-mix(in srgb, var(--color-brand) 8%, var(--color-card-soft)) !important;
+
+  transition:
+    transform var(--transition-fast),
+    background-color var(--transition-fast),
+    opacity var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.ctInternalGroupHeader {
+  border: none !important;
+  background: transparent !important;
+}
+
+.ctHeaderTextContainer {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  min-width: 0;
+  gap: 6px;
+  padding: var(--ct-header-padding-y) var(--ct-header-padding-x);
+
+  color: var(--color-text);
+
+  transition: background-color var(--transition-fast);
+}
+
+.ctHeaderTextContainer:hover {
+  background: color-mix(in srgb, var(--color-brand) 8%, var(--color-card));
+}
+
+.ctHeaderCellDragging {
+  opacity: 0.55;
+}
+
+.ctHeaderCellOver,
+.ctHeaderCellOver .ctHeaderTextContainer {
+  background: color-mix(in srgb, var(--color-brand) 14%, var(--color-card)) !important;
+}
+
+.ctHeaderText {
+  flex: 1;
+  min-width: 0;
+
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+
+  color: var(--color-text);
+  font-size: var(--ct-header-font-size) !important;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.015em;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ctHeaderText:active {
+  cursor: grabbing;
+}
+
+.ctResizeHandle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 18px;
+  height: 100%;
+
+  color: var(--color-text-muted);
+  cursor: col-resize;
+  opacity: 0.45;
+
+  transition:
+    opacity var(--transition-fast),
+    color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.ctResizeHandle:hover {
+  color: var(--color-brand);
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+.ctHeaderCellContainer,
+.ctHeaderTextContainer,
+.ctHeaderText,
+.ctResizeHandle {
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* =============== Group header =============== */
+
+.ctGroupHeaderOuter {
+  display: flex;
+
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  border-right: var(--border-width-sm) solid color-mix(in srgb, var(--color-border) 75%, transparent);
+  border-bottom: var(--border-width-sm) solid var(--color-border);
+
+  pointer-events: none;
+}
+
+.ctGroupHeaderStart,
+.ctGroupHeaderEnd {
+  overflow: hidden;
+}
+
+.ctGroupHeaderCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+  padding: 0 var(--space-2);
+
+  overflow: hidden;
+
+  color: var(--color-grey-900);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* =============== Fixed header block =============== */
+
+.ctFixedHeaderCell {
+  position: relative;
+
+  overflow: hidden;
+
+  background: var(--color-card);
+}
+
+.ctFixedHeaderCell .ctHeaderCellContainer,
+.ctFixedHeaderCell.ctGroupHeaderOuter,
+.ctFixedTopHeaderBlank {
+  background: color-mix(in srgb, var(--color-brand) 10%, var(--color-card)) !important;
+}
+
+.ctFixedHeaderBoundary .ctHeaderCellContainer,
+.ctFixedHeaderBoundary.ctGroupHeaderOuter,
+.ctFixedHeaderBoundary.ctFixedTopHeaderBlank {
+  border-right: var(--border-width-sm) solid var(--color-border-strong);
+  box-shadow: 8px 0 14px -14px color-mix(in srgb, var(--color-text) 45%, transparent);
+}
+
+.ctFixedHeaderTopStart .ctHeaderCellContainer,
+.ctFixedHeaderTopStart.ctGroupHeaderOuter,
+.ctFixedHeaderTopStart.ctFixedTopHeaderBlank {
+  /* border-top-left-radius: var(--radius-control); */
+}
+
+.ctFixedHeaderTopEnd .ctHeaderCellContainer,
+.ctFixedHeaderTopEnd.ctGroupHeaderOuter,
+.ctFixedHeaderTopEnd.ctFixedTopHeaderBlank {
+  /* border-top-right-radius: var(--radius-control); */
+}
+
+.ctFixedTopHeaderBlank {
+  border-right: var(--border-width-sm) solid var(--color-border-strong);
+  border-bottom: var(--border-width-sm) solid var(--color-border);
+}
+
+/* =============== Body cells =============== */
+
+.ctCellOuter {
+  display: flex;
+  align-items: stretch;
+
+  width: 100%;
+  height: 100%;
+
+  background: var(--color-card);
+  color: inherit;
+
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.ctRowEven {
+  background: var(--color-card-soft);
+}
+
+.ctCellOuter:hover {
+  background: color-mix(in srgb, var(--color-brand) 7%, var(--color-card));
+}
+
+.ctRowSelected {
+  background: var(--color-brand) !important;
+  color: var(--color-text-inverse) !important;
+}
+
+.cellTextContainer {
+  max-width: 100%;
+  padding: var(--space-3);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ctBodyCell {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  padding: 0 var(--ct-cell-padding-x);
+
+  overflow: hidden;
+
+  border-right: var(--border-width-sm) solid color-mix(in srgb, var(--color-border) 70%, transparent);
+
+  color: inherit;
+  font-size: var(--ct-body-font-size);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  -webkit-font-smoothing: antialiased;
+}
+
+.ctBodyCellView {
+  transition:
+    background-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.ctBodyCellView:hover {
+  background: color-mix(in srgb, var(--color-brand) 7%, transparent) !important;
+}
+
+.ctBodyCellGrouped {
+  padding-left: calc(var(--ct-cell-padding-x) + 18px);
+}
+
+/* =============== Group rows =============== */
+
+.ctGroupRowOuter {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  border-bottom: var(--border-width-sm) solid color-mix(in srgb, var(--color-border) 70%, transparent);
+  background: var(--color-card-soft);
+  color: inherit;
+}
+
+.ctGroupRowFixedCell {
+  cursor: pointer;
+  font-weight: var(--font-weight-bold);
+}
+
+.ctGroupRowValueCell {
+  border-right: var(--border-width-sm) solid var(--color-border);
+  background: transparent;
+}
+
+.ctGroupRowCellInner {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  gap: 6px;
+
+  overflow: hidden;
+
+  font-size: var(--ct-body-font-size);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ctGroupRowFixedCell:hover {
+  background: color-mix(in srgb, var(--color-brand) 10%, transparent);
+}
+
+.ctGroupRowEmptyCell {
+  pointer-events: none;
+}
+
+.ctGroupRowButton {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+  gap: var(--space-2);
+  padding: 0 var(--ct-cell-padding-x);
+
+  border: 0;
+  background: transparent;
+  color: inherit;
+
+  cursor: pointer;
+  font-size: var(--ct-body-font-size);
+  font-weight: var(--font-weight-bold);
+  text-align: left;
+}
+
+.ctGroupRowButton:hover {
+  background: color-mix(in srgb, var(--color-brand) 10%, transparent);
+}
+
+.ctGroupRowChevron {
+  display: inline-flex;
+  justify-content: center;
+
+  width: 16px;
+
+  color: var(--color-brand);
+  font-weight: var(--font-weight-bold);
+}
+
+.ctGroupRowTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ctGroupRowCount {
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* =============== Edit mode =============== */
+
+.ctBodyCellEditing {
+  padding: 0;
+
+  border: var(--border-width-sm) solid color-mix(in srgb, var(--color-brand) 28%, transparent) !important;
+  background: color-mix(in srgb, var(--color-brand) 6%, var(--color-card)) !important;
+  box-shadow: inset 0 0 0 var(--border-width-sm) color-mix(in srgb, var(--color-brand) 12%, transparent);
+}
+
+/* =============== Inputs =============== */
+
+.ctInput,
+.ctSelect {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  padding: 0 var(--ct-cell-padding-x);
+
+  border: 0 !important;
+  border-radius: 0;
+  outline: none;
+  background: transparent !important;
+  color: inherit;
+
+  font-size: var(--ct-body-font-size);
+}
+
+.ctInput:focus,
+.ctSelect:focus {
+  background: color-mix(in srgb, var(--color-brand) 8%, transparent) !important;
+  box-shadow: inset 0 0 0 var(--border-width-sm) color-mix(in srgb, var(--color-brand) 40%, transparent);
+}
+
+.ctInput::placeholder {
+  color: var(--color-text-muted);
+}
+
+.ctSelect {
+  cursor: pointer;
+}
+
+.ctCheckbox {
+  accent-color: var(--color-brand);
+  cursor: pointer;
+}
+
+/* =============== Ant DatePicker =============== */
+
+.ctDateWrap {
+  width: 100%;
+  height: 100%;
+}
+
+.ctDatePicker {
+  width: 100%;
+  height: 100% !important;
+
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.ctDatePicker :global(.ant-picker-input > input) {
+  color: inherit;
+  font-size: var(--ct-body-font-size);
+}
+
+.ctDatePicker:focus-within {
+  background: color-mix(in srgb, var(--color-brand) 8%, transparent) !important;
+  box-shadow: inset 0 0 0 var(--border-width-sm) color-mix(in srgb, var(--color-brand) 40%, transparent);
+}
+
+/* =============== Default cell content =============== */
+
+.defaultCellView {
+  width: 100%;
+  height: 100%;
+  padding: var(--space-1);
+
+  overflow: auto;
+}
+
+/* =============== Context menu =============== */
+
+.ctContextMenu {
+  position: fixed;
+  z-index: var(--z-index-dropdown);
+  top: 0;
+  left: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  min-width: 210px;
+  gap: 2px;
+  padding: 6px;
+  list-style: none;
+
+  border: var(--border-width-sm) solid var(--color-border-strong);
+  border-radius: var(--radius-panel);
+  background: var(--color-card);
+  color: var(--color-text);
+  box-shadow: var(--shadow-lg);
+}
+
+.ctContextMenuItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  gap: var(--space-3);
+  padding: 7px var(--space-2);
+
+  border-radius: var(--radius-control);
+  color: inherit;
+
+  cursor: pointer;
+
+  transition:
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.ctContextMenuItem:hover {
+  background: color-mix(in srgb, var(--color-brand) 10%, transparent);
+  transform: translateX(2px);
+}
+
+.ctContextMenuIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 26px;
+  height: 26px;
+
+  border: var(--border-width-sm) solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-card-soft);
+}
+
+.ctContextMenuIcon img {
+  width: 100%;
+  height: 100%;
+
+  border-radius: var(--radius-control);
+  object-fit: cover;
+}
+
+.ctContextMenuText {
+  font-weight: var(--font-weight-medium);
+}
+
+.ctContextMenuSep {
+  width: 100%;
+  margin: var(--space-1) 0;
+
+  border-bottom: var(--border-width-sm) solid var(--color-border);
+}
+
+/* =============== No data =============== */
+
+.ctNoDataCard {
+  margin: auto !important;
+  padding: var(--space-7);
+
+  border: var(--border-width-sm) dashed var(--color-border-strong);
+  border-radius: var(--radius-panel);
+  background: var(--color-card-soft);
+  color: var(--color-text-muted);
+}
+
+/* =============== Responsive / mobile =============== */
+
+@media (max-width: 768px) {
+  .ctWrap {
+    --ct-header-font-size: 11px;
+    --ct-body-font-size: 11px;
+    --ct-header-padding-y: 2px;
+    --ct-header-padding-x: 5px;
+    --ct-cell-padding-x: 5px;
+    --ct-grid-radius: var(--radius-card);
+  }
+
+  .ctGridRendererCornerTopLeft,
+  .ctGridRendererCornerTop,
+  .ctGridRendererCornerBottom,
+  .ctGridRendererConerBottomLeft {
+    border-radius: var(--radius-card);
+  }
+
+  .ctHeaderTextContainer {
+    gap: var(--space-1);
+  }
+
+  .ctHeaderText {
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0;
+    text-align: left;
+  }
+
+  .ctResizeHandle {
+    width: 14px;
+    opacity: 0.3;
+  }
+
+  .ctGroupHeaderCell {
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.05em;
+  }
+
+  .ctContextMenu {
+    min-width: 190px;
+    max-width: calc(100vw - var(--space-7));
+    border-radius: var(--radius-card);
+  }
+
+  .ctContextMenuItem {
+    padding: 9px var(--space-2);
+  }
+}
+
+@media (max-width: 480px) {
+  .ctWrap {
+    --ct-header-font-size: 10px;
+    --ct-body-font-size: 10px;
+    --ct-cell-padding-x: 4px;
+  }
+
+  .ctHeaderText {
+    text-align: left;
+  }
+
+  .ctResizeHandle {
+    display: inline-flex;
+
+    width: 22px;
+    min-width: 22px;
+    opacity: 0.55;
+  }
+
+  .ctBodyCellView:hover {
+    box-shadow: none;
+  }
+
+  .ctCellOuter:hover {
+    background: transparent;
+  }
+
+  .ctContextMenu {
+    left: var(--space-2) !important;
+    right: var(--space-2);
+
+    width: auto;
+    min-width: unset;
+  }
+}
+
+/* =============== Fallback =============== */
+
+@supports not (color: color-mix(in srgb, black, white)) {
+  .ctHeaderTextContainer:hover,
+  .ctCellOuter:hover,
+  .ctBodyCellView:hover,
+  .ctGroupRowFixedCell:hover,
+  .ctGroupRowButton:hover,
+  .ctInput:focus,
+  .ctSelect:focus,
+  .ctDatePicker:focus-within,
+  .ctContextMenuItem:hover {
+    background: rgba(91, 86, 255, 0.08) !important;
+  }
+
+  .ctHeaderCellOver,
+  .ctHeaderCellOver .ctHeaderTextContainer {
+    background: rgba(91, 86, 255, 0.14) !important;
+  }
+
+  .ctBodyCellEditing {
+    border-color: rgba(91, 86, 255, 0.28) !important;
+    background: rgba(91, 86, 255, 0.06) !important;
+    box-shadow: inset 0 0 0 1px rgba(91, 86, 255, 0.12);
+  }
+
+  .ctHeaderCellContainer {
+    background: rgba(91, 86, 255, 0.08) !important;
+  }
+
+  .ctFixedHeaderCell .ctHeaderCellContainer,
+  .ctFixedHeaderCell.ctGroupHeaderOuter,
+  .ctFixedTopHeaderBlank {
+    background: rgba(91, 86, 255, 0.1) !important;
+  }
+}

@@ -1,0 +1,510 @@
+.radioGroup {
+  --radio-accent: var(--color-brand);
+  --radio-focus: var(--color-brand-focus);
+
+  --radio-bg: transparent;
+  --radio-bg-hover: var(--color-comexsoft-hover);
+  --radio-bg-active: var(--color-active-surface);
+
+  --radio-border: var(--color-comexsoft-grey);
+  --radio-border-hover: var(--color-brand-hover);
+
+  --radio-text: var(--color-text);
+  --radio-muted: var(--color-text-muted);
+
+  --radio-radius: var(--radius-control);
+  --radio-transition: var(--transition-fast);
+
+  display: inline-flex;
+  gap: var(--radio-gap);
+  align-items: stretch;
+  min-width: 0;
+  width: fit-content;
+  color: var(--radio-text);
+}
+
+.horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.vertical {
+  flex-direction: column;
+}
+
+.fullWidth {
+  display: flex;
+  width: 100%;
+}
+
+.fullWidth .radioItem {
+  flex: 1;
+}
+
+.radioItem {
+  --radio-active-color: var(--radio-option-color, var(--radio-accent));
+
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--radio-content-gap);
+
+  min-width: 0;
+  box-sizing: border-box;
+
+  padding: var(--radio-padding);
+  border-radius: var(--radio-radius);
+  border: 1px solid var(--radio-border);
+  background: var(--radio-bg);
+
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+
+  color: var(--radio-text);
+
+  transition:
+    background-color var(--radio-transition),
+    border-color var(--radio-transition),
+    color var(--radio-transition),
+    opacity var(--radio-transition),
+    box-shadow var(--radio-transition);
+}
+
+.radioItem:hover {
+  background: var(--radio-bg-hover);
+  border-color: var(--radio-border-hover);
+}
+
+.radioItem:has(.input:focus-visible) {
+  outline: 2px solid color-mix(in srgb, var(--radio-active-color) 45%, transparent);
+  outline-offset: 1px;
+}
+
+.checked {
+  background: color-mix(in srgb, var(--radio-active-color) 8%, transparent);
+  border-color: color-mix(in srgb, var(--radio-active-color) 55%, var(--radio-border));
+}
+
+.optionDisabled,
+.disabled .radioItem {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.optionDisabled:hover,
+.disabled .radioItem:hover {
+  background: var(--radio-bg);
+  border-color: var(--radio-border);
+}
+
+.input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.control {
+  width: var(--radio-control-size);
+  min-width: var(--radio-control-size);
+  height: var(--radio-control-size);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--radius-circle);
+  border: 1px solid var(--radio-border);
+  background: transparent;
+
+  transition:
+    border-color var(--radio-transition),
+    background-color var(--radio-transition),
+    box-shadow var(--radio-transition);
+}
+
+.radioItem:hover .control {
+  border-color: color-mix(in srgb, var(--radio-active-color) 48%, var(--radio-border));
+}
+
+.checked .control {
+  border-color: var(--radio-active-color);
+  background: transparent;
+}
+
+.optionDisabled:hover .control,
+.disabled .radioItem:hover .control {
+  border-color: var(--radio-border);
+}
+
+.dot {
+  width: var(--radio-dot-size);
+  height: var(--radio-dot-size);
+  border-radius: var(--radius-circle);
+  background: var(--radio-active-color);
+  transform: scale(0);
+
+  transition: transform var(--radio-transition);
+}
+
+.checked .dot {
+  transform: scale(1);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  line-height: 1.15;
+}
+
+.mainLine {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--radio-icon-gap);
+  min-width: 0;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--radio-icon-size);
+  min-width: var(--radio-icon-size);
+  height: var(--radio-icon-size);
+
+  color: var(--radio-muted);
+}
+
+.checked .icon {
+  /* color: var(--radio-active-color); */
+  color: var(--color-text-inverse);
+}
+
+.label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  font-size: var(--radio-font-size);
+  font-weight: var(--font-weight-semibold);
+  color: var(--radio-text);
+}
+
+.checked .label {
+  color: var(--radio-text-inverse);
+}
+
+.description {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  font-size: var(--radio-description-size);
+  font-weight: var(--font-weight-regular);
+  color: var(--radio-muted);
+}
+
+/* ==========================================================================
+   Sizes
+   ========================================================================== */
+
+.sizeS {
+  --radio-gap: var(--space-1);
+  --radio-padding: 3px 6px;
+  --radio-content-gap: var(--space-1);
+  --radio-icon-gap: var(--space-1);
+
+  --radio-control-size: 9px;
+  --radio-dot-size: 4px;
+  --radio-icon-size: 11px;
+
+  --radio-font-size: var(--font-size-xs);
+  --radio-description-size: 8px;
+}
+
+.sizeM {
+  --radio-gap: 5px;
+  --radio-padding: 4px 7px;
+  --radio-content-gap: 6px;
+  --radio-icon-gap: var(--space-1);
+
+  --radio-control-size: 12px;
+  --radio-dot-size: 4px;
+  --radio-icon-size: 12px;
+
+  --radio-font-size: var(--font-size-sm);
+  --radio-description-size: 9px;
+}
+
+.sizeL {
+  --radio-gap: 7px;
+  --radio-padding: 5px 9px;
+  --radio-content-gap: 7px;
+  --radio-icon-gap: 6px;
+
+  --radio-control-size: 14px;
+  --radio-dot-size: 6px;
+  --radio-icon-size: 16px;
+
+  --radio-font-size: var(--font-size-md);
+  --radio-description-size: 11px;
+}
+
+/* ==========================================================================
+   Variants
+   ========================================================================== */
+
+.variantDefault {
+  /* Uses base styles */
+}
+
+/* Button group */
+.variantButtonGroup {
+  gap: 0;
+}
+
+.variantButtonGroup .radioItem {
+  justify-content: center;
+  border-radius: 0;
+  border-color: var(--radio-border);
+  color: var(--radio-text);
+  background: transparent;
+}
+
+.variantButtonGroup .radioItem:first-child {
+  border-top-left-radius: var(--radio-radius);
+  border-bottom-left-radius: var(--radio-radius);
+}
+
+.variantButtonGroup .radioItem:last-child {
+  border-top-right-radius: var(--radio-radius);
+  border-bottom-right-radius: var(--radio-radius);
+}
+
+.variantButtonGroup .radioItem + .radioItem {
+  margin-left: -1px;
+}
+
+.variantButtonGroup .control {
+  display: none;
+}
+
+.variantButtonGroup .checked {
+  z-index: 1;
+  color: var(--radio-active-color);
+  border-color: var(--radio-active-color);
+  background: color-mix(in srgb, var(--radio-active-color) 12%, transparent);
+}
+
+.variantButtonGroup.vertical .radioItem:first-child {
+  border-radius: var(--radio-radius) var(--radio-radius) 0 0;
+}
+
+.variantButtonGroup.vertical .radioItem:last-child {
+  border-radius: 0 0 var(--radio-radius) var(--radio-radius);
+}
+
+.variantButtonGroup.vertical .radioItem + .radioItem {
+  margin-left: 0;
+  margin-top: -1px;
+}
+
+/* Segmented control */
+.variantSegmented {
+  gap: 2px;
+  padding: 3px;
+
+  border-radius: var(--radius-control);
+  border: 1px solid var(--color-comexsoft-grey);
+  /* background: var(--color-bg-muted); */
+}
+
+.variantSegmented .radioItem {
+  justify-content: center;
+  border-color: transparent;
+  border-radius: var(--radius-sm);
+  color: var(--radio-muted);
+  background: transparent;
+}
+
+.variantSegmented .radioItem:hover {
+  background: var(--color-brand-hover) !important;
+}
+
+.variantSegmented .radioItem:hover .label {
+  color: var(--color-text-inverse) !important;
+}
+
+.variantSegmented .control {
+  display: none;
+}
+
+.variantSegmented .checked {
+  color: var(--color-text-inverse) !important;
+  background: var(--color-brand);
+  border-color: var(--color-brand);
+  box-shadow: var(--shadow-xs);
+}
+
+.variantSegmented .checked:hover {
+  background: var(--color-brand-hover);
+  border-color: var(--color-brand-hover);
+  color: var(--color-text-inverse);
+}
+
+/* Pills */
+.variantPills {
+  gap: var(--radio-gap);
+}
+
+.variantPills .radioItem {
+  border-radius: var(--radius-pill);
+  border-color: var(--radio-border);
+  color: var(--radio-text);
+}
+
+.variantPills .radioItem:hover .label {
+  color: var(--color-text-inverse) !important;
+}
+
+.variantPills .control {
+  display: none;
+}
+
+.variantPills .checked {
+  color: var(--radio-active-color);
+  border-color: var(--radio-active-color);
+  background: color-mix(in srgb, var(--radio-active-color) 10%, transparent);
+}
+
+/* Cards */
+.variantCards {
+  align-items: stretch;
+}
+
+.variantCards .radioItem {
+  align-items: flex-start;
+  padding: calc(var(--radio-padding-block, 6px) + 4px) calc(var(--radio-padding-inline, 8px) + 4px);
+  border-radius: var(--radius-card);
+  border-color: var(--radio-border);
+  color: var(--radio-text);
+  background: var(--color-card);
+}
+
+.variantCards .radioItem:hover {
+  background: var(--color-card-soft);
+}
+
+.variantCards .checked {
+  border-color: var(--radio-active-color);
+  background: color-mix(in srgb, var(--radio-active-color) 7%, var(--color-card));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--radio-active-color) 28%, transparent);
+}
+
+.variantCards .description {
+  white-space: normal;
+  line-height: 1.25;
+}
+
+/* Soft */
+.variantSoft .radioItem {
+  border-color: transparent;
+  background: var(--color-bg-soft);
+  color: var(--radio-text);
+}
+
+.variantSoft .radioItem:hover {
+  background: var(--color-comexsoft-hover);
+}
+
+.variantSoft .checked {
+  background: color-mix(in srgb, var(--radio-active-color) 10%, transparent);
+  border-color: color-mix(in srgb, var(--radio-active-color) 22%, transparent);
+}
+
+/* ==========================================================================
+   Dark adjustments
+   ========================================================================== */
+
+@media (prefers-color-scheme: dark) {
+  .radioGroup {
+    --radio-accent: var(--color-brand-focus);
+    --radio-bg-hover: var(--color-comexsoft-hover);
+    --radio-border: var(--color-comexsoft-grey);
+    --radio-border-hover: var(--color-comexsoft-grey-strong);
+    --radio-muted: var(--color-text-muted);
+  }
+
+  .variantSegmented {
+    background: var(--color-card-soft);
+    border-color: var(--color-comexsoft-grey);
+  }
+
+  .variantSegmented .checked {
+    color: var(--color-text-inverse);
+    background: var(--color-brand);
+    border-color: var(--color-brand);
+  }
+
+  .variantCards .radioItem {
+    background: var(--color-card);
+  }
+
+  .variantCards .radioItem:hover {
+    background: var(--color-card-soft);
+  }
+
+  .variantSoft .radioItem {
+    background: var(--color-bg-soft);
+  }
+}
+
+/* ==========================================================================
+   color-mix fallback
+   ========================================================================== */
+
+@supports not (color: color-mix(in srgb, black, white)) {
+  .radioItem {
+    border-color: rgba(84, 77, 254, 0.2);
+  }
+
+  .radioItem:has(.input:focus-visible) {
+    outline-color: rgba(118, 113, 254, 0.45);
+  }
+
+  .checked {
+    background: rgba(84, 77, 254, 0.08);
+    border-color: rgba(84, 77, 254, 0.55);
+  }
+
+  .variantButtonGroup .checked {
+    background: rgba(84, 77, 254, 0.12);
+  }
+
+  .variantPills .checked {
+    background: rgba(84, 77, 254, 0.1);
+  }
+
+  .variantCards .checked {
+    background: rgba(84, 77, 254, 0.07);
+    box-shadow: inset 0 0 0 1px rgba(84, 77, 254, 0.28);
+  }
+
+  .variantSoft .checked {
+    background: rgba(84, 77, 254, 0.1);
+    border-color: rgba(84, 77, 254, 0.22);
+  }
+}

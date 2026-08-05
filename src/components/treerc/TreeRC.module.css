@@ -1,0 +1,355 @@
+.treeContainer {
+  --accent: var(--color-comexsoft);
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.treeContainer :global(.rc-tree) {
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  scrollbar-width: thin;
+  background: var(--color-bg-transparent);
+  color: inherit;
+}
+
+.treeContainer :global(.rc-tree-list) {
+  height: 100%;
+}
+
+.treeContainer :global(.rc-tree-list-holder) {
+  height: 100%;
+}
+
+.treeContainer :global(.rc-tree-list-holder-inner) {
+  padding: 0 10px 10px 10px;
+  gap: 0;
+}
+
+.treeContainer :global(.rc-tree-treenode) {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 32px;
+  padding: 0 !important;
+  background: var(--color-bg-transparent) !important;
+  border: var(--border-none) !important;
+  outline: var(--outline-none) !important;
+  box-shadow: var(--shadow-none) !important;
+  color: inherit;
+  font-size: 15px;
+  transition: background-color var(--transition-normal);
+}
+
+.treeContainer :global(.rc-tree-treenode:hover) {
+  background: var(--color-bg-transparent) !important;
+}
+
+.treeContainer :global(.rc-tree-treenode::before),
+.treeContainer :global(.rc-tree-treenode::after) {
+  display: none !important;
+}
+
+.treeContainer :global(.rc-tree-indent) {
+  display: inline-flex;
+  background: transparent !important;
+}
+
+.treeContainer :global(.rc-tree-indent-unit) {
+  width: 15px;
+}
+
+.treeContainer :global(.rc-tree-switcher) {
+  display: none !important;
+}
+
+.treeContainer :global(.rc-tree-node-content-wrapper) {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 30px;
+  margin: 0;
+  padding: 0 var(--tree-padding-inline) !important;
+  border: var(--border-none) !important;
+  outline: var(--outline-none) !important;
+  box-shadow: var(--shadow-none) !important;
+  background: var(--color-bg-transparent) !important;
+  color: inherit !important;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition:
+    background-color var(--transition-normal),
+    color var(--transition-normal);
+}
+
+.treeContainer :global(.rc-tree-node-content-wrapper:hover) {
+  background-color: var(--tree-hover-bg) !important;
+  color: inherit !important;
+  box-shadow: var(--shadow-none) !important;
+  transform: none !important;
+  border: var(--border-none) !important;
+  outline: var(--outline-none) !important;
+}
+
+.treeContainer :global(.rc-tree-node-content-wrapper.rc-tree-node-selected),
+.treeContainer :global(.rc-tree-treenode-selected .rc-tree-node-content-wrapper) {
+  background: var(--color-bg-transparent) !important;
+  box-shadow: var(--shadow-none) !important;
+  border: var(--border-none) !important;
+  color: inherit !important;
+  outline: var(--tree-active-outline);
+  outline-offset: var(--tree-active-outline-offset);
+  border-radius: var(--radius-md);
+}
+
+.treeContainer :global(.rc-tree-treenode-selected) {
+  background: var(--color-bg-transparent) !important;
+  color: var(--color-comexsoft);
+}
+
+.treeContainer :global(.rc-tree-title) {
+  flex: 1;
+  min-width: 0;
+  max-width: 100%;
+  color: inherit !important;
+  line-height: var(--line-height-sm);
+  padding: 5px;
+  font-weight: 450 !important;
+}
+
+.treeContainer :global(.folder-title) {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  width: 100%;
+  font-size: 15px;
+  color: inherit;
+}
+
+.treeContainer :global(.folder-name) {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: inherit !important;
+}
+
+.treeContainer :global(.folder-name svg) {
+  flex: 0 0 auto;
+  color: currentColor;
+}
+
+.treeContainer :global(.rc-tree-node-content-wrapper:hover .folder-name) {
+  color: var(--accent) !important;
+}
+
+.treeContainer :global(.rc-tree-treenode-selected .folder-name) {
+  color: inherit !important;
+}
+
+.treeContainer :global(.rc-tree-treenode:focus),
+.treeContainer :global(.rc-tree-node-content-wrapper:focus),
+.treeContainer :global(.rc-tree-node-content-wrapper:focus-visible) {
+  outline: var(--tree-active-outline);
+  outline-offset: var(--tree-active-outline-offset);
+  border-radius: var(--radius-md);
+}
+
+.treeContainer :global(.rc-tree-treenode.drop-target),
+.treeContainer :global(.rc-tree-treenode.drop-target .rc-tree-node-content-wrapper) {
+  background-color: var(--tree-hover-bg) !important;
+  border-radius: var(--radius-pill);
+}
+
+.treeContainer :global(.rc-tree-treenode.draggingProject) {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  min-width: 100%;
+  min-height: 32px;
+  background: var(--color-bg-transparent) !important;
+  border-radius: var(--radius-pill);
+  transition: var(--transition-normal);
+}
+
+.treeContainer :global(.rc-tree-treenode .folder-buttons) {
+  position: fixed;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--box-shadow-hover);
+  background-color: var(--color-bg, #fff);
+  z-index: 999999;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 15px 10px;
+}
+
+.treeContainer :global(.rc-tree-treenode .folder-buttons .btn) {
+  background-color: transparent;
+  border: 0 !important;
+  box-shadow: none;
+  padding: 0 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: min-content;
+  width: min-content;
+}
+
+.treeContainer :global(.rc-tree-treenode .folder-buttons svg),
+.treeContainer :global(.rc-tree-treenode .folder-buttons i) {
+  color: #b4b4b4 !important;
+}
+
+.treeContainer :global(.rc-tree-treenode .folder-buttons .btn:hover svg),
+.treeContainer :global(.rc-tree-treenode .folder-buttons .btn:hover i) {
+  color: var(--accent) !important;
+  transform: rotate(var(--RotateIcons));
+}
+
+.treeContainer :global(.rc-tree-treenode .dots-menu-box) {
+  opacity: 0;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  pointer-events: none;
+  position: relative;
+}
+
+.treeContainer :global(.rc-tree-treenode:hover .dots-menu-box),
+.treeContainer :global(.rc-tree-treenode .dots-menu-box.open) {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.treeContainer :global(.rc-tree-treenode .dots-menu-box .ellipsis-container) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  transition: var(--transition-normal);
+}
+
+.treeContainer :global(.rc-tree-treenode .dots-menu-box.open .ellipsis-container) {
+  transform: rotate(90deg);
+}
+
+.treeContainer :global(.rc-tree *[data-title]) {
+  position: relative;
+}
+
+.treeContainer :global(.rc-tree *[data-title]:hover::after) {
+  opacity: 1;
+  transition: all 0.2s ease-in 0.2s;
+  transition-delay: 0.7s;
+  visibility: visible;
+}
+
+.treeContainer :global(.rc-tree *[data-title]::after) {
+  content: attr(data-title);
+  background-color: #333;
+  color: #fff;
+  font-size: 15px;
+  position: absolute;
+  padding: 3px 20px;
+  bottom: 30px;
+  left: 30%;
+  white-space: nowrap;
+  box-shadow: 1px 1px 3px #222222;
+  opacity: 0;
+  border: 1px solid #111111;
+  visibility: hidden;
+  border-radius: 6px;
+  z-index: 1000;
+}
+
+.treeContainer :global(.rc-tree-icon__customize),
+.treeContainer :global(.rc-tree-iconEle) {
+  display: none !important;
+}
+
+.loaderContainer {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 3%;
+}
+
+.dotTree {
+  animation: infinite 1.3s animationDotTree linear !important;
+  border-radius: var(--radius-pill);
+  height: 20px;
+  width: 20px;
+  position: relative;
+}
+
+.dotTree:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.dotTree:nth-child(2) {
+  animation-delay: -0.2s !important;
+}
+
+.dotTree:nth-child(3) {
+  animation-delay: -0.4s !important;
+}
+
+.dotTree:nth-child(4) {
+  animation-delay: -0.6s !important;
+}
+
+.plusIconWrapper {
+  position: relative;
+}
+
+.plusIconBadge {
+  position: absolute;
+  right: 5px;
+  top: -10px;
+  font-size: 10px;
+}
+
+@keyframes animationDotTree {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    background-color: #c4c4c4;
+  }
+
+  50% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.3);
+    background-color: var(--accent);
+  }
+
+  100% {
+    transform: scale(0);
+    opacity: 0;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+    background-color: #c4c4c4;
+  }
+}
+
+@media (max-width: 880px) {
+  .treeContainer :global(.folder-title),
+  .treeContainer :global(.folder-name),
+  .treeContainer :global(.rc-tree-title) {
+    font-size: 11px !important;
+  }
+}

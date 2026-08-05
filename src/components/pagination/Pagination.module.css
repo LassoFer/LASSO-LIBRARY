@@ -1,0 +1,384 @@
+/* Look & feel alineado con GenericGrid (pager) */
+
+.pgWrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  gap: var(--space-2);
+  color: var(--color-text);
+}
+
+/* centro “contenedor” tipo pager */
+.pgCenter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: var(--space-2);
+
+  border-radius: var(--radius-control);
+  background: transparent !important;
+}
+
+/* botones flecha */
+.pgBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 30px;
+  height: 30px;
+
+  border-radius: var(--radius-control) !important;
+  border: var(--border-width-sm) solid var(--color-border) !important;
+  background: transparent !important;
+  color: var(--color-text) !important;
+
+  cursor: pointer;
+
+  transition:
+    transform var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+.pgBtn:hover:not(:disabled) {
+  border-color: var(--color-border-brand-hover) !important;
+  background: color-mix(in srgb, var(--color-brand) 8%, transparent) !important;
+  color: var(--color-brand) !important;
+  transform: translateY(-1px);
+}
+
+.pgBtn:disabled {
+  cursor: not-allowed !important;
+  opacity: 0.45 !important;
+  transform: none !important;
+}
+
+/* item numérico */
+.pgItem {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 28px;
+  height: 28px;
+  padding: 0 7px;
+
+  border-radius: var(--radius-control) !important;
+  border: var(--border-width-sm) solid var(--color-border) !important;
+  background: transparent !important;
+  color: var(--color-text) !important;
+
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+
+  transition:
+    transform var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.pgItem:hover {
+  border-color: var(--color-border-control-focus) !important;
+  background: color-mix(in srgb, var(--color-brand) 8%, transparent) !important;
+  color: var(--color-brand) !important;
+  transform: translateY(-1px);
+}
+
+/* página actual “pill” */
+.pgCurrent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 30px;
+  height: 30px;
+  padding: 0 9px;
+
+  border-radius: var(--radius-control) !important;
+  border: var(--border-width-sm) solid var(--color-border-brand) !important;
+  background: color-mix(in srgb, var(--color-brand) 12%, transparent) !important;
+  color: var(--color-brand) !important;
+
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.pgEnds {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  min-width: 0;
+  gap: 5px;
+}
+
+.pgEllipsis {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  user-select: none;
+}
+
+/* grupo izq/der */
+.pgSide {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  gap: 5px;
+}
+
+/* input go-to */
+.pgInput {
+  width: 58px;
+  height: 30px;
+  padding: 0 7px;
+
+  border-radius: var(--radius-control);
+  border: var(--border-width-sm) solid var(--color-border);
+  background: transparent !important;
+  color: var(--color-text) !important;
+
+  font-size: var(--font-size-sm);
+
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.pgInput:hover {
+  border-color: var(--color-border-control-hover);
+}
+
+.pgInput:focus {
+  outline: none !important;
+  border-color: var(--color-border-control-focus);
+  box-shadow: 0 0 0 var(--border-width-md) color-mix(in srgb, var(--color-brand-focus) 18%, transparent) !important;
+}
+
+.pgInput::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* Sizes */
+.sizeS {
+  gap: 5px;
+}
+
+.sizeS .pgCenter {
+  gap: 5px;
+}
+
+.sizeS .pgBtn {
+  min-width: 22px;
+  height: 22px;
+}
+
+.sizeS .pgItem {
+  min-width: 22px;
+  height: 22px;
+  padding: 0 5px;
+  font-size: 10.5px;
+}
+
+.sizeS .pgCurrent {
+  min-width: 24px;
+  height: 24px;
+  padding: 0 7px;
+  font-size: 10.5px;
+}
+
+.sizeS .pgInput {
+  width: 48px;
+  height: 24px;
+  padding: 0 5px;
+  font-size: 10.5px;
+}
+
+.sizeS .pgSide,
+.sizeS .pgEnds {
+  gap: var(--space-1);
+}
+
+.sizeS .pgEllipsis {
+  font-size: 10.5px;
+}
+
+.sizeS .pgIcon {
+  width: 13px;
+  height: 13px;
+}
+
+.sizeM {
+  gap: var(--space-2);
+}
+
+.sizeM .pgCenter {
+  gap: var(--space-2);
+}
+
+.sizeM .pgBtn {
+  min-width: 30px;
+  height: 30px;
+}
+
+.sizeM .pgItem {
+  min-width: 28px;
+  height: 28px;
+  padding: 0 7px;
+  font-size: var(--font-size-sm);
+}
+
+.sizeM .pgCurrent {
+  min-width: 30px;
+  height: 30px;
+  padding: 0 9px;
+  font-size: var(--font-size-sm);
+}
+
+.sizeM .pgInput {
+  width: 58px;
+  height: 30px;
+  padding: 0 7px;
+  font-size: var(--font-size-sm);
+}
+
+.sizeM .pgSide,
+.sizeM .pgEnds {
+  gap: 5px;
+}
+
+.sizeM .pgEllipsis {
+  font-size: var(--font-size-sm);
+}
+
+.sizeM .pgIcon {
+  width: 14px;
+  height: 14px;
+}
+
+.sizeL {
+  gap: var(--space-3);
+}
+
+.sizeL .pgCenter {
+  gap: var(--space-3);
+}
+
+.sizeL .pgBtn {
+  min-width: 34px;
+  height: 34px;
+}
+
+.sizeL .pgItem {
+  min-width: 32px;
+  height: 32px;
+  padding: 0 9px;
+  font-size: 13px;
+}
+
+.sizeL .pgCurrent {
+  min-width: 34px;
+  height: 34px;
+  padding: 0 var(--space-3);
+  font-size: 13px;
+}
+
+.sizeL .pgInput {
+  width: 66px;
+  height: 34px;
+  padding: 0 9px;
+  font-size: 13px;
+}
+
+.sizeL .pgSide,
+.sizeL .pgEnds {
+  gap: 6px;
+}
+
+.sizeL .pgEllipsis {
+  font-size: 13px;
+}
+
+.sizeL .pgIcon {
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 1000px) {
+  .sizeM {
+    gap: 5px;
+  }
+
+  .sizeM .pgCenter {
+    gap: 5px;
+  }
+
+  .sizeM .pgInput {
+    width: 50px;
+    height: 24px;
+    padding: 0 5px;
+    font-size: 10.5px;
+  }
+
+  .sizeM .pgItem {
+    min-width: 24px;
+    height: 24px;
+    padding: 0 5px;
+    font-size: 10.5px;
+  }
+
+  .sizeM .pgBtn {
+    min-width: 22px;
+    height: 22px;
+  }
+
+  .sizeM .pgCurrent {
+    min-width: 24px;
+    height: 24px;
+    padding: 0 7px;
+    font-size: 10.5px;
+  }
+
+  .sizeM .pgSide,
+  .sizeM .pgEnds {
+    gap: var(--space-1);
+  }
+
+  .sizeM .pgEllipsis {
+    font-size: 10.5px;
+  }
+
+  .sizeM .pgIcon {
+    width: 13px;
+    height: 13px;
+  }
+
+  .pgWrap {
+    justify-content: space-between !important;
+  }
+}
+
+@supports not (color: color-mix(in srgb, black, white)) {
+  .pgBtn:hover:not(:disabled),
+  .pgItem:hover {
+    background: rgba(91, 86, 255, 0.08) !important;
+  }
+
+  .pgCurrent {
+    background: rgba(91, 86, 255, 0.12) !important;
+  }
+
+  .pgInput:focus {
+    box-shadow: 0 0 0 2px rgba(118, 113, 254, 0.18) !important;
+  }
+}
