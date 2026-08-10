@@ -3,30 +3,33 @@
    ========================================================================== */
 
 .button {
+  position: relative;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
+  width: fit-content;
+
+  background: inherit;
   border: var(--border-default);
-  cursor: pointer;
 
   outline: 1px solid transparent;
   outline-offset: 2px;
 
   box-shadow: 0 1px 2px rgb(0 0 0 / 3%);
 
+  cursor: pointer;
+  touch-action: manipulation;
+
+  -webkit-tap-highlight-color: transparent;
+
   transition:
     background-color 0.08s ease,
-    border-color 0.08s ease,
+    border-color 0.25s ease,
     color 0.08s ease,
     outline-color 0.08s ease,
-    box-shadow 0.08s ease;
-}
-
-.button:hover:not(:disabled) {
-  background-color: color-mix(in srgb, currentColor 2%, transparent);
-
-  box-shadow: 0 1px 2px rgb(0 0 0 / 4%);
+    box-shadow 0.25s ease;
 }
 
 .button:focus-visible {
@@ -41,12 +44,14 @@
   background-color: color-mix(in srgb, currentColor 5%, transparent);
 
   outline-color: transparent;
+
   box-shadow: inset 0 1px 1px rgb(0 0 0 / 4%);
 }
 
 .button:disabled,
 .button[disabled] {
   opacity: 0.55;
+
   cursor: not-allowed;
   pointer-events: none;
 
@@ -61,13 +66,7 @@
   color: CanvasText;
   background-color: transparent;
   border-color: transparent;
-  box-shadow: none;
-}
 
-.variantGhost:hover:not(:disabled) {
-  color: CanvasText;
-  background-color: color-mix(in srgb, currentColor 4%, transparent);
-  border-color: transparent;
   box-shadow: none;
 }
 
@@ -75,8 +74,10 @@
   color: CanvasText;
   background-color: color-mix(in srgb, currentColor 3%, transparent);
   border-color: transparent;
+
   outline: 1px solid color-mix(in srgb, currentColor 22%, transparent);
   outline-offset: 2px;
+
   box-shadow: none;
 }
 
@@ -84,37 +85,36 @@
   color: CanvasText;
   background-color: color-mix(in srgb, currentColor 7%, transparent);
   border-color: transparent;
+
   outline-color: transparent;
+
   box-shadow: none;
 }
+
 /* ==========================================================================
    Danger
    ========================================================================== */
 
 .variantDanger {
-  background: color-mix(in srgb, var(--color-error) 12%, transparent);
   color: var(--color-error);
+  background: color-mix(in srgb, var(--color-error) 12%, transparent);
   border-color: color-mix(in srgb, var(--color-error) 36%, transparent);
 }
 
-.variantDanger:hover {
-  background: color-mix(in srgb, var(--color-error) 16%, transparent);
-  color: var(--color-error);
-  border-color: color-mix(in srgb, var(--color-error) 44%, transparent);
-}
-
 .variantDanger:focus-visible {
-  background: color-mix(in srgb, var(--color-error) 12%, transparent);
-  color: var(--color-error);
-  border-color: color-mix(in srgb, var(--color-error) 48%, transparent);
-  outline-color: color-mix(in srgb, var(--color-error) 38%, transparent);
+  color: var(--color-error-focus) !important;
+  background: color-mix(in srgb, var(--color-error-focus) 12%, transparent) !important;
+  border-color: color-mix(in srgb, var(--color-error-focus) 48%, transparent) !important;
+
+  outline-color: color-mix(in srgb, var(--color-error-focus) 38%, transparent) !important;
 }
 
 .variantDanger:active:not(:disabled) {
-  background: color-mix(in srgb, var(--color-error) 20%, transparent);
-  color: var(--color-error);
-  border-color: color-mix(in srgb, var(--color-error) 56%, transparent);
-  outline-color: transparent;
+  color: var(--color-error-active) !important;
+  background: color-mix(in srgb, var(--color-error-active) 20%, transparent) !important;
+  border-color: color-mix(in srgb, var(--color-error-active) 56%, transparent) !important;
+
+  outline-color: transparent !important;
 }
 
 /* ==========================================================================
@@ -122,29 +122,25 @@
    ========================================================================== */
 
 .variantSuccess {
-  background: color-mix(in srgb, var(--color-success) 12%, transparent);
   color: var(--color-success);
+  background: color-mix(in srgb, var(--color-success) 12%, transparent);
   border-color: color-mix(in srgb, var(--color-success) 36%, transparent);
 }
 
-.variantSuccess:hover {
-  background: color-mix(in srgb, var(--color-success) 16%, transparent);
-  color: var(--color-success);
-  border-color: color-mix(in srgb, var(--color-success) 44%, transparent);
-}
-
 .variantSuccess:focus-visible {
-  background: color-mix(in srgb, var(--color-success) 12%, transparent);
-  color: var(--color-success);
-  border-color: color-mix(in srgb, var(--color-success) 48%, transparent);
-  outline-color: color-mix(in srgb, var(--color-success) 38%, transparent);
+  color: var(--color-success-focus) !important;
+  background: color-mix(in srgb, var(--color-success-focus) 12%, transparent) !important;
+  border-color: color-mix(in srgb, var(--color-success-focus) 48%, transparent) !important;
+
+  outline-color: color-mix(in srgb, var(--color-success-focus) 38%, transparent) !important;
 }
 
 .variantSuccess:active:not(:disabled) {
-  background: color-mix(in srgb, var(--color-success) 20%, transparent);
-  color: var(--color-success);
-  border-color: color-mix(in srgb, var(--color-success) 56%, transparent);
-  outline-color: transparent;
+  color: var(--color-success-active) !important;
+  background: color-mix(in srgb, var(--color-success-active) 20%, transparent) !important;
+  border-color: color-mix(in srgb, var(--color-success-active) 56%, transparent) !important;
+
+  outline-color: transparent !important;
 }
 
 /* ==========================================================================
@@ -152,29 +148,25 @@
    ========================================================================== */
 
 .variantWarning {
-  background: color-mix(in srgb, var(--color-warning) 18%, transparent);
   color: var(--color-warning-active);
+  background: color-mix(in srgb, var(--color-warning) 18%, transparent);
   border-color: color-mix(in srgb, var(--color-warning) 42%, transparent);
 }
 
-.variantWarning:hover {
-  background: color-mix(in srgb, var(--color-warning) 23%, transparent);
-  color: var(--color-warning-active);
-  border-color: color-mix(in srgb, var(--color-warning) 50%, transparent);
-}
-
 .variantWarning:focus-visible {
-  background: color-mix(in srgb, var(--color-warning) 18%, transparent);
-  color: var(--color-warning-active);
-  border-color: color-mix(in srgb, var(--color-warning) 54%, transparent);
-  outline-color: color-mix(in srgb, var(--color-warning) 48%, transparent);
+  color: var(--color-warning-focus) !important;
+  background: color-mix(in srgb, var(--color-warning-focus) 18%, transparent) !important;
+  border-color: color-mix(in srgb, var(--color-warning-focus) 54%, transparent) !important;
+
+  outline-color: color-mix(in srgb, var(--color-warning-focus) 48%, transparent) !important;
 }
 
 .variantWarning:active:not(:disabled) {
-  background: color-mix(in srgb, var(--color-warning) 28%, transparent);
-  color: var(--color-warning-active);
-  border-color: color-mix(in srgb, var(--color-warning) 62%, transparent);
-  outline-color: transparent;
+  color: var(--color-warning-active) !important;
+  background: color-mix(in srgb, var(--color-warning-active) 28%, transparent) !important;
+  border-color: color-mix(in srgb, var(--color-warning-active) 62%, transparent) !important;
+
+  outline-color: transparent !important;
 }
 
 /* ==========================================================================
@@ -182,29 +174,25 @@
    ========================================================================== */
 
 .variantInfo {
-  background: color-mix(in srgb, var(--color-info) 16%, transparent);
   color: var(--color-info-active);
+  background: color-mix(in srgb, var(--color-info) 16%, transparent);
   border-color: color-mix(in srgb, var(--color-info) 40%, transparent);
 }
 
-.variantInfo:hover {
-  background: color-mix(in srgb, var(--color-info) 21%, transparent);
-  color: var(--color-info-active);
-  border-color: color-mix(in srgb, var(--color-info) 48%, transparent);
-}
-
 .variantInfo:focus-visible {
-  background: color-mix(in srgb, var(--color-info) 16%, transparent);
-  color: var(--color-info-active);
-  border-color: color-mix(in srgb, var(--color-info) 52%, transparent);
-  outline-color: color-mix(in srgb, var(--color-info) 44%, transparent);
+  color: var(--color-info-focus) !important;
+  background: color-mix(in srgb, var(--color-info-focus) 16%, transparent) !important;
+  border-color: color-mix(in srgb, var(--color-info-focus) 52%, transparent) !important;
+
+  outline-color: color-mix(in srgb, var(--color-info-focus) 44%, transparent) !important;
 }
 
 .variantInfo:active:not(:disabled) {
-  background: color-mix(in srgb, var(--color-info) 26%, transparent);
-  color: var(--color-info-active);
-  border-color: color-mix(in srgb, var(--color-info) 60%, transparent);
-  outline-color: transparent;
+  color: var(--color-info-active) !important;
+  background: color-mix(in srgb, var(--color-info-active) 26%, transparent) !important;
+  border-color: color-mix(in srgb, var(--color-info-active) 60%, transparent) !important;
+
+  outline-color: transparent !important;
 }
 
 /* ==========================================================================
@@ -225,13 +213,7 @@
   color: CanvasText;
   background-color: transparent;
   border-color: transparent;
-  box-shadow: none;
-}
 
-.variantIcon:hover:not(:disabled) {
-  color: CanvasText;
-  background-color: color-mix(in srgb, currentColor 4%, transparent);
-  border-color: transparent;
   box-shadow: none;
 }
 
@@ -239,7 +221,9 @@
   color: CanvasText;
   background-color: color-mix(in srgb, currentColor 3%, transparent);
   border-color: transparent;
+
   outline-color: color-mix(in srgb, currentColor 22%, transparent);
+
   box-shadow: none;
 }
 
@@ -247,7 +231,9 @@
   color: CanvasText;
   background-color: color-mix(in srgb, currentColor 7%, transparent);
   border-color: transparent;
+
   outline-color: transparent;
+
   box-shadow: none;
 }
 
@@ -268,6 +254,55 @@
 
   width: 100%;
   height: 100%;
+}
+
+/* ==========================================================================
+   Sizes
+   ========================================================================== */
+
+.XS {
+  min-width: 18px;
+  padding: 3px 4px;
+
+  font-size: 9px;
+
+  border-radius: 2px;
+}
+
+.S {
+  min-width: 22px;
+  padding: 3px 6px;
+
+  font-size: 12px;
+
+  border-radius: 2px;
+}
+
+.M {
+  min-width: 30px;
+  padding: 4px 7px;
+
+  font-size: 14px;
+
+  border-radius: 3px;
+}
+
+.L {
+  min-width: 36px;
+  padding: 5px 8px;
+
+  font-size: 16px;
+
+  border-radius: 4px;
+}
+
+.XL {
+  min-width: 36px;
+  padding: 8px 12px;
+
+  font-size: 18px;
+
+  border-radius: 4px;
 }
 
 /* ==========================================================================
@@ -300,16 +335,221 @@
 }
 
 /* ==========================================================================
-   Dark adjustments
+   Hover — pointer devices only
+   ========================================================================== */
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover:not(:disabled) {
+    color: color-mix(in srgb, currentColor 80%, transparent);
+    background-color: color-mix(in srgb, currentColor 2%, transparent);
+    border-color: color-mix(in srgb, currentColor 40%, transparent);
+
+    box-shadow: 0 1px 2px rgb(0 0 0 / 9%);
+  }
+
+  .variantGhost:hover:not(:disabled) {
+    color: CanvasText;
+    background-color: color-mix(in srgb, currentColor 4%, transparent);
+    border-color: transparent;
+
+    box-shadow: none;
+  }
+
+  .variantDanger:hover:not(:disabled) {
+    color: var(--color-error-hover) !important;
+    background: color-mix(in srgb, var(--color-error-hover) 16%, transparent) !important;
+    border-color: color-mix(in srgb, var(--color-error-hover) 44%, transparent) !important;
+  }
+
+  .variantSuccess:hover:not(:disabled) {
+    color: var(--color-success-hover) !important;
+    background: color-mix(in srgb, var(--color-success-hover) 16%, transparent) !important;
+    border-color: color-mix(in srgb, var(--color-success-hover) 44%, transparent) !important;
+  }
+
+  .variantWarning:hover:not(:disabled) {
+    color: var(--color-warning-hover) !important;
+    background: color-mix(in srgb, var(--color-warning-hover) 23%, transparent) !important;
+    border-color: color-mix(in srgb, var(--color-warning-hover) 50%, transparent) !important;
+  }
+
+  .variantInfo:hover:not(:disabled) {
+    color: var(--color-info-hover) !important;
+    background: color-mix(in srgb, var(--color-info-hover) 21%, transparent) !important;
+    border-color: color-mix(in srgb, var(--color-info-hover) 48%, transparent) !important;
+  }
+
+  .variantIcon:hover:not(:disabled) {
+    color: CanvasText;
+    background-color: color-mix(in srgb, currentColor 4%, transparent);
+    border-color: transparent;
+
+    box-shadow: none;
+  }
+}
+
+/* ==========================================================================
+   Hover + active — pointer devices only
+   ========================================================================== */
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover:not(:disabled) {
+    color: color-mix(in srgb, currentColor 80%, transparent);
+    background-color: color-mix(in srgb, currentColor 2%, transparent);
+    border-color: color-mix(in srgb, currentColor 40%, transparent);
+
+    box-shadow: 0 1px 2px rgb(0 0 0 / 9%);
+  }
+
+  .variantGhost:hover:not(:disabled) {
+    color: CanvasText;
+    background-color: color-mix(in srgb, currentColor 4%, transparent);
+    border-color: transparent;
+
+    box-shadow: none;
+  }
+
+  .variantDanger:hover:not(:disabled) {
+    color: var(--color-error-hover) !important;
+    background: color-mix(in srgb, var(--color-error-hover) 16%, transparent) !important;
+    border-color: color-mix(in srgb, var(--color-error-hover) 44%, transparent) !important;
+  }
+
+  .variantSuccess:hover:not(:disabled) {
+    color: var(--color-success-hover) !important;
+    background: color-mix(in srgb, var(--color-success-hover) 16%, transparent) !important;
+    border-color: color-mix(in srgb, var(--color-success-hover) 44%, transparent) !important;
+  }
+
+  .variantWarning:hover:not(:disabled) {
+    color: var(--color-warning-hover) !important;
+    background: color-mix(in srgb, var(--color-warning-hover) 23%, transparent) !important;
+    border-color: color-mix(in srgb, var(--color-warning-hover) 50%, transparent) !important;
+  }
+
+  .variantInfo:hover:not(:disabled) {
+    color: var(--color-info-hover) !important;
+    background: color-mix(in srgb, var(--color-info-hover) 21%, transparent) !important;
+    border-color: color-mix(in srgb, var(--color-info-hover) 48%, transparent) !important;
+  }
+
+  .variantIcon:hover:not(:disabled) {
+    color: CanvasText;
+    background-color: color-mix(in srgb, currentColor 4%, transparent);
+    border-color: transparent;
+
+    box-shadow: none;
+  }
+
+  /* ==========================================================================
+     Active
+     ========================================================================== */
+
+  .button:active:not(:disabled) {
+    color: CanvasText;
+    background-color: color-mix(in srgb, currentColor 5%, transparent);
+    border-color: color-mix(in srgb, currentColor 48%, transparent);
+
+    outline-color: transparent;
+
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 4%);
+  }
+
+  .variantGhost:active:not(:disabled) {
+    color: CanvasText;
+    background-color: color-mix(in srgb, currentColor 7%, transparent);
+    border-color: transparent;
+
+    outline-color: transparent;
+
+    box-shadow: none;
+  }
+
+  .variantDanger:active:not(:disabled) {
+    color: var(--color-error-active) !important;
+    background: color-mix(in srgb, var(--color-error-active) 20%, transparent) !important;
+    border-color: color-mix(in srgb, var(--color-error-active) 56%, transparent) !important;
+
+    outline-color: transparent !important;
+  }
+
+  .variantSuccess:active:not(:disabled) {
+    color: var(--color-success-active) !important;
+    background: color-mix(in srgb, var(--color-success-active) 20%, transparent) !important;
+    border-color: color-mix(in srgb, var(--color-success-active) 56%, transparent) !important;
+
+    outline-color: transparent !important;
+  }
+
+  .variantWarning:active:not(:disabled) {
+    color: var(--color-warning-active) !important;
+    background: color-mix(in srgb, var(--color-warning-active) 28%, transparent) !important;
+    border-color: color-mix(in srgb, var(--color-warning-active) 62%, transparent) !important;
+
+    outline-color: transparent !important;
+  }
+
+  .variantInfo:active:not(:disabled) {
+    color: var(--color-info-active) !important;
+    background: color-mix(in srgb, var(--color-info-active) 26%, transparent) !important;
+    border-color: color-mix(in srgb, var(--color-info-active) 60%, transparent) !important;
+
+    outline-color: transparent !important;
+  }
+
+  .variantIcon:active:not(:disabled) {
+    color: CanvasText;
+    background-color: color-mix(in srgb, currentColor 7%, transparent);
+    border-color: transparent;
+
+    outline-color: transparent;
+
+    box-shadow: none;
+  }
+}
+
+/* ==========================================================================
+   Touch devices
+   ========================================================================== */
+
+@media (hover: none) and (pointer: coarse) {
+  /*
+   * Mantiene intacto el tamaño visual del botón,
+   * pero amplía su superficie táctil hasta un mínimo de 44 × 44 px.
+   */
+  .button::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+
+    content: '';
+
+    transform: translate(-50%, -50%);
+  }
+
+  /*
+   * Respuesta más inmediata durante una pulsación táctil.
+   */
+  .button:active:not(:disabled) {
+    transition-duration: 0.04s;
+    border-color: color-mix(in srgb, currentColor 30%, transparent);
+  }
+}
+
+/* ==========================================================================
+   Dark theme
    ========================================================================== */
 
 @media (prefers-color-scheme: dark) {
   .button {
     font-weight: var(--font-weight-regular);
+
     box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
   }
 
-  .button:hover,
   .button:focus-visible {
     box-shadow: 0 1px 3px rgb(0 0 0 / 14%);
   }
@@ -318,116 +558,24 @@
     box-shadow: inset 0 1px 1px rgb(0 0 0 / 14%);
   }
 
-  .variantWarning,
-  .variantWarning:hover,
-  .variantWarning:focus-visible,
-  .variantWarning:active:not(:disabled) {
-    color: var(--color-warning-focus);
-  }
-
-  .variantInfo,
-  .variantInfo:hover,
-  .variantInfo:focus-visible,
-  .variantInfo:active:not(:disabled) {
-    color: var(--color-info-focus);
-  }
-
   .variantGhost,
-  .variantGhost:hover,
   .variantGhost:focus-visible,
   .variantGhost:active:not(:disabled),
   .variantIcon,
-  .variantIcon:hover,
   .variantIcon:focus-visible,
   .variantIcon:active:not(:disabled) {
     box-shadow: none;
   }
-}
 
-/* ==========================================================================
-   Sizes
-   ========================================================================== */
+  @media (hover: hover) and (pointer: fine) {
+    .button:hover:not(:disabled) {
+      box-shadow: 0 1px 3px rgb(0 0 0 / 14%);
+    }
 
-.XS {
-  font-size: 10px;
-  min-width: 18px;
-  padding: 2px 4px;
-  border-radius: 2px;
-}
-
-.S {
-  font-size: 12px;
-  min-width: 22px;
-  padding: 3px 6px;
-  border-radius: 2px;
-}
-
-.M {
-  font-size: 14px;
-  min-width: 30px;
-  padding: 4px 7px;
-  border-radius: 3px;
-}
-
-.L {
-  font-size: 16px;
-  min-width: 36px;
-  height: 32px;
-  padding: 5px 8px;
-  border-radius: 4px;
-}
-
-.XL {
-  font-size: 18px;
-  min-width: 36px;
-  height: 32px;
-  padding: 8px 12px;
-  border-radius: 4px;
-}
-
-.S.variantIcon {
-  width: 22px;
-  min-width: 22px;
-  padding: 0;
-}
-
-.M.variantIcon {
-  width: 30px;
-  min-width: 30px;
-  padding: 0;
-}
-
-.L.variantIcon {
-  width: 36px;
-  min-width: 36px;
-  padding: 0;
-}
-
-/* ==========================================================================
-   Dark adjustments
-   ========================================================================== */
-
-@media (prefers-color-scheme: dark) {
-  .button {
-    font-weight: var(--font-weight-regular);
-  }
-
-  .variantWarning {
-    color: var(--color-warning-focus);
-  }
-
-  .variantWarning:hover,
-  .variantWarning:focus-within {
-    color: var(--color-warning-focus);
-  }
-
-  .variantInfo {
-    color: var(--color-info-focus);
-  }
-
-  .variantInfo:hover,
-  .variantInfo:focus-within {
-    color: var(--color-info-focus);
+    .variantGhost:hover:not(:disabled),
+    .variantIcon:hover:not(:disabled) {
+      box-shadow: none;
+    }
   }
 }
 
@@ -436,67 +584,161 @@
    ========================================================================== */
 
 @supports not (color: color-mix(in srgb, black, white)) {
-  .variantSolid:hover,
-  .variantSolid:focus-within {
-    outline-color: rgba(118, 113, 254, 0.55);
+  .button:focus-visible {
+    background-color: rgb(0 0 0 / 2%);
+    outline-color: rgb(0 0 0 / 18%);
   }
 
-  .variantGhost:hover,
-  .variantGhost:focus-within,
-  .variantIcon:hover,
-  .variantIcon:focus-within {
-    background: rgba(84, 77, 254, 0.08);
+  .button:active:not(:disabled) {
+    background-color: rgb(0 0 0 / 5%);
   }
 
-  .variantGhost:active {
-    background: rgba(84, 77, 254, 0.14);
+  .variantGhost:focus-visible,
+  .variantIcon:focus-visible {
+    background-color: rgb(0 0 0 / 3%);
+  }
+
+  .variantGhost:active:not(:disabled),
+  .variantIcon:active:not(:disabled) {
+    background-color: rgb(0 0 0 / 7%);
   }
 
   .variantDanger {
-    background: rgba(176, 42, 55, 0.14);
-    border-color: rgba(176, 42, 55, 0.42);
+    background: rgb(176 42 55 / 14%);
+    border-color: rgb(176 42 55 / 42%);
   }
 
-  .variantDanger:hover,
-  .variantDanger:focus-within {
-    outline-color: rgba(220, 53, 69, 0.45);
-    background: rgba(220, 53, 69, 0.22);
-    border-color: rgba(220, 53, 69, 0.55);
+  .variantDanger:focus-visible {
+    color: var(--color-error-focus) !important;
+    background: rgb(220 53 69 / 18%) !important;
+    border-color: rgb(220 53 69 / 48%) !important;
+    outline-color: rgb(220 53 69 / 38%) !important;
+  }
+
+  .variantDanger:active:not(:disabled) {
+    color: var(--color-error-active) !important;
+    background: rgb(180 7 21 / 20%) !important;
+    border-color: rgb(180 7 21 / 56%) !important;
   }
 
   .variantSuccess {
-    background: rgba(21, 115, 71, 0.14);
-    border-color: rgba(21, 115, 71, 0.42);
+    background: rgb(21 115 71 / 14%);
+    border-color: rgb(21 115 71 / 42%);
   }
 
-  .variantSuccess:hover,
-  .variantSuccess:focus-within {
-    outline-color: rgba(31, 159, 99, 0.45);
-    background: rgba(31, 159, 99, 0.22);
-    border-color: rgba(31, 159, 99, 0.55);
+  .variantSuccess:focus-visible {
+    color: var(--color-success-focus) !important;
+    background: rgb(31 159 99 / 18%) !important;
+    border-color: rgb(31 159 99 / 48%) !important;
+    outline-color: rgb(31 159 99 / 38%) !important;
+  }
+
+  .variantSuccess:active:not(:disabled) {
+    color: var(--color-success-active) !important;
+    background: rgb(15 81 50 / 20%) !important;
+    border-color: rgb(15 81 50 / 56%) !important;
   }
 
   .variantWarning {
-    background: rgba(255, 205, 57, 0.24);
-    border-color: rgba(255, 205, 57, 0.55);
+    background: rgb(255 205 57 / 24%);
+    border-color: rgb(255 205 57 / 55%);
   }
 
-  .variantWarning:hover,
-  .variantWarning:focus-within {
-    outline-color: rgba(255, 217, 102, 0.55);
-    background: rgba(255, 217, 102, 0.36);
-    border-color: rgba(255, 217, 102, 0.7);
+  .variantWarning:focus-visible {
+    color: var(--color-warning-focus) !important;
+    background: rgb(247 203 74 / 24%) !important;
+    border-color: rgb(247 203 74 / 54%) !important;
+    outline-color: rgb(247 203 74 / 48%) !important;
+  }
+
+  .variantWarning:active:not(:disabled) {
+    color: var(--color-warning-active) !important;
+    background: rgb(204 154 6 / 28%) !important;
+    border-color: rgb(204 154 6 / 62%) !important;
   }
 
   .variantInfo {
-    background: rgba(37, 207, 242, 0.2);
-    border-color: rgba(37, 207, 242, 0.5);
+    background: rgb(37 207 242 / 20%);
+    border-color: rgb(37 207 242 / 50%);
   }
 
-  .variantInfo:hover,
-  .variantInfo:focus-within {
-    outline-color: rgba(79, 217, 245, 0.5);
-    background: rgba(79, 217, 245, 0.32);
-    border-color: rgba(79, 217, 245, 0.65);
+  .variantInfo:focus-visible {
+    color: var(--color-info-focus) !important;
+    background: rgb(79 217 245 / 20%) !important;
+    border-color: rgb(79 217 245 / 52%) !important;
+    outline-color: rgb(79 217 245 / 44%) !important;
+  }
+
+  .variantInfo:active:not(:disabled) {
+    color: var(--color-info-active) !important;
+    background: rgb(26 166 194 / 26%) !important;
+    border-color: rgb(26 166 194 / 60%) !important;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .button:hover:not(:disabled) {
+      background-color: rgb(0 0 0 / 2%);
+    }
+
+    .variantGhost:hover:not(:disabled),
+    .variantIcon:hover:not(:disabled) {
+      background-color: rgb(0 0 0 / 4%);
+    }
+
+    .variantDanger:hover:not(:disabled) {
+      color: var(--color-error-hover) !important;
+      background: rgb(220 53 69 / 16%) !important;
+      border-color: rgb(220 53 69 / 44%) !important;
+    }
+
+    .variantSuccess:hover:not(:disabled) {
+      color: var(--color-success-hover) !important;
+      background: rgb(57 138 100 / 16%) !important;
+      border-color: rgb(57 138 100 / 44%) !important;
+    }
+
+    .variantWarning:hover:not(:disabled) {
+      color: var(--color-warning-hover) !important;
+      background: rgb(223 173 24 / 23%) !important;
+      border-color: rgb(223 173 24 / 50%) !important;
+    }
+
+    .variantInfo:hover:not(:disabled) {
+      color: var(--color-info-hover) !important;
+      background: rgb(79 217 245 / 21%) !important;
+      border-color: rgb(79 217 245 / 48%) !important;
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .button:focus-visible {
+      background-color: rgb(255 255 255 / 2%);
+      outline-color: rgb(255 255 255 / 18%);
+    }
+
+    .button:active:not(:disabled) {
+      background-color: rgb(255 255 255 / 5%);
+    }
+
+    .variantGhost:focus-visible,
+    .variantIcon:focus-visible {
+      background-color: rgb(255 255 255 / 3%);
+    }
+
+    .variantGhost:active:not(:disabled),
+    .variantIcon:active:not(:disabled) {
+      background-color: rgb(255 255 255 / 7%);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .button:hover:not(:disabled) {
+        background-color: rgb(255 255 255 / 2%);
+      }
+
+      .variantGhost:hover:not(:disabled),
+      .variantIcon:hover:not(:disabled) {
+        background-color: rgb(255 255 255 / 4%);
+      }
+    }
   }
 }

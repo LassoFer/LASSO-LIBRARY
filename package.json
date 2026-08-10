@@ -38,6 +38,7 @@
 		"vite-plugin-dts": "^5.0.3"
 	},
 	"dependencies": {
-		"lucide-react": "^1.28.0"
+		"lucide-react": "^1.28.0",
+		"react-router-dom": "^7.18.2"
 	}
 }

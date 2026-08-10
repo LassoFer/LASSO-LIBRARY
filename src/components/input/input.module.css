@@ -29,13 +29,14 @@
   justify-content: center;
 
   color: var(--color-grey-heavy);
+
   pointer-events: none;
 
   transform: translateY(-50%);
+
   transition: color 0.08s ease;
 }
 
-.wrapper:hover .icon,
 .wrapper:focus-within .icon {
   color: CanvasText;
 }
@@ -74,60 +75,60 @@
 
   color: CanvasText;
   background-color: Canvas;
+
   border: var(--border-default);
+
   outline: 1px solid transparent;
-  outline-offset: 1px;
 
   font-family: inherit;
   line-height: 1;
 
   box-shadow: 0 1px 2px rgb(0 0 0 / 3%);
 
+  touch-action: manipulation;
+
+  -webkit-tap-highlight-color: transparent;
+
   transition:
     background-color 0.08s ease,
-    border-color 0.08s ease,
+    border-color 0.25s ease,
     color 0.08s ease,
     outline-color 0.08s ease,
-    box-shadow 0.08s ease;
+    box-shadow 0.25s ease;
 }
 
-.input:hover:not(:disabled):not(:read-only) {
-  background-color: color-mix(in srgb, CanvasText 2%, Canvas);
+.input:focus:not(:read-only),
+.input:focus-visible:not(:read-only) {
+  background-color: color-mix(in srgb, currentColor 2%, Canvas);
+  border-color: color-mix(in srgb, currentColor 40%, transparent);
 
-  border-color: var(--color-grey-heavy);
   box-shadow: 0 1px 2px rgb(0 0 0 / 4%);
 }
 
-.input:focus,
-.input:focus-visible {
-  background-color: Canvas;
-  border-color: var(--color-grey-heavy);
+.input:active:not(:disabled):not(:read-only) {
+  background-color: color-mix(in srgb, currentColor 5%, Canvas);
 
-  outline-color: color-mix(in srgb, CanvasText 18%, transparent);
+  outline-color: transparent;
 
-  box-shadow: 0 1px 2px rgb(0 0 0 / 4%);
+  box-shadow: inset 0 1px 1px rgb(0 0 0 / 4%);
 }
 
 .input::placeholder {
   color: var(--color-grey-heavy);
+
   opacity: 1;
 }
 
 .input:disabled {
-  color: color-mix(in srgb, CanvasText 45%, transparent);
-
-  background-color: color-mix(in srgb, CanvasText 4%, Canvas);
-
-  border-color: var(--color-grey-light);
-  outline-color: transparent;
-  box-shadow: none;
+  opacity: 0.55;
 
   cursor: not-allowed;
-  opacity: 0.65;
+
+  box-shadow: none;
 }
 
 .input:read-only:not(:disabled) {
-  background-color: color-mix(in srgb, CanvasText 2%, Canvas);
+  background-color: color-mix(in srgb, currentColor 2%, Canvas);
 
   cursor: default;
 }
@@ -139,46 +140,51 @@
 .sizeXS.input {
   height: 18px;
   min-height: 18px;
-  padding: 2px 5px;
+  padding: 2px 4px;
 
   font-size: 9px;
+
   border-radius: 2px;
 }
 
 .sizeS.input {
-  height: 20px;
-  min-height: 20px;
-  padding: 2px 7px;
+  height: 22px;
+  min-height: 22px;
+  padding: 3px 6px;
 
-  font-size: 10px;
+  font-size: 11px;
+
   border-radius: 2px;
 }
 
 .sizeM.input {
-  height: 24px;
-  min-height: 24px;
-  padding: 3px 8px;
+  height: 30px;
+  min-height: 30px;
+  padding: 4px 7px;
 
-  font-size: 12px;
+  font-size: 14px;
+
   border-radius: 3px;
 }
 
 .sizeL.input {
-  height: 28px;
-  min-height: 28px;
-  padding: 4px 9px;
+  height: 32px;
+  min-height: 32px;
+  padding: 5px 8px;
 
-  font-size: 14px;
+  font-size: 16px;
+
   border-radius: 4px;
 }
 
 .sizeXL.input {
-  height: 34px;
-  min-height: 34px;
-  padding: 6px 11px;
+  height: 38px;
+  min-height: 38px;
+  padding: 8px 12px;
 
-  font-size: 16px;
-  border-radius: 5px;
+  font-size: 18px;
+
+  border-radius: 4px;
 }
 
 /* ==========================================================================
@@ -202,27 +208,27 @@
 }
 
 .sizeM.hasIcon .input {
-  padding-left: 28px;
+  padding-left: 30px;
 }
 
 .sizeM.hasSearch .input {
-  padding-right: 28px;
+  padding-right: 30px;
 }
 
 .sizeL.hasIcon .input {
-  padding-left: 32px;
+  padding-left: 36px;
 }
 
 .sizeL.hasSearch .input {
-  padding-right: 32px;
+  padding-right: 36px;
 }
 
 .sizeXL.hasIcon .input {
-  padding-left: 38px;
+  padding-left: 40px;
 }
 
 .sizeXL.hasSearch .input {
-  padding-right: 38px;
+  padding-right: 40px;
 }
 
 /* ==========================================================================
@@ -231,7 +237,9 @@
 
 .textarea {
   height: auto;
+
   resize: vertical;
+
   line-height: 1.4;
 }
 
@@ -266,6 +274,7 @@
 .input[type='number']::-webkit-inner-spin-button,
 .input[type='number']::-webkit-outer-spin-button {
   margin: 0;
+
   appearance: none;
 }
 
@@ -282,18 +291,63 @@
   margin: 0;
 
   color: var(--color-grey-heavy);
+  background: transparent !important;
+  border-color: transparent !important;
+
+  outline: none !important;
+
+  box-shadow: none !important;
+
+  opacity: 0.85;
 
   transform: translateY(-50%);
+
+  transition:
+    color 0.08s ease,
+    opacity 0.08s ease;
 }
 
-.searchButton:hover:not(:disabled),
+.searchButton:focus,
 .searchButton:focus-visible {
   color: CanvasText;
+  background: transparent !important;
+  border-color: transparent !important;
+
+  outline: none !important;
+
+  box-shadow: none !important;
+
+  opacity: 1;
 }
 
 .searchButton:active:not(:disabled) {
+  color: CanvasText;
+  background: transparent !important;
+  border-color: transparent !important;
+
+  outline: none !important;
+
+  box-shadow: none !important;
+
+  opacity: 0.6;
+
   transform: translateY(-50%);
 }
+
+.searchButton:disabled {
+  background: transparent !important;
+  border-color: transparent !important;
+
+  outline: none !important;
+
+  box-shadow: none !important;
+
+  opacity: 0.4;
+}
+
+/* ==========================================================================
+   Search button sizes
+   ========================================================================== */
 
 .sizeXS .searchButton {
   right: 0;
@@ -333,20 +387,28 @@
   box-sizing: border-box;
   max-height: 360px;
   padding: 4px;
+
   overflow-x: hidden;
   overflow-y: auto;
 
   color: CanvasText;
   background-color: Canvas;
+
   border: var(--border-default);
   border-radius: 5px;
 
   box-shadow:
     0 4px 12px rgb(0 0 0 / 8%),
     0 1px 3px rgb(0 0 0 / 5%);
+
+  overscroll-behavior: contain;
+
+  -webkit-overflow-scrolling: touch;
 }
 
 .option {
+  position: relative;
+
   display: flex;
   align-items: center;
 
@@ -357,10 +419,12 @@
 
   color: CanvasText;
   background-color: transparent;
+
   border: 1px solid transparent;
   border-radius: 3px;
+
   outline: 1px solid transparent;
-  outline-offset: -1px;
+  outline-offset: 2px;
 
   font-family: inherit;
   font-size: 12px;
@@ -369,40 +433,172 @@
 
   cursor: pointer;
 
+  touch-action: manipulation;
+
+  -webkit-tap-highlight-color: transparent;
+
   transition:
     background-color 0.08s ease,
     border-color 0.08s ease,
     color 0.08s ease,
-    outline-color 0.08s ease;
-}
-
-.option:hover:not(:disabled) {
-  background-color: color-mix(in srgb, CanvasText 4%, transparent);
+    outline-color 0.08s ease,
+    box-shadow 0.08s ease;
 }
 
 .option:focus-visible {
-  background-color: color-mix(in srgb, CanvasText 3%, transparent);
+  background-color: color-mix(in srgb, currentColor 3%, transparent);
 
-  outline-color: color-mix(in srgb, CanvasText 22%, transparent);
+  outline-color: color-mix(in srgb, currentColor 22%, transparent);
 }
 
 .option:active:not(:disabled) {
-  background-color: color-mix(in srgb, CanvasText 7%, transparent);
+  background-color: color-mix(in srgb, currentColor 7%, transparent);
 
   outline-color: transparent;
 }
 
 .option:disabled {
+  opacity: 0.55;
+
   cursor: not-allowed;
-  opacity: 0.5;
+  pointer-events: none;
 }
 
 .emptyOptions {
   padding: 6px 8px;
 
   color: var(--color-grey-heavy);
+
   font-size: 12px;
   line-height: 1.25;
+}
+
+/* ==========================================================================
+   Hover — pointer devices only
+   ========================================================================== */
+
+@media (hover: hover) and (pointer: fine) {
+  .wrapper:hover .icon {
+    color: CanvasText;
+  }
+
+  .input:hover:not(:disabled):not(:read-only) {
+    background-color: color-mix(in srgb, currentColor 2%, Canvas);
+    border-color: color-mix(in srgb, currentColor 40%, transparent);
+
+    box-shadow: 0 1px 2px rgb(0 0 0 / 9%);
+  }
+
+  .searchButton:hover:not(:disabled) {
+    color: CanvasText;
+    background: transparent !important;
+    border-color: transparent !important;
+
+    outline: none !important;
+
+    box-shadow: none !important;
+
+    opacity: 1;
+  }
+
+  .option:hover:not(:disabled) {
+    background-color: color-mix(in srgb, currentColor 4%, transparent);
+  }
+
+  /*
+   * Active se repite después de hover para que gane
+   * cuando ambos estados están activos simultáneamente.
+   */
+  .input:active:not(:disabled):not(:read-only) {
+    background-color: color-mix(in srgb, currentColor 5%, Canvas);
+
+    outline-color: transparent;
+
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 4%);
+  }
+
+  .searchButton:active:not(:disabled) {
+    color: CanvasText;
+    background: transparent !important;
+    border-color: transparent !important;
+
+    outline: none !important;
+
+    box-shadow: none !important;
+
+    opacity: 0.6;
+
+    transform: translateY(-50%);
+  }
+
+  .option:active:not(:disabled) {
+    background-color: color-mix(in srgb, currentColor 7%, transparent);
+
+    outline-color: transparent;
+  }
+}
+
+/* ==========================================================================
+   Touch devices
+   ========================================================================== */
+
+@media (hover: none) and (pointer: coarse) {
+  .sizeXS.input {
+    font-size: 9px;
+  }
+
+  .sizeS.input {
+    font-size: 11px;
+  }
+
+  .sizeM.input {
+    font-size: 14px;
+  }
+
+  .sizeL.input {
+    font-size: 16px;
+  }
+
+  .sizeXL.input {
+    font-size: 18px;
+  }
+
+  .searchButton::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+
+    content: '';
+
+    transform: translate(-50%, -50%);
+  }
+
+  .option {
+    min-height: 44px;
+    padding: 10px 12px;
+
+    font-size: 14px;
+  }
+
+  .emptyOptions {
+    min-height: 44px;
+    padding: 10px 12px;
+
+    font-size: 14px;
+  }
+
+  .input:active:not(:disabled):not(:read-only),
+  .searchButton:active:not(:disabled),
+  .option:active:not(:disabled) {
+    transition-duration: 0.04s;
+  }
+
+  .options {
+    max-height: min(360px, 50dvh);
+  }
 }
 
 /* ==========================================================================
@@ -429,13 +625,18 @@
 
 @media (prefers-color-scheme: dark) {
   .input {
+    font-weight: var(--font-weight-regular);
+
     box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
   }
 
-  .input:hover:not(:disabled):not(:read-only),
   .input:focus,
   .input:focus-visible {
-    box-shadow: 0 1px 2px rgb(0 0 0 / 14%);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 14%);
+  }
+
+  .input:active:not(:disabled):not(:read-only) {
+    box-shadow: inset 0 1px 1px rgb(0 0 0 / 14%);
   }
 
   .options {
@@ -445,6 +646,16 @@
       0 4px 12px rgb(0 0 0 / 24%),
       0 1px 3px rgb(0 0 0 / 18%);
   }
+
+  @media (hover: hover) and (pointer: fine) {
+    .input:hover:not(:disabled):not(:read-only) {
+      box-shadow: 0 1px 3px rgb(0 0 0 / 14%);
+    }
+
+    .input:active:not(:disabled):not(:read-only) {
+      box-shadow: inset 0 1px 1px rgb(0 0 0 / 14%);
+    }
+  }
 }
 
 /* ==========================================================================
@@ -452,7 +663,8 @@
    ========================================================================== */
 
 @supports not (color: color-mix(in srgb, black, white)) {
-  .input:hover:not(:disabled):not(:read-only),
+  .input:focus,
+  .input:focus-visible,
   .input:read-only:not(:disabled) {
     background-color: rgb(0 0 0 / 2%);
   }
@@ -462,8 +674,8 @@
     outline-color: rgb(0 0 0 / 18%);
   }
 
-  .option:hover:not(:disabled) {
-    background-color: rgb(0 0 0 / 4%);
+  .input:active:not(:disabled):not(:read-only) {
+    background-color: rgb(0 0 0 / 5%);
   }
 
   .option:focus-visible {
@@ -475,8 +687,27 @@
     background-color: rgb(0 0 0 / 7%);
   }
 
+  @media (hover: hover) and (pointer: fine) {
+    .input:hover:not(:disabled):not(:read-only) {
+      background-color: rgb(0 0 0 / 2%);
+    }
+
+    .option:hover:not(:disabled) {
+      background-color: rgb(0 0 0 / 4%);
+    }
+
+    .input:active:not(:disabled):not(:read-only) {
+      background-color: rgb(0 0 0 / 5%);
+    }
+
+    .option:active:not(:disabled) {
+      background-color: rgb(0 0 0 / 7%);
+    }
+  }
+
   @media (prefers-color-scheme: dark) {
-    .input:hover:not(:disabled):not(:read-only),
+    .input:focus,
+    .input:focus-visible,
     .input:read-only:not(:disabled) {
       background-color: rgb(255 255 255 / 2%);
     }
@@ -486,8 +717,8 @@
       outline-color: rgb(255 255 255 / 18%);
     }
 
-    .option:hover:not(:disabled) {
-      background-color: rgb(255 255 255 / 4%);
+    .input:active:not(:disabled):not(:read-only) {
+      background-color: rgb(255 255 255 / 5%);
     }
 
     .option:focus-visible {
@@ -497,6 +728,16 @@
 
     .option:active:not(:disabled) {
       background-color: rgb(255 255 255 / 7%);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .input:hover:not(:disabled):not(:read-only) {
+        background-color: rgb(255 255 255 / 2%);
+      }
+
+      .option:hover:not(:disabled) {
+        background-color: rgb(255 255 255 / 4%);
+      }
     }
   }
 }

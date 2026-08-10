@@ -1,24 +1,17 @@
 /* ==========================================================================
    styles.css — Global design tokens
    ========================================================================== */
+
 body {
-  height: 100vh;
   width: 100%;
-  margin: 0px;
+  height: 100vh;
+  margin: 0;
 }
 
 #root {
-  height: 100%;
   width: 100%;
+  height: 100%;
 }
-
-/*
-
- ==========================================================================
-   SIZES
- ========================================================================== 
- 
-*/
 
 :root {
   color-scheme: light dark;
@@ -36,148 +29,45 @@ body {
     'Segoe UI',
     sans-serif;
 
-  /* 
-  
-  --font-family-base: 'Helvetica Neue', Helvetica, Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
-  
-  */
+  /* ==========================================================================
+   Semantic colors
+   ========================================================================== */
 
-  /* 
-  
-  --font-size-xs: 9px;
-  --font-size-s: 11px;
-  --font-size-m: 13px;
-  --font-size-l: 14px;
-  --font-size-xl: 18px;
-  --font-size-2xl: 24px; 
-  
-  */
+  --color-success: #11864b;
+  --color-success-hover: #159d57;
+  --color-success-focus: #1db864;
+  --color-success-active: #086a38;
 
-  /* 
-  
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700; 
-  
-  */
+  --color-info: #0f93ad;
+  --color-info-hover: #12abc8;
+  --color-info-focus: #18c2e2;
+  --color-info-active: #08748a;
 
-  /* 
-  
-  --line-height-xs: 14px;
-  --line-height-s: 18px;
-  --line-height-m: 22px;
-  --line-height-l: 24px;
-  --line-height-xl: 28px; 
-  
-  */
+  --color-error: #c32636;
+  --color-error-hover: #da2d3f;
+  --color-error-focus: #ef3b4e;
+  --color-error-active: #a31625;
 
-  /* 
-  
-  ==========================================================================
-     Semantic colors
-     ==========================================================================
-     
-   */
-
-  --color-success: #157347;
-  --color-success-focus: #1f9f63;
-  --color-success-hover: #46eb9ebb;
-  --color-success-active: #0f5132;
-
-  --color-info: #25cff2;
-  --color-info-focus: #4fd9f5;
-  --color-info-hover: #4fd9f5;
-  --color-info-active: #1aa6c2;
-
-  --color-error: #b02a37;
-  --color-error-focus: #dc3545;
-  --color-error-hover: #dc3545;
-  --color-error-active: #b40715;
-
-  --color-warning: #ffcd39;
-  --color-warning-focus: #ffd966;
-  --color-warning-hover: #ffd966;
-  --color-warning-active: #cc9a06;
-
+  --color-warning: #b97b00;
+  --color-warning-hover: #d38e00;
+  --color-warning-focus: #eda200;
+  --color-warning-active: #925f00;
   /* ==========================================================================
      Neutral colors
      ========================================================================== */
 
   --color-grey-light: #d3d3d3;
   --color-grey-heavy: #b1b1b1;
+  --color-grey-extra-heavy: #686868;
 
   /* ==========================================================================
-     Surfaces
+     Borders
      ========================================================================== */
-
-  /* ==========================================================================
-     Text
-     ========================================================================== */
-
-  /* ==========================================================================
-   Borders
-   ========================================================================== */
 
   --border-default: 1px solid var(--color-grey-light);
   --border-default-heavy: 1px solid var(--color-grey-heavy);
   --border-heavy: 2px solid var(--color-grey-light);
   --border-extra-heavy: 2px solid var(--color-grey-heavy);
-
-  /* ==========================================================================
-   Shadows
-   ========================================================================== */
-  /* ==========================================================================
-   Spacing
-   ========================================================================== */
-
-  /* ==========================================================================
-   Radius
-   ========================================================================== */
-
-  /* --radius-none: 0;
-     --radius-control: var(--radius-md);
-  --radius-circle: 50%;
-
-  --radius-card: var(--radius-lg);
-  --radius-panel: var(--radius-xl); */
-  /* ==========================================================================
-     Layout
-     ========================================================================== */
-  /* --container-xs: 480px;
-  --container-sm: 640px;
-  --container-md: 768px;
-  --container-lg: 1024px;
-  --container-xl: 1280px;
-  --container-2xl: 1440px;
-
-  --z-index-dropdown: 1000;
-  --z-index-sticky: 1020;
-  --z-index-fixed: 1030;
-  --z-index-modal-backdrop: 1040;
-  --z-index-modal: 1050;
-  --z-index-popover: 1060;
-  --z-index-tooltip: 1070; */
-  /* ==========================================================================
-     Transitions
-     ========================================================================== */
-  /* 
-  --transition-fast: 0.18s ease-in-out;
-  --transition-normal: 0.28s ease-in-out;
-  --transition-slow: 0.4s ease-in-out;
-
-  --transition-color:
-    background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast),
-    outline-color var(--transition-fast);
-
-  --transition-transform: transform var(--transition-fast), box-shadow var(--transition-fast); */
-  /* ==========================================================================
-     Reset tokens
-     ========================================================================== */
-  /* 
-  --border-none: none;
-  --outline-none: none;
-  --transparent: transparent; */
 }
 
 /* ==========================================================================
@@ -186,5 +76,36 @@ body {
 
 @media (prefers-color-scheme: dark) {
   :root {
+    /* ==========================================================================
+       Semantic colors
+       ========================================================================== */
+
+    --color-success: #4fc487;
+    --color-success-hover: #60cf95;
+    --color-success-focus: #74d9a5;
+    --color-success-active: #3cab73;
+
+    --color-info: #4fd9f5;
+    --color-info-hover: #64dff7;
+    --color-info-focus: #7be5fa;
+    --color-info-active: #32b8d3;
+
+    --color-error: #e35d69;
+    --color-error-hover: #eb6c77;
+    --color-error-focus: #f27b85;
+    --color-error-active: #c94754;
+
+    --color-warning: #e7bc3f;
+    --color-warning-hover: #efc851;
+    --color-warning-focus: #f6d469;
+    --color-warning-active: #c99c27;
+
+    /* ==========================================================================
+       Neutral colors
+       ========================================================================== */
+
+    --color-grey-light: #3f3f3f;
+    --color-grey-heavy: #777;
+    --color-grey-extra-heavy: #b8b8b8;
   }
 }

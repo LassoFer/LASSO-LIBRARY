@@ -2,22 +2,23 @@ import type { LucideIcon } from 'lucide-react';
 import { Loader2, Search } from 'lucide-react';
 import {
   forwardRef,
-  useEffect,
   useId,
   useRef,
   useState,
   type ChangeEvent,
-  type Dispatch,
   type FocusEvent,
   type InputHTMLAttributes,
   type KeyboardEvent,
+  type ReactElement,
   type ReactNode,
-  type SetStateAction,
+  type Ref,
   type TextareaHTMLAttributes,
 } from 'react';
+
 import { classNames } from '../../utils/common';
 import Button from '../button/button';
 import type { Size } from '../common';
+
 import styles from './input.module.css';
 
 type Value = string | number;
@@ -26,9 +27,9 @@ type InputType = 'text' | 'email' | 'password' | 'number' | 'textarea' | 'date';
 
 type NativeInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'type' | 'size'>;
 
-interface InputProps<Option = unknown> extends NativeInputProps {
-  value: Value;
-  onChange: (value: Value) => void | Dispatch<SetStateAction<unknown>>;
+export interface InputProps<InputOption = unknown, TValue extends Value = string> extends NativeInputProps {
+  value: TValue;
+  onChange: (value: TValue) => void;
 
   type?: InputType;
   icon?: LucideIcon;
@@ -37,12 +38,12 @@ interface InputProps<Option = unknown> extends NativeInputProps {
 
   search?: boolean;
   searchLoading?: boolean;
-  onSearch?: (value: Value) => void;
+  onSearch?: (value: TValue) => void;
 
-  options?: Option[];
-  getOptionLabel?: (option: Option) => ReactNode;
-  getOptionValue?: (option: Option) => Value;
-  onOptionSelect?: (option: Option) => void;
+  options?: InputOption[];
+  getOptionLabel?: (option: InputOption) => ReactNode;
+  getOptionValue?: (option: InputOption) => TValue;
+  onOptionSelect?: (option: InputOption) => void;
   emptyOptionsText?: string;
 }
 
@@ -54,15 +55,10 @@ const iconSizeByInputSize: Record<Size, number> = {
   XL: 18,
 };
 
-const searchButtonSizeByInputSize: Record<Size, Size> = {
-  XS: 'XS',
-  S: 'XS',
-  M: 'S',
-  L: 'M',
-  XL: 'L',
-};
-
-const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>((props, forwardedRef) => {
+function InputComponent<InputOption = unknown, TValue extends Value = string>(
+  props: InputProps<InputOption, TValue>,
+  forwardedRef: Ref<HTMLInputElement | HTMLTextAreaElement>,
+) {
   const {
     value,
     onChange,
@@ -95,6 +91,7 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>((pr
 
   const optionsId = useId();
   const wrapperRef = useRef<HTMLDivElement>(null);
+
   const [showOptions, setShowOptions] = useState(false);
 
   const isTextarea = type === 'textarea';
@@ -104,15 +101,18 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>((pr
   const shouldShowOptions = hasOptionsConfiguration && Boolean(hasOptions || emptyOptionsText) && showOptions;
 
   const iconSize = iconSizeByInputSize[size];
-  const searchButtonSize = searchButtonSizeByInputSize[size];
 
-  useEffect(() => {
-    const activeElement = document.activeElement;
+  // useEffect(() => {
+  //   const activeElement = document.activeElement;
 
-    if (activeElement && wrapperRef.current?.contains(activeElement) && hasOptionsConfiguration) {
-      setShowOptions(true);
-    }
-  }, [options, hasOptionsConfiguration]);
+  //   if (activeElement && wrapperRef.current?.contains(activeElement) && hasOptionsConfiguration) {
+  //     setShowOptions(true);
+  //   }
+  // }, [options, hasOptionsConfiguration]);
+
+  /* ==========================================================================
+     Wrapper
+     ========================================================================== */
 
   const handleWrapperFocus = () => {
     if (hasOptionsConfiguration) {
@@ -130,6 +130,10 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>((pr
     setShowOptions(false);
   };
 
+  /* ==========================================================================
+     Search
+     ========================================================================== */
+
   const handleSearch = () => {
     if (disabled || readOnly || searchLoading) {
       return;
@@ -138,7 +142,11 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>((pr
     onSearch?.(value);
   };
 
-  const resolveOptionLabel = (option: Option): ReactNode => {
+  /* ==========================================================================
+     Options
+     ========================================================================== */
+
+  const resolveOptionLabel = (option: InputOption): ReactNode => {
     if (getOptionLabel) {
       return getOptionLabel(option);
     }
@@ -146,25 +154,25 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>((pr
     return String(option ?? '');
   };
 
-  const resolveOptionValue = (option: Option): Value => {
+  const resolveOptionValue = (option: InputOption): TValue => {
     if (getOptionValue) {
       return getOptionValue(option);
     }
 
     if (typeof option === 'string' || typeof option === 'number') {
-      return option;
+      return option as unknown as TValue;
     }
 
     const label = resolveOptionLabel(option);
 
     if (typeof label === 'string' || typeof label === 'number') {
-      return label;
+      return label as unknown as TValue;
     }
 
-    return '';
+    return '' as unknown as TValue;
   };
 
-  const handleOptionClick = (option: Option) => {
+  const handleOptionClick = (option: InputOption) => {
     if (disabled || readOnly) {
       return;
     }
@@ -173,25 +181,36 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>((pr
 
     onChange(nextValue);
     onOptionSelect?.(option);
+
     setShowOptions(false);
   };
+
+  /* ==========================================================================
+     Change
+     ========================================================================== */
 
   const handleChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     const rawValue = event.target.value;
 
     if (type === 'number') {
       if (rawValue === '') {
-        onChange('');
+        onChange('' as TValue);
         return;
       }
 
       const parsedValue = Number(rawValue);
-      onChange(Number.isNaN(parsedValue) ? '' : parsedValue);
+
+      onChange((Number.isNaN(parsedValue) ? '' : parsedValue) as TValue);
+
       return;
     }
 
-    onChange(rawValue);
+    onChange(rawValue as TValue);
   };
+
+  /* ==========================================================================
+     Keyboard
+     ========================================================================== */
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement> | KeyboardEvent<HTMLTextAreaElement>) => {
     onKeyDown?.(event as KeyboardEvent<HTMLInputElement>);
@@ -210,6 +229,10 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>((pr
     }
   };
 
+  /* ==========================================================================
+     Focus
+     ========================================================================== */
+
   const handleFocus = (event: FocusEvent<HTMLInputElement> | FocusEvent<HTMLTextAreaElement>) => {
     if (hasOptionsConfiguration) {
       setShowOptions(true);
@@ -222,7 +245,15 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>((pr
     onBlur?.(event as FocusEvent<HTMLInputElement>);
   };
 
+  /* ==========================================================================
+     Classes
+     ========================================================================== */
+
   const controlClassName = classNames([styles.input, styles[`size${size}`], isTextarea && styles.textarea, className]);
+
+  /* ==========================================================================
+     Shared props
+     ========================================================================== */
 
   const commonProps = {
     value: value?.toString() ?? '',
@@ -239,6 +270,10 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>((pr
     'aria-controls': hasOptionsConfiguration ? optionsId : undefined,
     'aria-autocomplete': hasOptionsConfiguration ? ('list' as const) : undefined,
   };
+
+  /* ==========================================================================
+     Render
+     ========================================================================== */
 
   return (
     <div
@@ -261,20 +296,20 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>((pr
 
       {isTextarea ? (
         <textarea
-          ref={forwardedRef as React.ForwardedRef<HTMLTextAreaElement>}
+          ref={forwardedRef as Ref<HTMLTextAreaElement>}
           {...(rest as TextareaHTMLAttributes<HTMLTextAreaElement>)}
           {...commonProps}
           rows={rows}
         />
       ) : (
-        <input ref={forwardedRef as React.ForwardedRef<HTMLInputElement>} {...rest} {...commonProps} type={type} />
+        <input ref={forwardedRef as Ref<HTMLInputElement>} {...rest} {...commonProps} type={type} />
       )}
 
       {search && (
         <Button
           type="button"
           mode="icon"
-          size={searchButtonSize}
+          size={size}
           className={styles.searchButton}
           onMouseDown={(event) => {
             event.preventDefault();
@@ -300,7 +335,7 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>((pr
 
               return (
                 <button
-                  key={`${optionValue}-${index}`}
+                  key={`${String(optionValue)}-${index}`}
                   type="button"
                   role="option"
                   aria-selected={optionValue === value}
@@ -324,8 +359,16 @@ const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>((pr
       )}
     </div>
   );
-});
+}
 
-Input.displayName = 'Input';
+/* ==========================================================================
+   Generic forwardRef
+   ========================================================================== */
+
+const Input = forwardRef(InputComponent) as <InputOption = unknown, TValue extends Value = string>(
+  props: InputProps<InputOption, TValue> & {
+    ref?: Ref<HTMLInputElement | HTMLTextAreaElement>;
+  },
+) => ReactElement;
 
 export default Input;

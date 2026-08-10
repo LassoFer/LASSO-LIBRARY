@@ -18,6 +18,7 @@ interface CardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title'> 
   iconSize?: number;
   size?: Size;
   resizable?: boolean;
+  contentClassName?: string;
 }
 
 const sizeClassMap: Record<Size, string> = {
@@ -51,6 +52,7 @@ export function Card({
   iconSize,
   size = 'M',
   resizable = false,
+  contentClassName,
   ...rest
 }: CardProps) {
   const resolvedIconSize = iconSize ?? iconSizeMap[size];
@@ -94,7 +96,7 @@ export function Card({
         </div>
       )}
 
-      <div className={styles.cardContent} style={contentStyle}>
+      <div className={classNames([styles.cardContent, contentClassName])} style={contentStyle}>
         {children}
       </div>
 

@@ -1,0 +1,134 @@
+/* ==========================================================================
+   Page
+   ========================================================================== */
+
+.page {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100%;
+  padding: 24px;
+  overflow: auto;
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.header {
+  margin-bottom: 40px;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+
+  color: var(--color-grey-heavy);
+
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0 0 10px;
+}
+
+.description {
+  max-width: 760px;
+  margin: 0;
+
+  color: var(--color-grey-heavy);
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   Cards
+   ========================================================================== */
+
+.card {
+  width: 300px;
+}
+
+.sizeCard {
+  width: 280px;
+}
+
+.searchSizeCard {
+  width: 290px;
+}
+
+.userOptionsCard {
+  width: 360px;
+}
+
+.cityOptionsCard {
+  width: 340px;
+}
+
+.eventCard {
+  width: 340px;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 240px;
+  padding: 20px;
+}
+
+.overflowVisible {
+  overflow: visible;
+}
+
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+
+.helper {
+  margin: 0;
+
+  color: var(--color-grey-heavy);
+
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   Code
+   ========================================================================== */
+
+.code {
+  margin-inline: 4px;
+  padding: 1px 4px;
+
+  border: var(--border-default);
+  border-radius: 3px;
+
+  font-family: monospace;
+  font-size: 0.9em;
+}
+
+/* ==========================================================================
+   Options
+   ========================================================================== */
+
+.optionContent {
+  display: block;
+}
+
+.optionSecondary {
+  display: block;
+
+  margin-top: 2px;
+
+  color: var(--color-grey-heavy);
+
+  font-size: 11px;
+}
