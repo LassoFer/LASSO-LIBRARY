@@ -29,7 +29,7 @@ const sizeClassMap: Record<Size, string> = {
   XL: styles.XL,
 };
 
-const iconSizeMap: Record<Size, number> = {
+const iconMap: Record<Size, number> = {
   XS: 11,
   S: 14,
   M: 17,
@@ -55,7 +55,7 @@ export function Card({
   contentClassName,
   ...rest
 }: CardProps) {
-  const resolvedIconSize = iconSize ?? iconSizeMap[size];
+  const resolvedIconSize = iconSize ?? iconMap[size];
 
   return (
     <div

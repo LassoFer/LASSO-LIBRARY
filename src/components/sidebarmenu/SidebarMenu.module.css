@@ -1,0 +1,403 @@
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+
+.sidebarMenu {
+  --sidebar-accent: var(--color-neutral);
+  --sidebar-accent-hover: var(--color-neutral-hover);
+  --sidebar-accent-focus: var(--color-neutral-focus);
+  --sidebar-accent-active: var(--color-neutral-active);
+
+  --sidebar-icon-size: 18px;
+
+  --sidebar-gap: 8px;
+  --sidebar-nav-gap: 4px;
+  --sidebar-padding: 8px;
+
+  position: relative;
+
+  display: flex;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: hidden;
+
+  color: var(--sidebar-text);
+  background: Canvas;
+}
+
+/* ==========================================================================
+   Size
+   ========================================================================== */
+
+.XS {
+  --sidebar-icon-size: 11px;
+
+  --sidebar-gap: 4px;
+  --sidebar-nav-gap: 2px;
+  --sidebar-padding: 4px;
+}
+
+.S {
+  --sidebar-icon-size: 14px;
+
+  --sidebar-gap: 6px;
+  --sidebar-nav-gap: 3px;
+  --sidebar-padding: 6px;
+}
+
+.M {
+  --sidebar-icon-size: 18px;
+
+  --sidebar-gap: 8px;
+  --sidebar-nav-gap: 4px;
+  --sidebar-padding: 8px;
+}
+
+.L {
+  --sidebar-icon-size: 20px;
+
+  --sidebar-gap: 10px;
+  --sidebar-nav-gap: 5px;
+  --sidebar-padding: 10px;
+}
+
+.XL {
+  --sidebar-icon-size: 24px;
+
+  --sidebar-gap: 12px;
+  --sidebar-nav-gap: 6px;
+  --sidebar-padding: 12px;
+}
+
+/* ==========================================================================
+   Position
+   ========================================================================== */
+
+.sidebarMenu[data-position='right'] {
+  flex-direction: row-reverse;
+}
+
+/* ==========================================================================
+   Shell
+   ========================================================================== */
+
+.sidebarShell {
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+
+  overflow: hidden;
+
+  background: var(--sidebar-surface);
+
+  transition:
+    width 0.18s ease,
+    min-width 0.18s ease,
+    flex-basis 0.18s ease;
+}
+
+.sidebarMenu[data-position='left'] .sidebarShell {
+  border-right: var(--border-default);
+}
+
+.sidebarMenu[data-position='right'] .sidebarShell {
+  border-left: var(--border-default);
+}
+
+/* ==========================================================================
+   Sections
+   ========================================================================== */
+
+.sidebarShellTop {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  min-width: 0;
+  min-height: 0;
+}
+
+.sidebarShellBottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: var(--sidebar-padding);
+
+  gap: var(--sidebar-gap);
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: var(--sidebar-padding);
+
+  gap: var(--sidebar-gap);
+}
+
+.sidebarMenu[data-mode='expanded'] .sidebarHeader {
+  justify-content: space-between;
+}
+
+.sidebarMenu[data-position='right'][data-mode='expanded'] .sidebarHeader {
+  flex-direction: row-reverse;
+}
+
+.sidebarBrand {
+  display: flex;
+  flex: 1;
+  align-items: center;
+
+  min-width: 0;
+
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Toggle
+   ========================================================================== */
+
+.sidebarModeToggle {
+  flex: 0 0 auto;
+
+  color: var(--color-grey-extra-heavy);
+
+  background: transparent !important;
+  border-color: transparent !important;
+
+  box-shadow: none !important;
+}
+
+.sidebarModeToggle svg {
+  width: var(--sidebar-icon-size);
+  height: var(--sidebar-icon-size);
+}
+
+/* ==========================================================================
+   Width measurement
+   ========================================================================== */
+
+.sidebarWidthMeasure {
+  position: absolute;
+
+  display: flex;
+  flex-direction: column;
+
+  width: max-content;
+
+  padding: var(--sidebar-padding);
+
+  gap: var(--sidebar-nav-gap);
+
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.sidebarWidthMeasureItem {
+  display: flex;
+  align-items: center;
+
+  width: max-content;
+
+  gap: var(--sidebar-gap);
+
+  white-space: nowrap;
+}
+
+.sidebarWidthMeasureItem[data-depth='1'] {
+  margin-left: var(--sidebar-padding);
+}
+
+.sidebarWidthMeasureItem[data-depth='2'] {
+  margin-left: calc(var(--sidebar-padding) * 2);
+}
+
+.sidebarWidthMeasureItem[data-depth='3'] {
+  margin-left: calc(var(--sidebar-padding) * 3);
+}
+
+/* ==========================================================================
+   Navigation
+   ========================================================================== */
+
+.sidebarNav {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+  min-height: 0;
+
+  padding: var(--sidebar-padding);
+
+  gap: var(--sidebar-nav-gap);
+
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.sidebarItemGroup {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  gap: var(--sidebar-nav-gap);
+}
+
+/* ==========================================================================
+   Item
+   ========================================================================== */
+
+.sidebarItem {
+  width: 100%;
+  min-width: 0;
+
+  overflow: hidden !important;
+
+  color: var(--sidebar-text);
+
+  background: transparent !important;
+  border-color: transparent !important;
+
+  box-shadow: none !important;
+}
+
+.sidebarItemContent {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  min-width: 0;
+
+  gap: var(--sidebar-gap);
+
+  overflow: hidden;
+}
+
+.sidebarMenu[data-mode='collapsed'] .sidebarItemContent {
+  justify-content: center;
+
+  width: fit-content;
+}
+
+/* ==========================================================================
+   Active
+   ========================================================================== */
+
+.sidebarItem[data-active='true'] {
+  background: color-mix(in srgb, var(--sidebar-accent) 12%, transparent) !important;
+}
+
+.sidebarItem[data-active='true']:focus-visible {
+  background: color-mix(in srgb, var(--sidebar-accent-focus) 14%, transparent) !important;
+}
+
+.sidebarItem[data-active='true']:active:not(:disabled) {
+  background: color-mix(in srgb, var(--sidebar-accent-active) 18%, transparent) !important;
+}
+
+/* ==========================================================================
+   Icon
+   ========================================================================== */
+
+.sidebarItemIcon {
+  display: grid;
+  flex: 0 0 var(--sidebar-icon-size);
+
+  width: var(--sidebar-icon-size);
+  height: var(--sidebar-icon-size);
+
+  place-items: center;
+}
+
+.sidebarItemIcon svg {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+}
+
+/* ==========================================================================
+   Text
+   ========================================================================== */
+
+.sidebarItemText {
+  min-width: 0;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Submenu
+   ========================================================================== */
+
+.sidebarSubmenu {
+  display: flex;
+  flex-direction: column;
+
+  margin-left: var(--sidebar-padding);
+  padding-left: var(--sidebar-padding);
+
+  gap: var(--sidebar-nav-gap);
+
+  border-left: var(--border-default);
+}
+
+/* ==========================================================================
+   Separator
+   ========================================================================== */
+
+.separator {
+  border-top: var(--border-default);
+}
+
+/* ==========================================================================
+   Content
+   ========================================================================== */
+
+.sidebarContent {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+
+  min-width: 0;
+  min-height: 0;
+
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Interaction
+   ========================================================================== */
+
+@media (hover: hover) {
+  .sidebarItem:hover:not(:disabled) {
+    background: color-mix(in srgb, var(--sidebar-accent-hover) 8%, transparent) !important;
+  }
+
+  .sidebarModeToggle:hover:not(:disabled) {
+    color: CanvasText;
+  }
+}
+
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebarShell {
+    transition: none;
+  }
+}

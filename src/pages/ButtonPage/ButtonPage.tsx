@@ -7,7 +7,7 @@ import { Section } from '../../storybook/components/Section/Section';
 import Button from '../../components/button/button';
 import styles from './ButtonPage.module.css';
 
-const sizes: Size[] = ['XS', 'S', 'M', 'L', 'XL'];
+const S: Size[] = ['XS', 'S', 'M', 'L', 'XL'];
 
 export function ButtonPage() {
   return (
@@ -31,7 +31,7 @@ export function ButtonPage() {
       </Section>
 
       <Section title="Sizes" description="Todos los tamaños disponibles.">
-        {sizes.map((size) => (
+        {S.map((size) => (
           <Card
             key={size}
             size={size}
@@ -86,8 +86,8 @@ export function ButtonPage() {
         </Card>
       </Section>
 
-      <Section title="Icon sizes" description="La superficie y el icono se adaptan al tamaño del botón.">
-        {sizes.map((size) => (
+      <Section title="Icon S" description="La superficie y el icono se adaptan al tamaño del botón.">
+        {S.map((size) => (
           <Card
             key={size}
             size={size}

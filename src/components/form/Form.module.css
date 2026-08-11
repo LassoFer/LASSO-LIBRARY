@@ -20,15 +20,15 @@
   align-items: center; */
 }
 
-.formInput.sizeS {
+.formInput.S {
   gap: 5px;
 }
 
-.formInput.sizeM {
+.formInput.M {
   gap: 8px;
 }
 
-.formInput.sizeL {
+.formInput.L {
   gap: 11px;
 }
 
@@ -42,14 +42,14 @@
   color: var(--color-primary);
 }
 
-.sizeS {
+.S {
   font-size: 10px;
 }
 
-.sizeM {
+.M {
   font-size: 15px;
 }
 
-.sizeL {
+.L {
   font-size: 20px;
 }

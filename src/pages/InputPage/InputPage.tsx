@@ -20,7 +20,7 @@ interface CityOption {
   country: string;
 }
 
-const sizes: Size[] = ['XS', 'S', 'M', 'L', 'XL'];
+const S: Size[] = ['XS', 'S', 'M', 'L', 'XL'];
 
 export function InputPage() {
   /* ==========================================================================
@@ -210,11 +210,11 @@ export function InputPage() {
       </Section>
 
       {/* ==================================================================
-          Sizes
+          S
       ================================================================== */}
 
       <Section title="Sizes" description="Escalas disponibles para diferentes niveles de densidad.">
-        {sizes.map((size) => (
+        {S.map((size) => (
           <Card
             key={size}
             size={size}
@@ -344,11 +344,11 @@ export function InputPage() {
       </Section>
 
       {/* ==================================================================
-          Search sizes
+          Search S
       ================================================================== */}
 
-      <Section title="Search sizes" description="Variaciones de búsqueda disponibles en todas las escalas.">
-        {sizes.map((size) => (
+      <Section title="Search S" description="Variaciones de búsqueda disponibles en todas las escalas.">
+        {S.map((size) => (
           <Card
             key={size}
             size={size}

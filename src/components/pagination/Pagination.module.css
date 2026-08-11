@@ -169,196 +169,196 @@
   color: var(--color-text-muted);
 }
 
-/* Sizes */
-.sizeS {
+/* S */
+.S {
   gap: 5px;
 }
 
-.sizeS .pgCenter {
+.S .pgCenter {
   gap: 5px;
 }
 
-.sizeS .pgBtn {
+.S .pgBtn {
   min-width: 22px;
   height: 22px;
 }
 
-.sizeS .pgItem {
+.S .pgItem {
   min-width: 22px;
   height: 22px;
   padding: 0 5px;
   font-size: 10.5px;
 }
 
-.sizeS .pgCurrent {
+.S .pgCurrent {
   min-width: 24px;
   height: 24px;
   padding: 0 7px;
   font-size: 10.5px;
 }
 
-.sizeS .pgInput {
+.S .pgInput {
   width: 48px;
   height: 24px;
   padding: 0 5px;
   font-size: 10.5px;
 }
 
-.sizeS .pgSide,
-.sizeS .pgEnds {
+.S .pgSide,
+.S .pgEnds {
   gap: var(--space-1);
 }
 
-.sizeS .pgEllipsis {
+.S .pgEllipsis {
   font-size: 10.5px;
 }
 
-.sizeS .pgIcon {
+.S .pgIcon {
   width: 13px;
   height: 13px;
 }
 
-.sizeM {
+.M {
   gap: var(--space-2);
 }
 
-.sizeM .pgCenter {
+.M .pgCenter {
   gap: var(--space-2);
 }
 
-.sizeM .pgBtn {
+.M .pgBtn {
   min-width: 30px;
   height: 30px;
 }
 
-.sizeM .pgItem {
+.M .pgItem {
   min-width: 28px;
   height: 28px;
   padding: 0 7px;
   font-size: var(--font-size-sm);
 }
 
-.sizeM .pgCurrent {
+.M .pgCurrent {
   min-width: 30px;
   height: 30px;
   padding: 0 9px;
   font-size: var(--font-size-sm);
 }
 
-.sizeM .pgInput {
+.M .pgInput {
   width: 58px;
   height: 30px;
   padding: 0 7px;
   font-size: var(--font-size-sm);
 }
 
-.sizeM .pgSide,
-.sizeM .pgEnds {
+.M .pgSide,
+.M .pgEnds {
   gap: 5px;
 }
 
-.sizeM .pgEllipsis {
+.M .pgEllipsis {
   font-size: var(--font-size-sm);
 }
 
-.sizeM .pgIcon {
+.M .pgIcon {
   width: 14px;
   height: 14px;
 }
 
-.sizeL {
+.L {
   gap: var(--space-3);
 }
 
-.sizeL .pgCenter {
+.L .pgCenter {
   gap: var(--space-3);
 }
 
-.sizeL .pgBtn {
+.L .pgBtn {
   min-width: 34px;
   height: 34px;
 }
 
-.sizeL .pgItem {
+.L .pgItem {
   min-width: 32px;
   height: 32px;
   padding: 0 9px;
   font-size: 13px;
 }
 
-.sizeL .pgCurrent {
+.L .pgCurrent {
   min-width: 34px;
   height: 34px;
   padding: 0 var(--space-3);
   font-size: 13px;
 }
 
-.sizeL .pgInput {
+.L .pgInput {
   width: 66px;
   height: 34px;
   padding: 0 9px;
   font-size: 13px;
 }
 
-.sizeL .pgSide,
-.sizeL .pgEnds {
+.L .pgSide,
+.L .pgEnds {
   gap: 6px;
 }
 
-.sizeL .pgEllipsis {
+.L .pgEllipsis {
   font-size: 13px;
 }
 
-.sizeL .pgIcon {
+.L .pgIcon {
   width: 16px;
   height: 16px;
 }
 
 @media (max-width: 1000px) {
-  .sizeM {
+  .M {
     gap: 5px;
   }
 
-  .sizeM .pgCenter {
+  .M .pgCenter {
     gap: 5px;
   }
 
-  .sizeM .pgInput {
+  .M .pgInput {
     width: 50px;
     height: 24px;
     padding: 0 5px;
     font-size: 10.5px;
   }
 
-  .sizeM .pgItem {
+  .M .pgItem {
     min-width: 24px;
     height: 24px;
     padding: 0 5px;
     font-size: 10.5px;
   }
 
-  .sizeM .pgBtn {
+  .M .pgBtn {
     min-width: 22px;
     height: 22px;
   }
 
-  .sizeM .pgCurrent {
+  .M .pgCurrent {
     min-width: 24px;
     height: 24px;
     padding: 0 7px;
     font-size: 10.5px;
   }
 
-  .sizeM .pgSide,
-  .sizeM .pgEnds {
+  .M .pgSide,
+  .M .pgEnds {
     gap: var(--space-1);
   }
 
-  .sizeM .pgEllipsis {
+  .M .pgEllipsis {
     font-size: 10.5px;
   }
 
-  .sizeM .pgIcon {
+  .M .pgIcon {
     width: 13px;
     height: 13px;
   }

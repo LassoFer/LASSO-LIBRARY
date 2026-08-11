@@ -1,0 +1,134 @@
+/* ==========================================================================
+   Page
+   ========================================================================== */
+
+.page {
+  box-sizing: border-box;
+
+  width: 100%;
+  min-height: 100%;
+  padding: 24px;
+
+  overflow: auto;
+}
+
+.header {
+  margin-bottom: 40px;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+
+  color: var(--color-grey-heavy);
+
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0 0 10px;
+}
+
+.description {
+  max-width: 760px;
+  margin: 0;
+
+  color: var(--color-grey-extra-heavy);
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   Cards
+   ========================================================================== */
+
+.mainCard {
+  width: 100%;
+}
+
+.sizeCard {
+  width: 100%;
+}
+
+.positionCard {
+  width: 100%;
+}
+
+.cardContent {
+  padding: 0 !important;
+
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Preview
+   ========================================================================== */
+
+.preview {
+  width: 100%;
+  height: 340px;
+
+  overflow: hidden;
+
+  background-color: Canvas;
+}
+
+.previewContent {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  box-sizing: border-box;
+
+  min-width: 0;
+  min-height: 0;
+  padding: 20px;
+}
+
+.previewLabel {
+  margin-top: 8px;
+
+  color: var(--color-grey-heavy);
+
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+
+  text-transform: uppercase;
+}
+
+.previewValue {
+  color: CanvasText;
+
+  font-size: 12px;
+}
+
+/* ==========================================================================
+   Mobile
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .page {
+    padding: 16px;
+  }
+
+  .header {
+    margin-bottom: 32px;
+  }
+
+  .mainCard,
+  .sizeCard {
+    width: 100%;
+  }
+
+  .preview {
+    height: 420px;
+  }
+}

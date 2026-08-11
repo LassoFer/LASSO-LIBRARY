@@ -34,12 +34,12 @@ export function Form<T>({
   const getSizeClass = () => {
     switch (size) {
       case 'S':
-        return styles.sizeS;
+        return styles.S;
       case 'L':
-        return styles.sizeL;
+        return styles.L;
       case 'M':
       default:
-        return styles.sizeM;
+        return styles.M;
     }
   };
 

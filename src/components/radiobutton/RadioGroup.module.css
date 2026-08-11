@@ -218,10 +218,10 @@
 }
 
 /* ==========================================================================
-   Sizes
+   S
    ========================================================================== */
 
-.sizeS {
+.S {
   --radio-gap: var(--space-1);
   --radio-padding: 3px 6px;
   --radio-content-gap: var(--space-1);
@@ -235,7 +235,7 @@
   --radio-description-size: 8px;
 }
 
-.sizeM {
+.M {
   --radio-gap: 5px;
   --radio-padding: 4px 7px;
   --radio-content-gap: 6px;
@@ -249,7 +249,7 @@
   --radio-description-size: 9px;
 }
 
-.sizeL {
+.L {
   --radio-gap: 7px;
   --radio-padding: 5px 9px;
   --radio-content-gap: 7px;

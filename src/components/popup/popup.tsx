@@ -235,7 +235,7 @@ export default function Popup({
     document.body.style.touchAction = 'none';
   };
 
-  const handleResizeStart = (event: ReactPointerEvent<HTMLDivElement>) => {
+  const handleReStart = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (!resizable) return;
 
     event.preventDefault();
@@ -296,7 +296,7 @@ export default function Popup({
 
         <div className={styles.content}>{children}</div>
 
-        {resizable && <div className={styles.resizeHandle} onPointerDown={handleResizeStart} />}
+        {resizable && <div className={styles.resizeHandle} onPointerDown={handleReStart} />}
       </div>
     </div>
   );

@@ -249,7 +249,7 @@ function InputComponent<InputOption = unknown, TValue extends Value = string>(
      Classes
      ========================================================================== */
 
-  const controlClassName = classNames([styles.input, styles[`size${size}`], isTextarea && styles.textarea, className]);
+  const controlClassName = classNames([styles.input, styles[`${size}`], isTextarea && styles.textarea, className]);
 
   /* ==========================================================================
      Shared props
@@ -280,7 +280,7 @@ function InputComponent<InputOption = unknown, TValue extends Value = string>(
       ref={wrapperRef}
       className={classNames([
         styles.wrapper,
-        styles[`size${size}`],
+        styles[`${size}`],
         Icon && styles.hasIcon,
         search && styles.hasSearch,
         disabled && styles.disabled,

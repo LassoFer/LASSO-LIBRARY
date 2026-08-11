@@ -41,23 +41,23 @@
   color: CanvasText;
 }
 
-.sizeXS .icon {
+.XS .icon {
   left: 5px;
 }
 
-.sizeS .icon {
+.S .icon {
   left: 6px;
 }
 
-.sizeM .icon {
+.M .icon {
   left: 8px;
 }
 
-.sizeL .icon {
+.L .icon {
   left: 9px;
 }
 
-.sizeXL .icon {
+.XL .icon {
   left: 11px;
 }
 
@@ -134,10 +134,10 @@
 }
 
 /* ==========================================================================
-   Sizes
+   S
    ========================================================================== */
 
-.sizeXS.input {
+.XS.input {
   height: 18px;
   min-height: 18px;
   padding: 2px 4px;
@@ -147,7 +147,7 @@
   border-radius: 2px;
 }
 
-.sizeS.input {
+.S.input {
   height: 22px;
   min-height: 22px;
   padding: 3px 6px;
@@ -157,7 +157,7 @@
   border-radius: 2px;
 }
 
-.sizeM.input {
+.M.input {
   height: 30px;
   min-height: 30px;
   padding: 4px 7px;
@@ -167,7 +167,7 @@
   border-radius: 3px;
 }
 
-.sizeL.input {
+.L.input {
   height: 32px;
   min-height: 32px;
   padding: 5px 8px;
@@ -177,7 +177,7 @@
   border-radius: 4px;
 }
 
-.sizeXL.input {
+.XL.input {
   height: 38px;
   min-height: 38px;
   padding: 8px 12px;
@@ -191,43 +191,43 @@
    Input spacing with controls
    ========================================================================== */
 
-.sizeXS.hasIcon .input {
+.XS.hasIcon .input {
   padding-left: 20px;
 }
 
-.sizeXS.hasSearch .input {
+.XS.hasSearch .input {
   padding-right: 20px;
 }
 
-.sizeS.hasIcon .input {
+.S.hasIcon .input {
   padding-left: 24px;
 }
 
-.sizeS.hasSearch .input {
+.S.hasSearch .input {
   padding-right: 24px;
 }
 
-.sizeM.hasIcon .input {
+.M.hasIcon .input {
   padding-left: 30px;
 }
 
-.sizeM.hasSearch .input {
+.M.hasSearch .input {
   padding-right: 30px;
 }
 
-.sizeL.hasIcon .input {
+.L.hasIcon .input {
   padding-left: 36px;
 }
 
-.sizeL.hasSearch .input {
+.L.hasSearch .input {
   padding-right: 36px;
 }
 
-.sizeXL.hasIcon .input {
+.XL.hasIcon .input {
   padding-left: 40px;
 }
 
-.sizeXL.hasSearch .input {
+.XL.hasSearch .input {
   padding-right: 40px;
 }
 
@@ -243,23 +243,23 @@
   line-height: 1.4;
 }
 
-.sizeXS.textarea {
+.XS.textarea {
   min-height: 54px;
 }
 
-.sizeS.textarea {
+.S.textarea {
   min-height: 60px;
 }
 
-.sizeM.textarea {
+.M.textarea {
   min-height: 72px;
 }
 
-.sizeL.textarea {
+.L.textarea {
   min-height: 84px;
 }
 
-.sizeXL.textarea {
+.XL.textarea {
   min-height: 96px;
 }
 
@@ -346,26 +346,26 @@
 }
 
 /* ==========================================================================
-   Search button sizes
+   Search button S
    ========================================================================== */
 
-.sizeXS .searchButton {
+.XS .searchButton {
   right: 0;
 }
 
-.sizeS .searchButton {
+.S .searchButton {
   right: 0;
 }
 
-.sizeM .searchButton {
+.M .searchButton {
   right: 1px;
 }
 
-.sizeL .searchButton {
+.L .searchButton {
   right: 2px;
 }
 
-.sizeXL .searchButton {
+.XL .searchButton {
   right: 3px;
 }
 
@@ -543,23 +543,23 @@
    ========================================================================== */
 
 @media (hover: none) and (pointer: coarse) {
-  .sizeXS.input {
+  .XS.input {
     font-size: 9px;
   }
 
-  .sizeS.input {
+  .S.input {
     font-size: 11px;
   }
 
-  .sizeM.input {
+  .M.input {
     font-size: 14px;
   }
 
-  .sizeL.input {
+  .L.input {
     font-size: 16px;
   }
 
-  .sizeXL.input {
+  .XL.input {
     font-size: 18px;
   }
 

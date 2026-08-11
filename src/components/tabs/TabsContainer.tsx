@@ -49,9 +49,9 @@ export const TabsContainer = <TProps,>({
   );
 
   const sizeClass = {
-    S: styles.sizeS,
-    M: styles.sizeM,
-    L: styles.sizeL,
+    S: styles.S,
+    M: styles.M,
+    L: styles.L,
   }[size];
 
   const [activeTabName, setActiveTabName] = useState<string | undefined>(defaultTabName ?? tabsWithRefs[0]?.name);

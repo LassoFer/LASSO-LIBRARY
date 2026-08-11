@@ -13,6 +13,41 @@ body {
   height: 100%;
 }
 
+/* ==========================================================================
+   Scrollbar
+   ========================================================================== */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, CanvasText 18%, transparent) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: color-mix(in srgb, CanvasText 16%, transparent);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(in srgb, CanvasText 28%, transparent);
+}
+
+*::-webkit-scrollbar-thumb:active {
+  background-color: color-mix(in srgb, CanvasText 36%, transparent);
+}
+
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
 :root {
   color-scheme: light dark;
 
@@ -30,8 +65,8 @@ body {
     sans-serif;
 
   /* ==========================================================================
-   Semantic colors
-   ========================================================================== */
+     Semantic colors
+     ========================================================================== */
 
   --color-success: #11864b;
   --color-success-hover: #159d57;
@@ -52,8 +87,34 @@ body {
   --color-warning-hover: #d38e00;
   --color-warning-focus: #eda200;
   --color-warning-active: #925f00;
+
   /* ==========================================================================
-     Neutral colors
+     Neutral interactive colors
+     ========================================================================== */
+
+  --color-neutral: #5f6875;
+  --color-neutral-hover: #707b89;
+  --color-neutral-focus: #85909d;
+  --color-neutral-active: #454d58;
+
+  /* ==========================================================================
+     Neutral scale
+     ========================================================================== */
+
+  --color-neutral-50: #f7f8f9;
+  --color-neutral-100: #eef0f2;
+  --color-neutral-200: #dde1e5;
+  --color-neutral-300: #c7cdd3;
+  --color-neutral-400: #9ca5af;
+  --color-neutral-500: #707b89;
+  --color-neutral-600: #5f6875;
+  --color-neutral-700: #454d58;
+  --color-neutral-800: #30363e;
+  --color-neutral-900: #1e2329;
+  --color-neutral-950: #111418;
+
+  /* ==========================================================================
+     Structural greys
      ========================================================================== */
 
   --color-grey-light: #d3d3d3;
@@ -101,7 +162,32 @@ body {
     --color-warning-active: #c99c27;
 
     /* ==========================================================================
-       Neutral colors
+       Neutral interactive colors
+       ========================================================================== */
+
+    --color-neutral: #a8b0ba;
+    --color-neutral-hover: #bac1c9;
+    --color-neutral-focus: #cbd1d7;
+    --color-neutral-active: #858e99;
+
+    /* ==========================================================================
+       Neutral scale
+       ========================================================================== */
+
+    --color-neutral-50: #15181c;
+    --color-neutral-100: #1d2126;
+    --color-neutral-200: #292e35;
+    --color-neutral-300: #3a414a;
+    --color-neutral-400: #59636e;
+    --color-neutral-500: #7d8792;
+    --color-neutral-600: #a8b0ba;
+    --color-neutral-700: #c1c7cd;
+    --color-neutral-800: #d9dde1;
+    --color-neutral-900: #eceef0;
+    --color-neutral-950: #f7f8f9;
+
+    /* ==========================================================================
+       Structural greys
        ========================================================================== */
 
     --color-grey-light: #3f3f3f;
