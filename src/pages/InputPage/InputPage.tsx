@@ -78,10 +78,8 @@ export function InputPage() {
      ========================================================================== */
 
   const [selectedUserValue, setSelectedUserValue] = useState('');
-  const [selectedUser, setSelectedUser] = useState<UserOption | null>(null);
 
   const [selectedCityValue, setSelectedCityValue] = useState('');
-  const [selectedCity, setSelectedCity] = useState<CityOption | null>(null);
 
   const [primitiveOptionValue, setPrimitiveOptionValue] = useState('');
   const [emptyOptionValue, setEmptyOptionValue] = useState('');
@@ -432,7 +430,6 @@ export function InputPage() {
               value={selectedUserValue}
               onChange={(value) => {
                 setSelectedUserValue(String(value));
-                setSelectedUser(null);
               }}
               options={filteredUsers}
               getOptionLabel={(option) => (
@@ -443,7 +440,6 @@ export function InputPage() {
                 </span>
               )}
               getOptionValue={(option) => option.name}
-              onOptionSelect={setSelectedUser}
               placeholder="Buscar usuario"
             />
           </div>
@@ -463,12 +459,10 @@ export function InputPage() {
               value={selectedCityValue}
               onChange={(value) => {
                 setSelectedCityValue(String(value));
-                setSelectedCity(null);
               }}
               options={filteredCities}
               getOptionLabel={(option) => option.name}
               getOptionValue={(option) => option.name}
-              onOptionSelect={setSelectedCity}
               placeholder="Buscar ciudad"
             />
           </div>

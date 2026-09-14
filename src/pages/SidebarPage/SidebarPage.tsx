@@ -1,5 +1,5 @@
 import { BarChart3, Home, LayoutDashboard, Package, Settings, Users } from 'lucide-react';
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 
 import { Card } from '../../components/card/card';
 import type { Size } from '../../components/common';
@@ -11,7 +11,7 @@ import styles from './SidebarPage.module.css';
 
 const S: Size[] = ['XS', 'S', 'M', 'L', 'XL'];
 
-const positions: SidebarPosition[] = ['left', 'right'];
+const positions: SidebarPosition[] = ['right'];
 
 /* ==========================================================================
    Data
@@ -110,20 +110,21 @@ const childrenItems: SidebarMenuItem[] = [
 type MenuPreviewProps = {
   items?: SidebarMenuItem[];
   size?: Size;
-  mode?: SidebarMode;
+  defaultMode?: SidebarMode;
   position?: SidebarPosition;
   initialPath?: string;
+  brand?: ReactNode;
 };
 
 function MenuPreview({
   items = menuItems,
   size = 'M',
-  mode = 'expanded',
+  defaultMode = 'collapsed',
   position = 'left',
   initialPath = '/dashboard',
+  brand,
 }: MenuPreviewProps) {
   const [currentPath, setCurrentPath] = useState(initialPath);
-  const [currentMode, setCurrentMode] = useState<SidebarMode>(mode);
 
   return (
     <div className={styles.preview}>
@@ -132,9 +133,8 @@ function MenuPreview({
         size={size}
         position={position}
         currentPath={currentPath}
-        mode={currentMode}
-        onModeChange={setCurrentMode}
         onNavigate={(url) => setCurrentPath(url)}
+        brand={brand}
       >
         <div className={styles.previewContent}>
           <span className={styles.previewLabel}>Ruta activa</span>
@@ -142,8 +142,6 @@ function MenuPreview({
           <code className={styles.previewValue}>{currentPath}</code>
 
           <span className={styles.previewLabel}>Modo</span>
-
-          <code className={styles.previewValue}>{currentMode}</code>
         </div>
       </SidebarMenu>
     </div>
@@ -173,7 +171,7 @@ export function SidebarPage() {
 
       <Section title="Default" description="Configuración principal con cambio interactivo entre expanded y collapsed.">
         <Card
-          size="M"
+          size="L"
           title="Default"
           subtitle="Navegación estándar · Modo interactivo"
           className={styles.mainCard}
@@ -197,7 +195,7 @@ export function SidebarPage() {
             className={styles.sizeCard}
             contentClassName={styles.cardContent}
           >
-            <MenuPreview size={size} mode="expanded" />
+            <MenuPreview size={size} defaultMode="expanded" />
           </Card>
         ))}
       </Section>
@@ -232,7 +230,7 @@ export function SidebarPage() {
             className={styles.positionCard}
             contentClassName={styles.cardContent}
           >
-            <MenuPreview position={position} mode="expanded" />
+            <MenuPreview position={position} defaultMode="expanded" brand={'Lasso Library'} />
           </Card>
         ))}
       </Section>

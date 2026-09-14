@@ -15,7 +15,7 @@ export interface SelectProps extends Omit<React.SelectHTMLAttributes<HTMLSelectE
   className?: string;
   style?: CSSProperties;
   size?: Size;
-  mode: mode;
+  mode: mode | mode[];
   options: option[];
   onChange?: (value: any) => void;
   onFocus?: () => void;

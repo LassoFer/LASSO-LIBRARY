@@ -1,9 +1,10 @@
-import { PanelLeftClose, PanelRightClose, type LucideIcon } from 'lucide-react';
-import { useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+import { ChevronLeft, ChevronRight, type LucideIcon } from 'lucide-react';
+import { useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 
 import Button from '../button/button';
 import type { Size } from '../common';
 
+import { classNames } from '../../utils/common';
 import styles from './SidebarMenu.module.css';
 
 export type SidebarMode = 'collapsed' | 'expanded';
@@ -28,10 +29,7 @@ export type SidebarMenuProps = {
 
   size?: Size;
 
-  mode?: SidebarMode;
   defaultMode?: SidebarMode;
-
-  onModeChange?: (mode: SidebarMode) => void;
 
   position?: SidebarPosition;
 
@@ -48,6 +46,14 @@ export type SidebarMenuProps = {
   ariaLabel?: string;
 
   className?: string;
+};
+
+const collapsedWidths: Record<Size, number> = {
+  XS: 29,
+  S: 40,
+  M: 51,
+  L: 60,
+  XL: 72,
 };
 
 function isRouteMatch(pathname: string, target?: string) {
@@ -77,9 +83,7 @@ export default function SidebarMenu({
 
   size = 'M',
 
-  mode,
-  defaultMode = 'collapsed',
-  onModeChange,
+  defaultMode = 'expanded',
 
   position = 'left',
 
@@ -96,13 +100,12 @@ export default function SidebarMenu({
   className,
 }: SidebarMenuProps) {
   const [internalMode, setInternalMode] = useState<SidebarMode>(defaultMode);
-
+  const [originalWidth, setOriginalWidth] = useState<number | null>(null);
   const [expandedWidth, setExpandedWidth] = useState<number | null>(null);
 
   const measureRef = useRef<HTMLDivElement>(null);
 
-  const currentMode = mode ?? internalMode;
-  const isCollapsed = currentMode === 'collapsed';
+  const isCollapsed = internalMode === 'collapsed';
 
   const resolveActive = isItemActive ?? defaultIsItemActive;
 
@@ -116,22 +119,8 @@ export default function SidebarMenu({
     if (!element) {
       return;
     }
-
-    const updateWidth = () => {
-      const width = Math.ceil(element.scrollWidth);
-
-      setExpandedWidth((current) => (current === width ? current : width));
-    };
-
-    updateWidth();
-
-    const observer = new ResizeObserver(updateWidth);
-
-    observer.observe(element);
-
-    return () => {
-      observer.disconnect();
-    };
+    const width = Math.ceil(element.scrollWidth);
+    setOriginalWidth((current) => (current === width ? current : width + 1));
   }, [items, size]);
 
   /* ==========================================================================
@@ -140,12 +129,8 @@ export default function SidebarMenu({
 
   const toggleMode = () => {
     const nextMode: SidebarMode = isCollapsed ? 'expanded' : 'collapsed';
-
-    if (mode === undefined) {
-      setInternalMode(nextMode);
-    }
-
-    onModeChange?.(nextMode);
+    setInternalMode(nextMode);
+    setExpandedWidth(nextMode === 'expanded' ? originalWidth : collapsedWidths[size]);
   };
 
   /* ==========================================================================
@@ -153,12 +138,11 @@ export default function SidebarMenu({
      ========================================================================== */
 
   const handleItemClick = (item: SidebarMenuItem) => {
-    if (item.disabled) {
-      return;
-    }
+    if (item.disabled) return;
 
     if (item.onClick) {
       item.onClick(item);
+
       return;
     }
 
@@ -186,8 +170,6 @@ export default function SidebarMenu({
             data-active={active}
             data-depth={depth}
             disabled={item.disabled}
-            aria-current={active ? 'page' : undefined}
-            aria-label={isCollapsed ? item.text : undefined}
             tooltip={isCollapsed ? item.text : undefined}
             onClick={() => handleItemClick(item)}
           >
@@ -198,38 +180,17 @@ export default function SidebarMenu({
                 </span>
               ) : null}
 
-              {!isCollapsed ? <span className={styles.sidebarItemText}>{item.text}</span> : null}
+              {!isCollapsed && (
+                <span className={classNames([styles.sidebarItemText, styles.itemCollapsed])}>{item.text}</span>
+              )}
             </span>
           </Button>
 
           {!isCollapsed && item.children?.length ? (
-            <div className={styles.sidebarSubmenu}>{renderMenu(item.children, depth + 1)}</div>
+            <div className={classNames([styles.sidebarSubmenu, styles.itemCollapsed])}>
+              {renderMenu(item.children, depth + 1)}
+            </div>
           ) : null}
-        </div>
-      );
-    });
-
-  /* ==========================================================================
-     Width measurement
-     ========================================================================== */
-
-  const renderMeasureItems = (nodes: SidebarMenuItem[], depth = 0): ReactNode =>
-    nodes.map((item) => {
-      const Icon = item.icon;
-
-      return (
-        <div key={item.id}>
-          <div className={styles.sidebarWidthMeasureItem} data-depth={depth}>
-            {Icon ? (
-              <span className={styles.sidebarItemIcon}>
-                <Icon aria-hidden="true" />
-              </span>
-            ) : null}
-
-            <span className={styles.sidebarWidthMeasureText}>{item.text}</span>
-          </div>
-
-          {item.children?.length ? renderMeasureItems(item.children, depth + 1) : null}
         </div>
       );
     });
@@ -238,55 +199,37 @@ export default function SidebarMenu({
      Render
      ========================================================================== */
 
-  const classNameRoot = [styles.sidebarMenu, styles[`${size}`], className].filter(Boolean).join(' ');
-
-  const style =
-    expandedWidth === null
-      ? undefined
-      : ({
-          '--sidebar-expanded-width': `${expandedWidth}px`,
-        } as CSSProperties);
-
   const ToggleIcon =
-    position === 'right'
-      ? isCollapsed
-        ? PanelLeftClose
-        : PanelRightClose
-      : isCollapsed
-        ? PanelRightClose
-        : PanelLeftClose;
+    position === 'right' ? (isCollapsed ? ChevronLeft : ChevronRight) : isCollapsed ? ChevronRight : ChevronLeft;
 
   return (
-    <div className={classNameRoot} data-mode={currentMode} data-position={position} style={style}>
-      <div ref={measureRef} className={styles.sidebarWidthMeasure} aria-hidden="true">
-        {renderMeasureItems(items)}
-      </div>
-
-      <aside className={styles.sidebarShell} aria-label={ariaLabel}>
+    <div
+      className={classNames([styles.sidebarMenu, styles[`${size}`], className])}
+      data-mode={internalMode}
+      data-position={position}
+    >
+      <div
+        ref={measureRef}
+        className={styles.sidebarShell}
+        aria-label={ariaLabel}
+        style={{ width: `${expandedWidth ?? originalWidth}px` }}
+        // onMouseEnter={ontoggle}
+      >
         <div className={styles.sidebarShellTop}>
-          <div className={styles.sidebarHeader}>
-            {!isCollapsed ? <div className={styles.sidebarBrand}>{brand}</div> : null}
-
-            <Button
-              type="button"
-              mode="icon"
-              size={size}
-              className={styles.sidebarModeToggle}
-              onClick={toggleMode}
-              aria-label={isCollapsed ? 'Expandir menú' : 'Plegar menú'}
-              tooltip={isCollapsed ? 'Expandir menú' : 'Plegar menú'}
-            >
+          <div className={styles.sidebarHeader} style={{ gap: isCollapsed ? '0px' : '' }}>
+            <div className={styles.sidebarBrand} style={{ flex: isCollapsed ? '0' : '' }}>
+              {brand}
+            </div>
+            <Button type="button" size={size} className={styles.sidebarModeToggle} onClick={toggleMode}>
               <ToggleIcon aria-hidden="true" />
             </Button>
           </div>
-
-          <div className={styles.separator} />
-
+          <div className={styles.separator}></div>
           <nav className={styles.sidebarNav}>{renderMenu(items)}</nav>
         </div>
 
         {footer ? <div className={styles.sidebarShellBottom}>{footer}</div> : null}
-      </aside>
+      </div>
 
       <main className={styles.sidebarContent}>{children}</main>
     </div>
