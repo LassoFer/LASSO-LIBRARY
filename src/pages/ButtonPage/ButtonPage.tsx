@@ -13,7 +13,7 @@ export function ButtonPage() {
   return (
     <main className={styles.page}>
       <header className={styles.header}>
-        <p className={styles.eyebrow}>Components / Actions</p>
+        <p className={styles.eyebrow}>Components / Button</p>
 
         <h1 className={styles.title}>Button</h1>
 

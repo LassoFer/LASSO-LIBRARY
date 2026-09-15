@@ -1,12 +1,12 @@
-import { MousePointerClick, PanelLeft, TextCursorInput } from 'lucide-react';
-import { useState } from 'react';
+import { BoxSelect, MousePointerClick, PanelLeft, TextCursorInput } from 'lucide-react';
 import { Navigate, Outlet, createBrowserRouter, useLocation, useNavigate } from 'react-router-dom';
 
-import type { SidebarMenuItem, SidebarMode } from '../components/sidebarmenu/SidebarMenu';
+import type { SidebarMenuItem } from '../components/sidebarmenu/SidebarMenu';
 import SidebarMenu from '../components/sidebarmenu/SidebarMenu';
 
 import { ButtonPage } from '../pages/ButtonPage/ButtonPage';
 import { InputPage } from '../pages/InputPage/InputPage';
+import SelectPage from '../pages/SelectPage/SelectPage';
 import { SidebarPage } from '../pages/SidebarPage/SidebarPage';
 
 /* ==========================================================================
@@ -27,6 +27,12 @@ const sidebarItems: SidebarMenuItem[] = [
     icon: MousePointerClick,
   },
   {
+    id: 'select',
+    text: 'Select',
+    url: '/select',
+    icon: BoxSelect,
+  },
+  {
     id: 'sidebar',
     text: 'SidebarMenu',
     url: '/sidebar',
@@ -42,16 +48,12 @@ function ComponentsLayout() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [mode, setMode] = useState<SidebarMode>('expanded');
-
   return (
     <SidebarMenu
       items={sidebarItems}
       size="L"
-      mode={mode}
       position="left"
       currentPath={location.pathname}
-      onModeChange={setMode}
       onNavigate={(url) => navigate(url)}
       ariaLabel="Componentes"
       brand={'Lasso Library'}
@@ -81,6 +83,10 @@ export const router = createBrowserRouter([
       {
         path: 'button',
         element: <ButtonPage />,
+      },
+      {
+        path: 'select',
+        element: <SelectPage />,
       },
       {
         path: 'sidebar',

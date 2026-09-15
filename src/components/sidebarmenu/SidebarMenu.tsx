@@ -38,6 +38,7 @@ export type SidebarMenuProps = {
   onNavigate?: (url: string, item: SidebarMenuItem) => void;
 
   isItemActive?: (item: SidebarMenuItem, currentPath: string) => boolean;
+  showOnHover?: boolean;
 
   brand?: ReactNode;
   footer?: ReactNode;
@@ -46,6 +47,8 @@ export type SidebarMenuProps = {
   ariaLabel?: string;
 
   className?: string;
+  shellClassName?: string;
+  itemClassName?: string;
 };
 
 const collapsedWidths: Record<Size, number> = {
@@ -91,6 +94,8 @@ export default function SidebarMenu({
   onNavigate,
   isItemActive,
 
+  showOnHover,
+
   brand,
   footer,
   children,
@@ -98,13 +103,14 @@ export default function SidebarMenu({
   ariaLabel = 'Navegación principal',
 
   className,
+  shellClassName,
+  itemClassName,
 }: SidebarMenuProps) {
-  const [internalMode, setInternalMode] = useState<SidebarMode>(defaultMode);
+  const [internalMode, setInternalMode] = useState<SidebarMode | null>(null);
   const [originalWidth, setOriginalWidth] = useState<number | null>(null);
   const [expandedWidth, setExpandedWidth] = useState<number | null>(null);
-
+  const [showText, setShowText] = useState<boolean>(true);
   const measureRef = useRef<HTMLDivElement>(null);
-
   const isCollapsed = internalMode === 'collapsed';
 
   const resolveActive = isItemActive ?? defaultIsItemActive;
@@ -121,6 +127,12 @@ export default function SidebarMenu({
     }
     const width = Math.ceil(element.scrollWidth);
     setOriginalWidth((current) => (current === width ? current : width + 1));
+
+    if (defaultMode === 'collapsed') {
+      setInternalMode('collapsed');
+      setExpandedWidth(collapsedWidths[size]);
+      setShowText(false);
+    }
   }, [items, size]);
 
   /* ==========================================================================
@@ -131,6 +143,21 @@ export default function SidebarMenu({
     const nextMode: SidebarMode = isCollapsed ? 'expanded' : 'collapsed';
     setInternalMode(nextMode);
     setExpandedWidth(nextMode === 'expanded' ? originalWidth : collapsedWidths[size]);
+    setShowText(nextMode === 'expanded');
+  };
+
+  const hoverModeEnter = () => {
+    if (isCollapsed && showOnHover) {
+      setExpandedWidth(originalWidth);
+      setShowText(true);
+    }
+  };
+
+  const hoverModeExit = () => {
+    if (isCollapsed && showOnHover) {
+      setExpandedWidth(collapsedWidths[size]);
+      setShowText(false);
+    }
   };
 
   /* ==========================================================================
@@ -166,7 +193,7 @@ export default function SidebarMenu({
             type="button"
             mode="ghost"
             size={size}
-            className={styles.sidebarItem}
+            className={classNames([styles.sidebarItem, itemClassName])}
             data-active={active}
             data-depth={depth}
             disabled={item.disabled}
@@ -180,13 +207,13 @@ export default function SidebarMenu({
                 </span>
               ) : null}
 
-              {!isCollapsed && (
+              {showText && (
                 <span className={classNames([styles.sidebarItemText, styles.itemCollapsed])}>{item.text}</span>
               )}
             </span>
           </Button>
 
-          {!isCollapsed && item.children?.length ? (
+          {showText && item.children?.length ? (
             <div className={classNames([styles.sidebarSubmenu, styles.itemCollapsed])}>
               {renderMenu(item.children, depth + 1)}
             </div>
@@ -210,14 +237,15 @@ export default function SidebarMenu({
     >
       <div
         ref={measureRef}
-        className={styles.sidebarShell}
+        className={classNames([styles.sidebarShell, shellClassName])}
         aria-label={ariaLabel}
         style={{ width: `${expandedWidth ?? originalWidth}px` }}
-        // onMouseEnter={ontoggle}
+        onMouseEnter={hoverModeEnter}
+        onMouseLeave={hoverModeExit}
       >
         <div className={styles.sidebarShellTop}>
-          <div className={styles.sidebarHeader} style={{ gap: isCollapsed ? '0px' : '' }}>
-            <div className={styles.sidebarBrand} style={{ flex: isCollapsed ? '0' : '' }}>
+          <div className={styles.sidebarHeader} style={{ gap: !showText ? '0px' : '' }}>
+            <div className={styles.sidebarBrand} style={{ flex: !showText ? '0' : '' }}>
               {brand}
             </div>
             <Button type="button" size={size} className={styles.sidebarModeToggle} onClick={toggleMode}>

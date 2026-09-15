@@ -11,7 +11,7 @@ import styles from './SidebarPage.module.css';
 
 const S: Size[] = ['XS', 'S', 'M', 'L', 'XL'];
 
-const positions: SidebarPosition[] = ['right'];
+const positions: SidebarPosition[] = ['left', 'right'];
 
 /* ==========================================================================
    Data
@@ -114,15 +114,17 @@ type MenuPreviewProps = {
   position?: SidebarPosition;
   initialPath?: string;
   brand?: ReactNode;
+  showOnHover?: boolean;
 };
 
 function MenuPreview({
   items = menuItems,
   size = 'M',
-  defaultMode = 'collapsed',
+  defaultMode = 'expanded',
   position = 'left',
   initialPath = '/dashboard',
   brand,
+  showOnHover,
 }: MenuPreviewProps) {
   const [currentPath, setCurrentPath] = useState(initialPath);
 
@@ -135,6 +137,8 @@ function MenuPreview({
         currentPath={currentPath}
         onNavigate={(url) => setCurrentPath(url)}
         brand={brand}
+        defaultMode={defaultMode}
+        showOnHover={showOnHover}
       >
         <div className={styles.previewContent}>
           <span className={styles.previewLabel}>Ruta activa</span>
@@ -230,7 +234,26 @@ export function SidebarPage() {
             className={styles.positionCard}
             contentClassName={styles.cardContent}
           >
-            <MenuPreview position={position} defaultMode="expanded" brand={'Lasso Library'} />
+            <MenuPreview position={position} defaultMode="expanded" />
+          </Card>
+        ))}
+      </Section>
+
+      {/* ==================================================================
+          hover
+      ================================================================== */}
+
+      <Section title="On Hover" description="Interaccion on hover activa">
+        {positions.map((position) => (
+          <Card
+            key={position}
+            size="M"
+            title={position}
+            subtitle={`Posición ${position} on hover · Modo interactivo`}
+            className={styles.positionCard}
+            contentClassName={styles.cardContent}
+          >
+            <MenuPreview position={position} defaultMode="collapsed" showOnHover={true} />
           </Card>
         ))}
       </Section>
