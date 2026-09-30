@@ -9,8 +9,10 @@ import {
   type KeyboardEvent,
 } from 'react';
 
+import { ChevronDown, ChevronRight } from 'lucide-react';
 import { classNames } from '../../utils/common';
 import type { Size } from '../common';
+import Input from '../input/input';
 import styles from './select.module.css';
 
 type Mode = 'default' | 'search' | 'tree' | 'multi';
@@ -76,6 +78,7 @@ export default function Select({
 
   const isControlled = value !== undefined;
 
+  const [focusByMouse, setFocusByMouse] = useState<boolean>(false);
   const [internalValue, setInternalValue] = useState<string | number | Array<string | number> | undefined>(
     defaultValue,
   );
@@ -128,8 +131,8 @@ export default function Select({
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
 
-    const margin = 8;
-    const estimatedHeight = Math.min(popupRef.current?.offsetHeight || 300, viewportHeight - margin * 2);
+    const margin = 3;
+    const estimatedHeight = Math.min(popupRef.current?.offsetHeight || 300, viewportHeight - margin);
 
     const popupWidth = Math.max(rect.width, popupRef.current?.offsetWidth || rect.width);
 
@@ -174,41 +177,32 @@ export default function Select({
    * Calculate position after the popup has been rendered.
    */
   useLayoutEffect(() => {
-    if (!open) {
-      return;
-    }
+    if (!open) return;
 
     calculatePopupPosition();
   }, [open, options.length, calculatePopupPosition]);
 
   /**
-   * Recalculate when the viewport changes.
+   * Close the popup when the viewport changes.
    */
   useEffect(() => {
     if (!open) {
       return;
     }
 
-    const handleReposition = () => {
-      calculatePopupPosition();
+    const handleResize = () => {
+      setOpen(false);
     };
 
-    window.addEventListener('resize', handleReposition);
-    window.addEventListener('scroll', handleReposition, true);
-
-    return () => {
-      window.removeEventListener('resize', handleReposition);
-      window.removeEventListener('scroll', handleReposition, true);
+    const handleScroll = (event: Event) => {
+      const target = event.target;
+      const isInsidePopup = target instanceof Node && popupRef.current?.contains(target);
+      const isInsideSelect = target instanceof Node && selectRef.current?.contains(target);
+      if (isInsidePopup || isInsideSelect) {
+        return;
+      }
+      setOpen(false);
     };
-  }, [open, calculatePopupPosition]);
-
-  /**
-   * Close when clicking outside.
-   */
-  useEffect(() => {
-    if (!open) {
-      return;
-    }
 
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
@@ -220,27 +214,18 @@ export default function Select({
     };
 
     document.addEventListener('mousedown', handleClickOutside);
+    window.addEventListener('resize', handleResize);
+    document.addEventListener('scroll', handleScroll, true);
 
     return () => {
+      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('scroll', handleScroll, true);
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [open]);
 
-  /**
-   * Focus search input when opening.
-   */
-  useEffect(() => {
-    if (open && isSearch) {
-      requestAnimationFrame(() => {
-        searchRef.current?.focus();
-      });
-    }
-  }, [open, isSearch]);
-
   const filteredOptions = useMemo(() => {
-    if (!isSearch || !search.trim()) {
-      return options;
-    }
+    if (!isSearch || !search.trim()) return options;
 
     const query = search.toLowerCase();
 
@@ -318,6 +303,9 @@ export default function Select({
         }
 
         break;
+
+      case 'Tab':
+        if (open) setOpen(false);
     }
   };
 
@@ -331,14 +319,15 @@ export default function Select({
         role="option"
         aria-selected={selected}
         onClick={() => handleOptionClick(option)}
+        onKeyDown={handleKeyDown}
       >
-        {isMulti && (
-          <span className={classNames([styles.checkbox, selected ? styles.checkboxChecked : ''])}>
-            {selected && '✓'}
+        {isMulti && <span className={classNames([styles.checkbox, selected ? styles.checkboxChecked : ''])}></span>}
+
+        {isTree && (
+          <span className={styles.treeIcon}>
+            <ChevronRight></ChevronRight>
           </span>
         )}
-
-        {isTree && <span className={styles.treeIcon}>▸</span>}
 
         <span className={styles.optionLabel}>{option.label}</span>
       </div>
@@ -353,9 +342,8 @@ export default function Select({
     return (
       <div
         ref={popupRef}
-        className={styles.popup}
+        className={classNames([styles.popup, styles[`${size}`]])}
         style={{
-          position: 'fixed',
           top: popupPosition?.top,
           left: popupPosition?.left,
           minWidth: popupPosition?.width,
@@ -366,11 +354,11 @@ export default function Select({
       >
         {isSearch && (
           <div className={styles.searchContainer}>
-            <input
+            <Input
               ref={searchRef}
-              className={styles.searchInput}
               value={search}
-              onChange={(event) => setSearch(event.target.value)}
+              onChange={(value) => setSearch(value)}
+              size={size}
               placeholder="Search..."
               onKeyDown={(event) => {
                 if (event.key === 'Escape') {
@@ -398,10 +386,11 @@ export default function Select({
         ref={selectRef}
         className={classNames([
           styles.Select,
-          styles[`size-${size}`],
+          styles[`${size}`],
           disabled ? styles.disabled : '',
           open ? styles.open : '',
           className || '',
+          focusByMouse ? styles.focusByMouse : '',
         ])}
         style={style}
         tabIndex={disabled ? -1 : 0}
@@ -416,14 +405,22 @@ export default function Select({
         }}
         onFocus={onFocus}
         onKeyDown={handleKeyDown}
+        onBlur={() => {
+          setFocusByMouse(false);
+        }}
+        onMouseDown={() => setFocusByMouse(true)}
         {...rest}
       >
         <span className={classNames([styles.value, !selectedValues.length ? styles.placeholder : ''])}>
           {displayValue}
         </span>
 
-        <span className={classNames([styles.arrow, open ? styles.arrowOpen : ''])}>▾</span>
+        <span className={classNames([styles.arrowContainer, styles[size]])}>
+          <ChevronDown size="100%" className={classNames([styles.arrow, open ? styles.arrowOpen : ''])} />
+        </span>
       </div>
+
+      {/* {createPortal(renderPopup(), document.body)} */}
 
       {renderPopup()}
     </>

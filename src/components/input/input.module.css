@@ -12,6 +12,7 @@
   width: 100%;
   min-width: 0;
   height: fit-content;
+  user-select: none;
 }
 
 /* ==========================================================================
@@ -68,82 +69,66 @@
 .input {
   display: block;
   flex: 1;
-
   box-sizing: border-box;
   width: 100%;
+  background: var(--color-neutral-default);
   min-width: 0;
-
-  color: CanvasText;
-  background-color: Canvas;
-
-  border: var(--border-default);
-
+  border: 1px solid var(--color-neutral);
   outline: 1px solid transparent;
-
+  outline-offset: 2px;
   font-family: inherit;
   line-height: 1;
-
-  box-shadow: 0 1px 2px rgb(0 0 0 / 3%);
-
   touch-action: manipulation;
-
   -webkit-tap-highlight-color: transparent;
 
   transition:
     background-color 0.08s ease,
     border-color 0.25s ease,
     color 0.08s ease,
-    outline-color 0.08s ease,
-    box-shadow 0.25s ease;
+    outline-color 0.25s ease;
 }
 
-.input:focus:not(:read-only),
 .input:focus-visible:not(:read-only) {
-  background-color: color-mix(in srgb, currentColor 2%, Canvas);
-  border-color: color-mix(in srgb, currentColor 40%, transparent);
+  border-color: var(--color-neutral-focus);
+  outline-color: var(--color-neutral-focus);
+}
 
-  box-shadow: 0 1px 2px rgb(0 0 0 / 4%);
+.input.focusByMouse {
+  outline: none !important;
 }
 
 .input:active:not(:disabled):not(:read-only) {
-  background-color: color-mix(in srgb, currentColor 5%, Canvas);
-
+  border-color: var(--color-neutral-active);
   outline-color: transparent;
-
-  box-shadow: inset 0 1px 1px rgb(0 0 0 / 4%);
 }
 
 .input::placeholder {
   color: var(--color-grey-heavy);
-
   opacity: 1;
 }
 
 .input:disabled {
   opacity: 0.55;
-
   cursor: not-allowed;
-
-  box-shadow: none;
+  background-color: var(--color-neutral-disabled);
+  border-color: var(--color-neutral-disabled-heavy);
 }
 
 .input:read-only:not(:disabled) {
-  background-color: color-mix(in srgb, currentColor 2%, Canvas);
-
   cursor: default;
+  background-color: var(--color-neutral-disabled);
+  border-color: var(--color-neutral-disabled-heavy);
 }
 
 /* ==========================================================================
-   S
+   Sizes
    ========================================================================== */
 
 .XS.input {
   height: 18px;
   min-height: 18px;
   padding: 2px 4px;
-
   font-size: 9px;
-
   border-radius: 2px;
 }
 
@@ -151,9 +136,7 @@
   height: 22px;
   min-height: 22px;
   padding: 3px 6px;
-
   font-size: 11px;
-
   border-radius: 2px;
 }
 
@@ -161,9 +144,7 @@
   height: 30px;
   min-height: 30px;
   padding: 4px 7px;
-
   font-size: 14px;
-
   border-radius: 3px;
 }
 
@@ -171,9 +152,7 @@
   height: 32px;
   min-height: 32px;
   padding: 5px 8px;
-
   font-size: 16px;
-
   border-radius: 4px;
 }
 
@@ -181,9 +160,7 @@
   height: 38px;
   min-height: 38px;
   padding: 8px 12px;
-
   font-size: 18px;
-
   border-radius: 4px;
 }
 
@@ -287,21 +264,13 @@
   top: 50%;
   right: 2px;
   z-index: 2;
-
   margin: 0;
-
   color: var(--color-grey-heavy);
   background: transparent !important;
   border-color: transparent !important;
-
   outline: none !important;
-
-  box-shadow: none !important;
-
   opacity: 0.85;
-
   transform: translateY(-50%);
-
   transition:
     color 0.08s ease,
     opacity 0.08s ease;
@@ -312,11 +281,7 @@
   color: CanvasText;
   background: transparent !important;
   border-color: transparent !important;
-
   outline: none !important;
-
-  box-shadow: none !important;
-
   opacity: 1;
 }
 
@@ -324,24 +289,13 @@
   color: CanvasText;
   background: transparent !important;
   border-color: transparent !important;
-
-  outline: none !important;
-
-  box-shadow: none !important;
-
   opacity: 0.6;
-
   transform: translateY(-50%);
 }
 
 .searchButton:disabled {
   background: transparent !important;
   border-color: transparent !important;
-
-  outline: none !important;
-
-  box-shadow: none !important;
-
   opacity: 0.4;
 }
 
@@ -379,163 +333,38 @@
   right: 0;
   left: 0;
   z-index: 30;
-
   display: flex;
   flex-direction: column;
   gap: 2px;
-
   box-sizing: border-box;
   max-height: 360px;
   padding: 4px;
-
   overflow-x: hidden;
   overflow-y: auto;
-
   color: CanvasText;
   background-color: Canvas;
-
-  border: var(--border-default);
+  border: var(--border-default-heavy);
   border-radius: 5px;
-
   box-shadow:
     0 4px 12px rgb(0 0 0 / 8%),
     0 1px 3px rgb(0 0 0 / 5%);
 
   overscroll-behavior: contain;
-
   -webkit-overflow-scrolling: touch;
 }
 
 .option {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-
-  box-sizing: border-box;
+  justify-content: left;
+  align-items: left;
   width: 100%;
-  min-height: 32px;
-  padding: 6px 8px;
-
-  color: CanvasText;
-  background-color: transparent;
-
-  border: 1px solid transparent;
-  border-radius: 3px;
-
-  outline: 1px solid transparent;
-  outline-offset: 2px;
-
-  font-family: inherit;
-  font-size: 12px;
-  line-height: 1.25;
   text-align: left;
-
-  cursor: pointer;
-
-  touch-action: manipulation;
-
-  -webkit-tap-highlight-color: transparent;
-
-  transition:
-    background-color 0.08s ease,
-    border-color 0.08s ease,
-    color 0.08s ease,
-    outline-color 0.08s ease,
-    box-shadow 0.08s ease;
-}
-
-.option:focus-visible {
-  background-color: color-mix(in srgb, currentColor 3%, transparent);
-
-  outline-color: color-mix(in srgb, currentColor 22%, transparent);
-}
-
-.option:active:not(:disabled) {
-  background-color: color-mix(in srgb, currentColor 7%, transparent);
-
-  outline-color: transparent;
-}
-
-.option:disabled {
-  opacity: 0.55;
-
-  cursor: not-allowed;
-  pointer-events: none;
 }
 
 .emptyOptions {
   padding: 6px 8px;
-
   color: var(--color-grey-heavy);
-
   font-size: 12px;
   line-height: 1.25;
-}
-
-/* ==========================================================================
-   Hover — pointer devices only
-   ========================================================================== */
-
-@media (hover: hover) and (pointer: fine) {
-  .wrapper:hover .icon {
-    color: CanvasText;
-  }
-
-  .input:hover:not(:disabled):not(:read-only) {
-    background-color: color-mix(in srgb, currentColor 2%, Canvas);
-    border-color: color-mix(in srgb, currentColor 40%, transparent);
-
-    box-shadow: 0 1px 2px rgb(0 0 0 / 9%);
-  }
-
-  .searchButton:hover:not(:disabled) {
-    color: CanvasText;
-    background: transparent !important;
-    border-color: transparent !important;
-
-    outline: none !important;
-
-    box-shadow: none !important;
-
-    opacity: 1;
-  }
-
-  .option:hover:not(:disabled) {
-    background-color: color-mix(in srgb, currentColor 4%, transparent);
-  }
-
-  /*
-   * Active se repite después de hover para que gane
-   * cuando ambos estados están activos simultáneamente.
-   */
-  .input:active:not(:disabled):not(:read-only) {
-    background-color: color-mix(in srgb, currentColor 5%, Canvas);
-
-    outline-color: transparent;
-
-    box-shadow: inset 0 1px 1px rgb(0 0 0 / 4%);
-  }
-
-  .searchButton:active:not(:disabled) {
-    color: CanvasText;
-    background: transparent !important;
-    border-color: transparent !important;
-
-    outline: none !important;
-
-    box-shadow: none !important;
-
-    opacity: 0.6;
-
-    transform: translateY(-50%);
-  }
-
-  .option:active:not(:disabled) {
-    background-color: color-mix(in srgb, currentColor 7%, transparent);
-
-    outline-color: transparent;
-  }
 }
 
 /* ==========================================================================
@@ -590,12 +419,6 @@
     font-size: 14px;
   }
 
-  .input:active:not(:disabled):not(:read-only),
-  .searchButton:active:not(:disabled),
-  .option:active:not(:disabled) {
-    transition-duration: 0.04s;
-  }
-
   .options {
     max-height: min(360px, 50dvh);
   }
@@ -626,118 +449,8 @@
 @media (prefers-color-scheme: dark) {
   .input {
     font-weight: var(--font-weight-regular);
-
-    box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
   }
-
-  .input:focus,
-  .input:focus-visible {
-    box-shadow: 0 1px 3px rgb(0 0 0 / 14%);
-  }
-
-  .input:active:not(:disabled):not(:read-only) {
-    box-shadow: inset 0 1px 1px rgb(0 0 0 / 14%);
-  }
-
   .options {
     border-color: var(--color-grey-heavy);
-
-    box-shadow:
-      0 4px 12px rgb(0 0 0 / 24%),
-      0 1px 3px rgb(0 0 0 / 18%);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .input:hover:not(:disabled):not(:read-only) {
-      box-shadow: 0 1px 3px rgb(0 0 0 / 14%);
-    }
-
-    .input:active:not(:disabled):not(:read-only) {
-      box-shadow: inset 0 1px 1px rgb(0 0 0 / 14%);
-    }
-  }
-}
-
-/* ==========================================================================
-   color-mix fallback
-   ========================================================================== */
-
-@supports not (color: color-mix(in srgb, black, white)) {
-  .input:focus,
-  .input:focus-visible,
-  .input:read-only:not(:disabled) {
-    background-color: rgb(0 0 0 / 2%);
-  }
-
-  .input:focus,
-  .input:focus-visible {
-    outline-color: rgb(0 0 0 / 18%);
-  }
-
-  .input:active:not(:disabled):not(:read-only) {
-    background-color: rgb(0 0 0 / 5%);
-  }
-
-  .option:focus-visible {
-    background-color: rgb(0 0 0 / 3%);
-    outline-color: rgb(0 0 0 / 22%);
-  }
-
-  .option:active:not(:disabled) {
-    background-color: rgb(0 0 0 / 7%);
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .input:hover:not(:disabled):not(:read-only) {
-      background-color: rgb(0 0 0 / 2%);
-    }
-
-    .option:hover:not(:disabled) {
-      background-color: rgb(0 0 0 / 4%);
-    }
-
-    .input:active:not(:disabled):not(:read-only) {
-      background-color: rgb(0 0 0 / 5%);
-    }
-
-    .option:active:not(:disabled) {
-      background-color: rgb(0 0 0 / 7%);
-    }
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .input:focus,
-    .input:focus-visible,
-    .input:read-only:not(:disabled) {
-      background-color: rgb(255 255 255 / 2%);
-    }
-
-    .input:focus,
-    .input:focus-visible {
-      outline-color: rgb(255 255 255 / 18%);
-    }
-
-    .input:active:not(:disabled):not(:read-only) {
-      background-color: rgb(255 255 255 / 5%);
-    }
-
-    .option:focus-visible {
-      background-color: rgb(255 255 255 / 3%);
-      outline-color: rgb(255 255 255 / 22%);
-    }
-
-    .option:active:not(:disabled) {
-      background-color: rgb(255 255 255 / 7%);
-    }
-
-    @media (hover: hover) and (pointer: fine) {
-      .input:hover:not(:disabled):not(:read-only) {
-        background-color: rgb(255 255 255 / 2%);
-      }
-
-      .option:hover:not(:disabled) {
-        background-color: rgb(255 255 255 / 4%);
-      }
-    }
   }
 }

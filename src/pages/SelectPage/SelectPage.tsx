@@ -48,110 +48,198 @@ export default function SelectPage() {
       {/* DEFAULT */}
 
       <Section title="Default" description="Select básico para seleccionar una única opción.">
-        <Card>
-          <Select options={countries} placeholder="Selecciona un país" />
+        <Card
+          size="M"
+          title="Country selection"
+          subtitle="Selección única · Opciones básicas"
+          className={styles.card}
+          contentClassName={styles.cardContent}
+        >
+          <div>
+            <Select options={countries} placeholder="Selecciona un país" />
+          </div>
         </Card>
       </Section>
 
       {/* DEFAULT VALUE */}
 
       <Section title="Default value" description="Select con una opción seleccionada inicialmente.">
-        <Card>
-          <Select options={countries} defaultValue="spain" placeholder="Selecciona un país" />
+        <Card
+          size="M"
+          title="Preselected country"
+          subtitle="Selección inicial · Valor por defecto"
+          className={styles.card}
+          contentClassName={styles.cardContent}
+        >
+          <div>
+            <Select options={countries} defaultValue="spain" placeholder="Selecciona un país" />
+          </div>
         </Card>
       </Section>
 
       {/* CONTROLLED */}
 
       <Section title="Controlled" description="Select controlado mediante value y onChange.">
-        <Card>
-          <Select
-            options={countries}
-            value={selectedCountry}
-            onChange={(value) => {
-              if (typeof value === 'string' || typeof value === 'number') {
-                setSelectedCountry(value);
-              }
-            }}
-          />
+        <Card
+          size="M"
+          title="Controlled selection"
+          subtitle="Selección controlada · Estado externo"
+          className={styles.card}
+          contentClassName={styles.cardContent}
+        >
+          <div>
+            <Select
+              options={countries}
+              value={selectedCountry}
+              onChange={(value) => {
+                if (typeof value === 'string' || typeof value === 'number') {
+                  setSelectedCountry(value);
+                }
+              }}
+            />
 
-          <p>
-            Valor seleccionado: <strong>{selectedCountry}</strong>
-          </p>
+            <p>
+              Valor seleccionado: <strong>{selectedCountry}</strong>
+            </p>
+          </div>
         </Card>
       </Section>
 
       {/* SEARCH */}
 
       <Section title="Search" description="Select con búsqueda de opciones.">
-        <Card>
-          <Select mode="search" options={countries} placeholder="Busca un país" />
+        <Card
+          size="M"
+          title="Country search"
+          subtitle="Selección única · Búsqueda de opciones"
+          className={styles.card}
+          contentClassName={styles.cardContent}
+        >
+          <div>
+            <Select mode="search" options={countries} placeholder="Busca un país" />
+          </div>
         </Card>
       </Section>
 
       {/* MULTI */}
 
       <Section title="Multi" description="Permite seleccionar varias opciones.">
-        <Card>
-          <Select mode="multi" options={users} defaultValue={[1, 3]} placeholder="Selecciona usuarios" />
+        <Card
+          size="M"
+          title="User selection"
+          subtitle="Selección múltiple · Varias opciones"
+          className={styles.card}
+          contentClassName={styles.cardContent}
+        >
+          <div>
+            <Select mode="multi" options={users} defaultValue={[1, 3]} placeholder="Selecciona usuarios" />
+          </div>
         </Card>
       </Section>
 
       {/* SEARCH + MULTI */}
 
       <Section title="Search + Multi" description="Combinación de búsqueda y selección múltiple.">
-        <Card>
-          <Select
-            mode={['search', 'multi']}
-            options={users}
-            value={selectedUsers}
-            onChange={(value) => {
-              if (Array.isArray(value)) {
-                setSelectedUsers(value);
-              }
-            }}
-            placeholder="Selecciona usuarios"
-          />
+        <Card
+          size="M"
+          title="User search"
+          subtitle="Selección múltiple · Búsqueda de usuarios"
+          className={styles.card}
+          contentClassName={styles.cardContent}
+        >
+          <div>
+            <Select
+              mode={['search', 'multi']}
+              options={users}
+              value={selectedUsers}
+              onChange={(value) => {
+                if (Array.isArray(value)) {
+                  setSelectedUsers(value);
+                }
+              }}
+              placeholder="Selecciona usuarios"
+            />
+          </div>
         </Card>
       </Section>
 
       {/* TREE */}
 
       <Section title="Tree" description="Select preparado para representar opciones jerárquicas.">
-        <Card>
-          <Select mode="tree" options={projectOptions} placeholder="Selecciona un proyecto" />
+        <Card
+          size="M"
+          title="Project selection"
+          subtitle="Selección jerárquica · Proyectos"
+          className={styles.card}
+          contentClassName={styles.cardContent}
+        >
+          <div>
+            <Select mode="tree" options={projectOptions} placeholder="Selecciona un proyecto" />
+          </div>
         </Card>
       </Section>
 
       {/* SEARCH + TREE */}
 
       <Section title="Search + Tree" description="Árbol de opciones con búsqueda.">
-        <Card>
-          <Select mode={['search', 'tree']} options={projectOptions} placeholder="Busca un proyecto" />
+        <Card
+          size="M"
+          title="Project search"
+          subtitle="Selección jerárquica · Búsqueda de proyectos"
+          className={styles.card}
+          contentClassName={styles.cardContent}
+        >
+          <div>
+            <Select mode={['search', 'tree']} options={projectOptions} placeholder="Busca un proyecto" />
+          </div>
         </Card>
       </Section>
 
       {/* TREE + MULTI */}
 
       <Section title="Tree + Multi" description="Árbol de opciones con selección múltiple.">
-        <Card>
-          <Select mode={['tree', 'multi']} options={projectOptions} placeholder="Selecciona proyectos" />
+        <Card
+          size="M"
+          title="Project selection"
+          subtitle="Selección jerárquica · Selección múltiple"
+          className={styles.card}
+          contentClassName={styles.cardContent}
+        >
+          <div>
+            <Select mode={['tree', 'multi']} options={projectOptions} placeholder="Selecciona proyectos" />
+          </div>
         </Card>
       </Section>
 
       {/* ALL MODES */}
 
       <Section title="Search + Tree + Multi" description="Combinación de todos los modos disponibles.">
-        <Card>
-          <Select mode={['search', 'tree', 'multi']} options={projectOptions} placeholder="Selecciona proyectos" />
+        <Card
+          size="M"
+          title="Advanced project selection"
+          subtitle="Búsqueda · Jerarquía · Selección múltiple"
+          className={styles.card}
+          contentClassName={styles.cardContent}
+        >
+          <div>
+            <Select mode={['search', 'tree', 'multi']} options={projectOptions} placeholder="Selecciona proyectos" />
+          </div>
         </Card>
       </Section>
 
       {/* DISABLED */}
 
       <Section title="Disabled" description="Select deshabilitado.">
-        <Card>
-          <Select options={countries} defaultValue="spain" disabled />
+        <Card
+          size="M"
+          title="Disabled select"
+          subtitle="Estado deshabilitado · Valor seleccionado"
+          className={styles.card}
+          contentClassName={styles.cardContent}
+        >
+          <div>
+            <Select options={countries} defaultValue="spain" disabled />
+          </div>
         </Card>
       </Section>
 
@@ -161,13 +249,19 @@ export default function SelectPage() {
         title="Sizes"
         description="El componente está disponible en los diferentes tamaños del sistema de diseño."
       >
-        <Card>
-          <div className={styles.examples}>
+        <Card
+          size="M"
+          title="Select sizes"
+          subtitle="XS · S · M · L · XL"
+          className={styles.card}
+          contentClassName={styles.cardContent}
+        >
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <Select size="XS" options={countries} placeholder="Extra Small" />
             <Select size="S" options={countries} placeholder="Small" />
-
             <Select size="M" options={countries} placeholder="Medium" />
-
             <Select size="L" options={countries} placeholder="Large" />
+            <Select size="XL" options={countries} placeholder="Extra Large" />
           </div>
         </Card>
       </Section>

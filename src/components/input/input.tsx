@@ -23,7 +23,7 @@ import styles from './input.module.css';
 
 type Value = string | number;
 
-type InputType = 'text' | 'email' | 'password' | 'number' | 'textarea' | 'date';
+type InputType = 'text' | 'email' | 'password' | 'number' | 'textarea' | 'date' | 'checkbox';
 
 type NativeInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'type' | 'size'>;
 
@@ -92,7 +92,8 @@ function InputComponent<InputOption = unknown, TValue extends Value = string>(
   const optionsId = useId();
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const [showOptions, setShowOptions] = useState(false);
+  const [showOptions, setShowOptions] = useState<boolean>(false);
+  const [focusByMouse, setFocusByMouse] = useState<boolean>(false);
 
   const isTextarea = type === 'textarea';
   const hasOptions = Boolean(options?.length);
@@ -215,18 +216,14 @@ function InputComponent<InputOption = unknown, TValue extends Value = string>(
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement> | KeyboardEvent<HTMLTextAreaElement>) => {
     onKeyDown?.(event as KeyboardEvent<HTMLInputElement>);
 
-    if (event.defaultPrevented) {
-      return;
-    }
+    if (event.defaultPrevented) return;
 
     if (event.key === 'Escape') {
       setShowOptions(false);
       return;
     }
 
-    if (search && !isTextarea && event.key === 'Enter' && !disabled && !readOnly && !searchLoading) {
-      onSearch?.(value);
-    }
+    if (search && !isTextarea && event.key === 'Enter' && !disabled && !readOnly && !searchLoading) onSearch?.(value);
   };
 
   /* ==========================================================================
@@ -234,10 +231,7 @@ function InputComponent<InputOption = unknown, TValue extends Value = string>(
      ========================================================================== */
 
   const handleFocus = (event: FocusEvent<HTMLInputElement> | FocusEvent<HTMLTextAreaElement>) => {
-    if (hasOptionsConfiguration) {
-      setShowOptions(true);
-    }
-
+    if (hasOptionsConfiguration) setShowOptions(true);
     onFocus?.(event as FocusEvent<HTMLInputElement>);
   };
 
@@ -249,7 +243,13 @@ function InputComponent<InputOption = unknown, TValue extends Value = string>(
      Classes
      ========================================================================== */
 
-  const controlClassName = classNames([styles.input, styles[`${size}`], isTextarea && styles.textarea, className]);
+  const controlClassName = classNames([
+    styles.input,
+    styles[`${size}`],
+    isTextarea && styles.textarea,
+    className,
+    focusByMouse ? styles.focusByMouse : '',
+  ]);
 
   /* ==========================================================================
      Shared props
@@ -302,7 +302,14 @@ function InputComponent<InputOption = unknown, TValue extends Value = string>(
           rows={rows}
         />
       ) : (
-        <input ref={forwardedRef as Ref<HTMLInputElement>} {...rest} {...commonProps} type={type} />
+        <input
+          ref={forwardedRef as Ref<HTMLInputElement>}
+          {...rest}
+          {...commonProps}
+          type={type}
+          onMouseDown={() => setFocusByMouse(true)}
+          onBlur={() => setFocusByMouse(false)}
+        />
       )}
 
       {search && (
@@ -334,10 +341,9 @@ function InputComponent<InputOption = unknown, TValue extends Value = string>(
               const optionValue = resolveOptionValue(option);
 
               return (
-                <button
+                <Button
                   key={`${String(optionValue)}-${index}`}
-                  type="button"
-                  role="option"
+                  mode="ghost"
                   aria-selected={optionValue === value}
                   className={styles.option}
                   onMouseDown={(event) => {
@@ -347,7 +353,7 @@ function InputComponent<InputOption = unknown, TValue extends Value = string>(
                   disabled={disabled || readOnly}
                 >
                   {resolveOptionLabel(option)}
-                </button>
+                </Button>
               );
             })
           ) : (

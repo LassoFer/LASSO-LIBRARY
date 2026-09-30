@@ -89,34 +89,35 @@ body {
   --color-warning-active: #925f00;
 
   /* ==========================================================================
-     Neutral interactive colors
-     ========================================================================== */
+  Neutral scale
+   ========================================================================== */
 
-  --color-neutral: #5f6875;
-  --color-neutral-hover: #707b89;
-  --color-neutral-focus: #85909d;
-  --color-neutral-active: #454d58;
+  --color-neutral-50: #f8f9fa;
+  --color-neutral-100: #f0f2f4;
+  --color-neutral-200: #e1e4e7;
+  --color-neutral-300: #ccd1d6;
+  --color-neutral-400: #a3abb4;
+  --color-neutral-500: #7d8792;
+  --color-neutral-600: #66707c;
+  --color-neutral-700: #59626d;
+  --color-neutral-800: #363d45;
+  --color-neutral-900: #252b32;
+  --color-neutral-950: #171b20;
 
   /* ==========================================================================
-     Neutral scale
-     ========================================================================== */
+   Neutral
+   ========================================================================== */
 
-  --color-neutral-50: #f7f8f9;
-  --color-neutral-100: #eef0f2;
-  --color-neutral-200: #dde1e5;
-  --color-neutral-300: #c7cdd3;
-  --color-neutral-400: #9ca5af;
-  --color-neutral-500: #707b89;
-  --color-neutral-600: #5f6875;
-  --color-neutral-700: #454d58;
-  --color-neutral-800: #30363e;
-  --color-neutral-900: #1e2329;
-  --color-neutral-950: #111418;
-
+  --color-neutral-default: #fff;
+  --color-neutral: var(--color-neutral-400);
+  --color-neutral-hover: var(--color-neutral-500);
+  --color-neutral-focus: var(--color-neutral-600);
+  --color-neutral-active: var(--color-neutral-700);
+  --color-neutral-disabled: var(--color-neutral-100);
+  --color-neutral-disabled-heavy: var(--color-neutral-400);
   /* ==========================================================================
      Structural greys
      ========================================================================== */
-
   --color-grey-light: #d3d3d3;
   --color-grey-heavy: #b1b1b1;
   --color-grey-extra-heavy: #686868;
@@ -162,15 +163,6 @@ body {
     --color-warning-active: #c99c27;
 
     /* ==========================================================================
-       Neutral interactive colors
-       ========================================================================== */
-
-    --color-neutral: #a8b0ba;
-    --color-neutral-hover: #bac1c9;
-    --color-neutral-focus: #cbd1d7;
-    --color-neutral-active: #858e99;
-
-    /* ==========================================================================
        Neutral scale
        ========================================================================== */
 
@@ -185,6 +177,12 @@ body {
     --color-neutral-800: #d9dde1;
     --color-neutral-900: #eceef0;
     --color-neutral-950: #f7f8f9;
+
+    /* ==========================================================================
+       Neutral interactive colors
+       ========================================================================== */
+
+    --color-neutral-default: #272727;
 
     /* ==========================================================================
        Structural greys

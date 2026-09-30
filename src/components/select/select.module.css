@@ -1,206 +1,517 @@
+/* ==========================================================================
+   Select
+   ========================================================================== */
+
 .Select {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  /* width: 100%; */
-  min-height: 40px;
-
-  padding: 0 12px;
-
-  border: 1px solid #d9d9d9;
-  border-radius: 6px;
-
-  background: #fff;
-
+  width: fit-content;
+  outline-offset: 2px;
+  outline: 1px solid transparent;
+  background: var(--color-neutral-default);
+  border: var(--border-default-heavy);
+  color: var(--color-neutral-900);
   cursor: pointer;
   user-select: none;
-
   transition:
-    border-color 0.15s ease,
-    box-shadow 0.15s ease;
+    background-color 0.08s ease,
+    border-color 0.25s ease,
+    color 0.08s ease,
+    outline-color 0.25s ease;
 }
 
 .Select:hover {
-  border-color: #999;
+  border-color: var(--color-grey-heavy);
 }
 
 .Select:focus {
-  outline: none;
+  border-color: var(--color-neutral-focus);
+  outline-color: var(--color-neutral-focus);
 }
 
+.Select.focusByMouse {
+  outline-color: transparent;
+}
+
+/* ==========================================================================
+   States
+   ========================================================================== */
+
 .open {
-  border-color: #666;
+  border-color: var(--color-neutral);
 }
 
 .disabled {
-  background: #f5f5f5;
-  color: #999;
+  background: var(--color-neutral-100);
+  color: var(--color-neutral-400);
   cursor: not-allowed;
 }
 
+/* ==========================================================================
+   Value
+   ========================================================================== */
+
 .value {
   flex: 1;
-
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .placeholder {
-  color: #999;
+  color: var(--color-neutral-500);
+}
+
+/* ==========================================================================
+   Arrow
+   ========================================================================== */
+
+.arrowContainer {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
 }
 
 .arrow {
-  margin-left: 8px;
-
-  font-size: 12px;
-
+  display: block;
+  flex: 0 0 auto;
   transition: transform 0.15s ease;
+}
+
+.arrowContainer svg {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.arrowContainer.XS svg {
+  width: 10px;
+  height: 10px;
+}
+
+.arrowContainer.S svg {
+  width: 12px;
+  height: 12px;
+}
+
+.arrowContainer.M svg {
+  width: 14px;
+  height: 14px;
+}
+
+.arrowContainer.L svg {
+  width: 16px;
+  height: 16px;
+}
+
+.arrowContainer.XL svg {
+  width: 18px;
+  height: 18px;
 }
 
 .arrowOpen {
   transform: rotate(180deg);
 }
 
-/* Sizes */
+/* ==========================================================================
+   Sizes
+   ========================================================================== */
 
-.size-small {
-  min-height: 32px;
-  font-size: 13px;
+.Select.XS {
+  padding: 3px 5px;
+  font-size: 10px;
+  border-radius: 3px;
+  gap: 5px;
 }
 
-.size-medium {
-  min-height: 40px;
+.Select.S {
+  padding: 4px 7px;
+  font-size: 12px;
+  border-radius: 3px;
+  gap: 7px;
+}
+
+.Select.M {
+  padding: 6px 9px;
   font-size: 14px;
+  border-radius: 4px;
+  gap: 10px;
 }
 
-.size-large {
-  min-height: 48px;
+.Select.L {
+  padding: 8px 13px;
   font-size: 16px;
+  border-radius: 5px;
+  gap: 13px;
 }
 
-/* Popup */
+.Select.XL {
+  padding: 10px 15px;
+  font-size: 18px;
+  border-radius: 6px;
+  gap: 15px;
+}
+
+/* ==========================================================================
+   Popup
+   ========================================================================== */
 
 .popup {
+  position: fixed;
   z-index: 9999;
-
-  overflow: hidden;
-
-  border: 1px solid #ddd;
-  border-radius: 6px;
-
-  background: #fff;
-
-  box-shadow:
-    0 6px 16px rgba(0, 0, 0, 0.08),
-    0 3px 6px rgba(0, 0, 0, 0.05);
-
   display: flex;
   flex-direction: column;
+  height: fit-content;
+  overflow: hidden;
+  border: 1px solid var(--color-neutral-focus);
+  background: var(--color-neutral-default);
+  box-shadow:
+    0 6px 16px color-mix(in srgb, CanvasText 10%, transparent),
+    0 3px 6px color-mix(in srgb, CanvasText 6%, transparent);
 }
 
-/* Search */
+/* ==========================================================================
+   Popup Search
+   ========================================================================== */
 
 .searchContainer {
-  padding: 8px;
-
-  border-bottom: 1px solid #eee;
+  border-bottom: var(--border-default-heavy);
 }
 
 .searchInput {
   width: 100%;
   box-sizing: border-box;
-
-  height: 34px;
-
-  padding: 0 10px;
-
-  border: 1px solid #ddd;
-  border-radius: 4px;
-
+  border: var(--border-default-heavy);
+  background: var(--color-neutral-50);
+  color: var(--color-neutral-900);
   outline: none;
 }
 
-.searchInput:focus {
-  border-color: #666;
+.searchInput::placeholder {
+  color: var(--color-neutral-500);
 }
 
-/* Options */
+.searchInput:focus {
+  border-color: var(--color-neutral);
+}
+
+/* ==========================================================================
+   Popup Options
+   ========================================================================== */
 
 .options {
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
-
-  max-height: 300px;
-
-  padding: 4px;
 }
 
 .option {
   display: flex;
   align-items: center;
-
-  min-height: 36px;
-
-  padding: 0 8px;
-
-  border-radius: 4px;
-
+  color: var(--color-neutral-900);
   cursor: pointer;
-
   transition: background 0.1s ease;
+  font-weight: 100 !important;
 }
 
 .option:hover {
-  background: #f5f5f5;
+  background: var(--color-neutral-100);
 }
 
 .optionSelected {
-  background: #eee;
+  background: var(--color-neutral-200);
 }
 
 .optionLabel {
   overflow: hidden;
-
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
+/* ==========================================================================
+   Popup Checkbox
+   ========================================================================== */
+
 .checkbox {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-
-  width: 16px;
-  height: 16px;
-
-  margin-right: 8px;
-
-  border: 1px solid #bbb;
-  border-radius: 3px;
-
-  font-size: 11px;
+  border: var(--border-default-heavy-heavy);
+  color: var(--color-neutral-950);
 }
 
 .checkboxChecked {
-  background: #333;
-  color: white;
-  border-color: #333;
+  background: var(--color-neutral-700);
+  color: var(--color-neutral-950);
+  border-color: var(--color-neutral-700);
 }
 
+/* ==========================================================================
+   Popup Tree
+   ========================================================================== */
+
 .treeIcon {
-  width: 18px;
+  flex: 0 0 auto;
+  color: var(--color-neutral-500);
+}
 
-  margin-right: 4px;
+/* ==========================================================================
+   Popup Empty
+   ========================================================================== */
 
+.empty {
+  text-align: center;
+  color: var(--color-neutral-500);
+}
+
+/* ==========================================================================
+   Popup Sizes
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   XS
+   -------------------------------------------------------------------------- */
+
+.XS.popup {
+  border-radius: 3px;
+}
+
+.XS.popup .searchContainer {
+  padding: 3px;
+}
+
+.XS.popup .searchInput {
+  height: 18px;
+  padding: 2px 4px;
+  font-size: 9px;
+  border-radius: 2px;
+}
+
+.XS.popup .options {
+  padding: 2px;
+  gap: 2px;
+}
+
+.XS.popup .option {
+  padding: 2px 4px;
+  border-radius: 2px;
   font-size: 11px;
 }
 
-.empty {
-  padding: 16px;
+.XS.popup .checkbox {
+  width: 12px;
+  height: 12px;
+  margin-right: 4px;
+  border-radius: 2px;
+  font-size: 8px;
+}
 
-  text-align: center;
+.XS.popup .treeIcon {
+  width: 12px;
+  margin-right: 3px;
+  font-size: 8px;
+}
 
-  color: #999;
+.XS.popup .empty {
+  padding: 6px;
+  font-size: 9px;
+}
+
+/* --------------------------------------------------------------------------
+   S
+   -------------------------------------------------------------------------- */
+
+.S.popup {
+  border-radius: 3px;
+}
+
+.S.popup .searchContainer {
+  padding: 3px;
+}
+
+.S.popup .searchInput {
+  height: 22px;
+  padding: 3px 6px;
+  font-size: 11px;
+  border-radius: 2px;
+}
+
+.S.popup .options {
+  padding: 2px;
+  gap: 3px;
+}
+
+.S.popup .option {
+  padding: 3px 6px;
+  border-radius: 2px;
+  font-size: 13px;
+}
+
+.S.popup .checkbox {
+  width: 14px;
+  height: 14px;
+  margin-right: 6px;
+  border-radius: 2px;
+  font-size: 9px;
+}
+
+.S.popup .treeIcon {
+  width: 14px;
+  margin-right: 4px;
+  font-size: 9px;
+}
+
+.S.popup .empty {
+  padding: 8px;
+  font-size: 11px;
+}
+
+/* --------------------------------------------------------------------------
+   M
+   -------------------------------------------------------------------------- */
+
+.M.popup {
+  border-radius: 4px;
+}
+
+.M.popup .searchContainer {
+  padding: 4px;
+}
+
+.M.popup .searchInput {
+  height: 26px;
+  padding: 4px 7px;
+  font-size: 13px;
+  border-radius: 3px;
+}
+
+.M.popup .options {
+  padding: 2px;
+  gap: 4px;
+}
+
+.M.popup .option {
+  padding: 4px 7px;
+  border-radius: 3px;
+  font-size: 15px;
+}
+
+.M.popup .checkbox {
+  width: 16px;
+  height: 16px;
+  margin-right: 7px;
+  border-radius: 3px;
+  font-size: 10px;
+}
+
+.M.popup .treeIcon {
+  width: 16px;
+  margin-right: 4px;
+  font-size: 10px;
+}
+
+.M.popup .empty {
+  padding: 10px;
+  font-size: 13px;
+}
+
+/* --------------------------------------------------------------------------
+   L
+   -------------------------------------------------------------------------- */
+
+.L.popup {
+  border-radius: 5px;
+}
+
+.L.popup .searchContainer {
+  padding: 5px;
+}
+
+.L.popup .searchInput {
+  height: 32px;
+  padding: 5px 8px;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+.L.popup .options {
+  padding: 3px;
+  gap: 5px;
+}
+
+.L.popup .option {
+  padding: 5px 8px;
+  border-radius: 4px;
+  font-size: 17px;
+}
+
+.L.popup .checkbox {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+.L.popup .treeIcon {
+  width: 18px;
+  margin-right: 5px;
+  font-size: 11px;
+}
+
+.L.popup .empty {
+  padding: 12px;
+  font-size: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   XL
+   -------------------------------------------------------------------------- */
+
+.XL.popup {
+  border-radius: 6px;
+}
+
+.XL.popup .searchContainer {
+  padding: 6px;
+}
+
+.XL.popup .searchInput {
+  height: 38px;
+  padding: 8px 12px;
+  font-size: 18px;
+  border-radius: 4px;
+}
+
+.XL.popup .options {
+  padding: 4px;
+  gap: 7px;
+}
+
+.XL.popup .option {
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 19px;
+}
+
+.XL.popup .checkbox {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.XL.popup .treeIcon {
+  width: 20px;
+  margin-right: 6px;
+  font-size: 12px;
+}
+
+.XL.popup .empty {
+  padding: 14px;
+  font-size: 18px;
 }
