@@ -10,7 +10,9 @@ import {
 } from 'react';
 
 import { ChevronDown, ChevronRight } from 'lucide-react';
+import { createPortal } from 'react-dom';
 import { classNames } from '../../utils/common';
+import Button from '../button/button';
 import type { Size } from '../common';
 import Input from '../input/input';
 import styles from './select.module.css';
@@ -20,6 +22,7 @@ type Mode = 'default' | 'search' | 'tree' | 'multi';
 interface Option {
   value: string | number;
   label: string;
+  children?: Option[];
   extra?: unknown;
 }
 
@@ -87,7 +90,14 @@ export default function Select({
 
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
+  const [focusedOptionIndex, setFocusedOptionIndex] = useState(-1);
+  const optionRefs = useRef<Array<HTMLDivElement | null>>([]);
   const [popupPosition, setPopupPosition] = useState<PopupPosition | null>(null);
+  const [expandedValues, setExpandedValues] = useState<Set<string | number>>(new Set());
+
+  const hasChildren = (option: Option) => {
+    return Boolean(option.children?.length);
+  };
 
   const selectedValues = useMemo(() => {
     if (Array.isArray(selectedValue)) {
@@ -232,23 +242,59 @@ export default function Select({
     return options.filter((option) => option.label.toLowerCase().includes(query));
   }, [options, search, isSearch]);
 
-  const selectedOption = useMemo(() => {
-    return options.find((option) => option.value === selectedValues[0]);
-  }, [options, selectedValues]);
-
-  const displayValue = useMemo(() => {
-    if (isMulti) {
-      if (!selectedValues.length) {
-        return placeholder;
+  const focusOption = useCallback(
+    (index: number) => {
+      if (!filteredOptions.length) {
+        setFocusedOptionIndex(-1);
+        return;
       }
 
-      const selectedOptions = options.filter((option) => selectedValues.includes(option.value));
+      const nextIndex = Math.max(0, Math.min(index, filteredOptions.length - 1));
 
+      setFocusedOptionIndex(nextIndex);
+
+      requestAnimationFrame(() => {
+        optionRefs.current[nextIndex]?.scrollIntoView({
+          block: 'nearest',
+        });
+      });
+    },
+    [filteredOptions.length],
+  );
+
+  const findOptions = useCallback((options: Option[], values: Array<string | number>): Option[] => {
+    const result: Option[] = [];
+
+    const visit = (items: Option[]) => {
+      for (const option of items) {
+        if (values.includes(option.value)) {
+          result.push(option);
+        }
+
+        if (option.children?.length) {
+          visit(option.children);
+        }
+      }
+    };
+
+    visit(options);
+
+    return result;
+  }, []);
+
+  const displayValue = useMemo(() => {
+    if (!selectedValues.length) {
+      return placeholder;
+    }
+
+    const selectedOptions = findOptions(options, selectedValues);
+
+    if (isMulti) {
       return selectedOptions.map((option) => option.label).join(', ');
     }
 
-    return selectedOption?.label || placeholder;
-  }, [isMulti, options, placeholder, selectedOption, selectedValues]);
+    return selectedOptions[0]?.label || placeholder;
+  }, [findOptions, isMulti, options, placeholder, selectedValues]);
 
   const isSelected = (option: Option) => selectedValues.includes(option.value);
 
@@ -272,6 +318,7 @@ export default function Select({
 
     setOpen(false);
     setSearch('');
+    setFocusedOptionIndex(-1);
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -281,55 +328,152 @@ export default function Select({
 
     switch (event.key) {
       case 'Enter':
-      case ' ':
+      case ' ': {
         event.preventDefault();
 
         if (!open) {
           setOpen(true);
+
+          const selectedIndex = filteredOptions.findIndex((option) => selectedValues.includes(option.value));
+
+          setFocusedOptionIndex(selectedIndex >= 0 ? selectedIndex : 0);
+          return;
+        }
+
+        if (focusedOptionIndex >= 0 && focusedOptionIndex < filteredOptions.length) {
+          handleOptionClick(filteredOptions[focusedOptionIndex]);
         }
 
         break;
+      }
 
       case 'Escape':
-        setOpen(false);
-        setSearch('');
+        if (open) {
+          event.preventDefault();
+          setOpen(false);
+          setSearch('');
+          setFocusedOptionIndex(-1);
+        }
         break;
 
-      case 'ArrowDown':
+      case 'ArrowDown': {
         event.preventDefault();
 
         if (!open) {
           setOpen(true);
+
+          const selectedIndex = filteredOptions.findIndex((option) => selectedValues.includes(option.value));
+
+          setFocusedOptionIndex(selectedIndex >= 0 ? selectedIndex : 0);
+          return;
         }
 
+        focusOption(focusedOptionIndex + 1);
+        break;
+      }
+
+      case 'ArrowUp': {
+        event.preventDefault();
+
+        if (!open) {
+          setOpen(true);
+
+          const selectedIndex = filteredOptions.findIndex((option) => selectedValues.includes(option.value));
+
+          setFocusedOptionIndex(selectedIndex >= 0 ? selectedIndex : 0);
+          return;
+        }
+
+        focusOption(focusedOptionIndex <= 0 ? 0 : focusedOptionIndex - 1);
+        break;
+      }
+
+      case 'Home':
+        if (open) {
+          event.preventDefault();
+          focusOption(0);
+        }
+        break;
+
+      case 'End':
+        if (open) {
+          event.preventDefault();
+          focusOption(filteredOptions.length - 1);
+        }
         break;
 
       case 'Tab':
-        if (open) setOpen(false);
+        if (open) {
+          setOpen(false);
+          setFocusedOptionIndex(-1);
+        }
+        break;
     }
   };
 
-  const renderOption = (option: Option) => {
+  const toggleExpanded = (value: string | number) => {
+    setExpandedValues((current) => {
+      const next = new Set(current);
+
+      if (next.has(value)) {
+        next.delete(value);
+      } else {
+        next.add(value);
+      }
+
+      return next;
+    });
+  };
+
+  const renderOption = (option: Option, index: number, level = 0) => {
     const selected = isSelected(option);
+    const focused = focusedOptionIndex === index;
+    const hasChildOptions = hasChildren(option);
+    const expanded = expandedValues.has(option.value);
 
     return (
-      <div
-        key={option.value}
-        className={classNames([styles.option, selected ? styles.optionSelected : ''])}
-        role="option"
-        aria-selected={selected}
-        onClick={() => handleOptionClick(option)}
-        onKeyDown={handleKeyDown}
-      >
-        {isMulti && <span className={classNames([styles.checkbox, selected ? styles.checkboxChecked : ''])}></span>}
+      <div key={option.value}>
+        <div
+          ref={(element) => {
+            optionRefs.current[index] = element;
+          }}
+          className={classNames([
+            styles.option,
+            selected ? styles.optionSelected : '',
+            focused ? styles.optionFocused : '',
+          ])}
+          role="option"
+          aria-selected={selected}
+          style={{
+            paddingLeft: `${level * 20 + 8}px`,
+          }}
+          onClick={() => {
+            handleOptionClick(option);
+          }}
+        >
+          {isTree && hasChildOptions && (
+            <Button
+              className={styles.treeArrowContainer}
+              size={size}
+              tabIndex={-1}
+              mode="icon"
+              onClick={(event) => {
+                event.stopPropagation();
+                toggleExpanded(option.value);
+              }}
+            >
+              <ChevronRight className={classNames([styles.treeArrow, expanded ? styles.treeArrowOpen : ''])} />
+            </Button>
+          )}
 
-        {isTree && (
-          <span className={styles.treeIcon}>
-            <ChevronRight></ChevronRight>
-          </span>
-        )}
+          {isTree && !hasChildOptions && <span className={styles.treeArrowPlaceholder} />}
 
-        <span className={styles.optionLabel}>{option.label}</span>
+          {isMulti && <span className={classNames([styles.checkbox, selected ? styles.checkboxChecked : ''])} />}
+
+          <span className={styles.optionLabel}>{option.label}</span>
+        </div>
+
+        {isTree && expanded && option.children?.map((child) => renderOption(child, index, level + 1))}
       </div>
     );
   };
@@ -371,7 +515,7 @@ export default function Select({
 
         <div className={styles.options}>
           {filteredOptions.length > 0 ? (
-            filteredOptions.map(renderOption)
+            filteredOptions.map((option, index) => renderOption(option, index))
           ) : (
             <div className={styles.empty}>No options found</div>
           )}
@@ -415,14 +559,12 @@ export default function Select({
           {displayValue}
         </span>
 
-        <span className={classNames([styles.arrowContainer, styles[size]])}>
-          <ChevronDown size="100%" className={classNames([styles.arrow, open ? styles.arrowOpen : ''])} />
-        </span>
+        <Button size={size} mode="icon" className={styles.arrowContainer} tabIndex={-1}>
+          <ChevronDown className={classNames([styles.arrow, open ? styles.arrowOpen : ''])} />
+        </Button>
       </div>
 
-      {/* {createPortal(renderPopup(), document.body)} */}
-
-      {renderPopup()}
+      {createPortal(renderPopup(), document.body)}
     </>
   );
 }

@@ -26,7 +26,13 @@
   border-color: var(--color-grey-heavy);
 }
 
-.Select:focus {
+.Select:focus,
+.Select:focus-within {
+  border-color: var(--color-neutral-focus);
+  outline-color: var(--color-neutral-focus);
+}
+
+.Select[aria-expanded='true'] {
   border-color: var(--color-neutral-focus);
   outline-color: var(--color-neutral-focus);
 }
@@ -69,46 +75,21 @@
    ========================================================================== */
 
 .arrowContainer {
-  display: flex;
-  flex: 0 0 auto;
-  align-items: center;
-  justify-content: center;
+  padding: 0px !important;
+  height: fit-content;
+  min-width: unset !important;
+  width: fit-content;
+  user-select: none;
+}
+
+.arrowContainer:active {
+  background: var(--color-neutral-default) !important;
 }
 
 .arrow {
   display: block;
   flex: 0 0 auto;
   transition: transform 0.15s ease;
-}
-
-.arrowContainer svg {
-  display: block;
-  flex: 0 0 auto;
-}
-
-.arrowContainer.XS svg {
-  width: 10px;
-  height: 10px;
-}
-
-.arrowContainer.S svg {
-  width: 12px;
-  height: 12px;
-}
-
-.arrowContainer.M svg {
-  width: 14px;
-  height: 14px;
-}
-
-.arrowContainer.L svg {
-  width: 16px;
-  height: 16px;
-}
-
-.arrowContainer.XL svg {
-  width: 18px;
-  height: 18px;
 }
 
 .arrowOpen {
@@ -230,6 +211,10 @@
   text-overflow: ellipsis;
 }
 
+.optionFocused {
+  background-color: var(--color-neutral-hover);
+}
+
 /* ==========================================================================
    Popup Checkbox
    ========================================================================== */
@@ -239,8 +224,9 @@
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  border: var(--border-default-heavy-heavy);
+  border: var(--border-default-heavy);
   color: var(--color-neutral-950);
+  background-color: var(--color-neutral-default);
 }
 
 .checkboxChecked {
@@ -253,11 +239,17 @@
    Popup Tree
    ========================================================================== */
 
-.treeIcon {
-  flex: 0 0 auto;
-  color: var(--color-neutral-500);
+.treeArrowContainer {
+  padding: 0px !important;
+  height: fit-content;
+  min-width: unset !important;
+  width: fit-content;
+  user-select: none;
 }
 
+.treeArrowContainer:active {
+  background: var(--color-neutral-default) !important;
+}
 /* ==========================================================================
    Popup Empty
    ========================================================================== */
@@ -299,19 +291,13 @@
   padding: 2px 4px;
   border-radius: 2px;
   font-size: 11px;
+  gap: 4px;
 }
 
 .XS.popup .checkbox {
   width: 12px;
   height: 12px;
-  margin-right: 4px;
   border-radius: 2px;
-  font-size: 8px;
-}
-
-.XS.popup .treeIcon {
-  width: 12px;
-  margin-right: 3px;
   font-size: 8px;
 }
 
@@ -348,19 +334,13 @@
   padding: 3px 6px;
   border-radius: 2px;
   font-size: 13px;
+  gap: 6px;
 }
 
 .S.popup .checkbox {
   width: 14px;
   height: 14px;
-  margin-right: 6px;
   border-radius: 2px;
-  font-size: 9px;
-}
-
-.S.popup .treeIcon {
-  width: 14px;
-  margin-right: 4px;
   font-size: 9px;
 }
 
@@ -397,19 +377,13 @@
   padding: 4px 7px;
   border-radius: 3px;
   font-size: 15px;
+  gap: 8px;
 }
 
 .M.popup .checkbox {
   width: 16px;
   height: 16px;
-  margin-right: 7px;
   border-radius: 3px;
-  font-size: 10px;
-}
-
-.M.popup .treeIcon {
-  width: 16px;
-  margin-right: 4px;
   font-size: 10px;
 }
 
@@ -446,19 +420,13 @@
   padding: 5px 8px;
   border-radius: 4px;
   font-size: 17px;
+  gap: 10px;
 }
 
 .L.popup .checkbox {
   width: 18px;
   height: 18px;
-  margin-right: 8px;
   border-radius: 4px;
-  font-size: 11px;
-}
-
-.L.popup .treeIcon {
-  width: 18px;
-  margin-right: 5px;
   font-size: 11px;
 }
 
@@ -495,19 +463,13 @@
   padding: 8px 12px;
   border-radius: 4px;
   font-size: 19px;
+  gap: 12px;
 }
 
 .XL.popup .checkbox {
   width: 20px;
   height: 20px;
-  margin-right: 10px;
   border-radius: 4px;
-  font-size: 12px;
-}
-
-.XL.popup .treeIcon {
-  width: 20px;
-  margin-right: 6px;
   font-size: 12px;
 }
 

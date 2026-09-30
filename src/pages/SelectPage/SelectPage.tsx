@@ -23,10 +23,82 @@ const users = [
 ];
 
 const projectOptions = [
-  { value: 'project-1', label: 'Proyecto BIM 01' },
-  { value: 'project-2', label: 'Proyecto BIM 02' },
-  { value: 'project-3', label: 'Proyecto BIM 03' },
-  { value: 'project-4', label: 'Proyecto BIM 04' },
+  {
+    value: 'project-1',
+    label: 'Proyecto BIM 01',
+    children: [
+      {
+        value: 'project-1-models',
+        label: 'Modelos',
+        children: [
+          {
+            value: 'project-1-model-architecture',
+            label: 'Arquitectura',
+          },
+          {
+            value: 'project-1-model-structure',
+            label: 'Estructura',
+          },
+          {
+            value: 'project-1-model-mep',
+            label: 'Instalaciones',
+          },
+        ],
+      },
+      {
+        value: 'project-1-documents',
+        label: 'Documentación',
+        children: [
+          {
+            value: 'project-1-doc-plans',
+            label: 'Planos',
+          },
+          {
+            value: 'project-1-doc-reports',
+            label: 'Informes',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    value: 'project-2',
+    label: 'Proyecto BIM 02',
+    children: [
+      {
+        value: 'project-2-models',
+        label: 'Modelos',
+        children: [
+          {
+            value: 'project-2-model-architecture',
+            label: 'Arquitectura',
+          },
+          {
+            value: 'project-2-model-structure',
+            label: 'Estructura',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    value: 'project-3',
+    label: 'Proyecto BIM 03',
+    children: [
+      {
+        value: 'project-3-models',
+        label: 'Modelos',
+      },
+      {
+        value: 'project-3-documents',
+        label: 'Documentación',
+      },
+    ],
+  },
+  {
+    value: 'project-4',
+    label: 'Proyecto BIM 04',
+  },
 ];
 
 export default function SelectPage() {
