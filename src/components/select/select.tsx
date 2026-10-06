@@ -98,6 +98,7 @@ export default function Select({
   const hasChildren = (option: Option) => {
     return Boolean(option.children?.length);
   };
+  const isSelected = (option: Option) => selectedValues.includes(option.value);
 
   const selectedValues = useMemo(() => {
     if (Array.isArray(selectedValue)) {
@@ -111,9 +112,43 @@ export default function Select({
     return [];
   }, [selectedValue]);
 
-  /**
-   * Normalizes the selected value.
-   */
+  const filteredOptions = useMemo(() => {
+    if (!isSearch || !search.trim()) return options;
+
+    const query = search.toLowerCase();
+
+    return options.filter((option) => option.label.toLowerCase().includes(query));
+  }, [options, search, isSearch]);
+
+  const findOptions = useCallback((options: Option[], values: Array<string | number>): Option[] => {
+    const result: Option[] = [];
+
+    const visit = (items: Option[]) => {
+      for (const option of items) {
+        if (values.includes(option.value)) {
+          result.push(option);
+        }
+
+        if (option.children?.length) {
+          visit(option.children);
+        }
+      }
+    };
+
+    visit(options);
+
+    return result;
+  }, []);
+
+  const displayValue = useMemo(() => {
+    if (!selectedValues.length) return placeholder;
+    const selectedOptions = findOptions(options, selectedValues);
+
+    if (isMulti || isTree) return selectedOptions.map((option) => option.label).join(', ');
+
+    return selectedOptions[0]?.label || placeholder;
+  }, [isMulti, options, placeholder, selectedValues]);
+
   const updateValue = useCallback(
     (nextValue: string | number | Array<string | number> | undefined) => {
       if (!isControlled) {
@@ -125,12 +160,72 @@ export default function Select({
     [isControlled, onChange],
   );
 
-  /**
-   * Calculates the popup position.
-   *
-   * The popup is positioned using fixed coordinates so it is not affected
-   * by overflow:hidden / overflow:auto parents.
-   */
+  useLayoutEffect(() => {
+    if (!open) return;
+
+    calculatePopupPosition();
+  }, [open, options.length]);
+
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+
+    const handleResize = () => {
+      setOpen(false);
+    };
+
+    const handleScroll = (event: Event) => {
+      const target = event.target;
+      const isInsidePopup = target instanceof Node && popupRef.current?.contains(target);
+      const isInsideSelect = target instanceof Node && selectRef.current?.contains(target);
+      if (isInsidePopup || isInsideSelect) {
+        return;
+      }
+      setOpen(false);
+    };
+
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+
+      if (!selectRef.current?.contains(target) && !popupRef.current?.contains(target)) {
+        setOpen(false);
+        setSearch('');
+        setFocusedOptionIndex(-1);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    window.addEventListener('resize', handleResize);
+    document.addEventListener('scroll', handleScroll, true);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('scroll', handleScroll, true);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [open]);
+
+  const focusOption = useCallback(
+    (index: number) => {
+      if (!filteredOptions.length) {
+        setFocusedOptionIndex(-1);
+        return;
+      }
+
+      const nextIndex = Math.max(0, Math.min(index, filteredOptions.length - 1));
+
+      setFocusedOptionIndex(nextIndex);
+
+      requestAnimationFrame(() => {
+        optionRefs.current[nextIndex]?.scrollIntoView({
+          block: 'nearest',
+        });
+      });
+    },
+    [filteredOptions.length],
+  );
+
   const calculatePopupPosition = useCallback(() => {
     if (!selectRef.current) {
       return;
@@ -183,123 +278,58 @@ export default function Select({
     });
   }, []);
 
-  /**
-   * Calculate position after the popup has been rendered.
-   */
-  useLayoutEffect(() => {
-    if (!open) return;
+  const checkChildrens = (children: Option[], allChilds: (string | number)[]) => {
+    children.forEach((c: Option) => {
+      allChilds.push(c.value);
+      if (c.children && c.children?.length > 0) checkChildrens(c.children, allChilds);
+    });
+  };
 
-    calculatePopupPosition();
-  }, [open, options.length, calculatePopupPosition]);
+  const checkParents = (option: Option, children: Option[], allParents: (string | number)[], selection: boolean) => {
+    if (children.find((c) => c.value === option.value)) return true;
 
-  /**
-   * Close the popup when the viewport changes.
-   */
-  useEffect(() => {
-    if (!open) {
-      return;
-    }
+    for (let i = 0; i < children.length; i++) {
+      const opt = children[i];
+      if (opt.children && opt.children.length > 0) {
+        const isChild = checkParents(option, opt.children, allParents, selection);
 
-    const handleResize = () => {
-      setOpen(false);
-    };
+        if (isChild && !selection) {
+          allParents.push(opt.value);
+          return true;
+        } else if (isChild && selection) {
+          let n = 0;
+          opt.children.forEach((o) => {
+            if (selectedValues.includes(o.value)) n++;
+          });
 
-    const handleScroll = (event: Event) => {
-      const target = event.target;
-      const isInsidePopup = target instanceof Node && popupRef.current?.contains(target);
-      const isInsideSelect = target instanceof Node && selectRef.current?.contains(target);
-      if (isInsidePopup || isInsideSelect) {
-        return;
-      }
-      setOpen(false);
-    };
-
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Node;
-
-      if (!selectRef.current?.contains(target) && !popupRef.current?.contains(target)) {
-        setOpen(false);
-        setSearch('');
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    window.addEventListener('resize', handleResize);
-    document.addEventListener('scroll', handleScroll, true);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      document.removeEventListener('scroll', handleScroll, true);
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [open]);
-
-  const filteredOptions = useMemo(() => {
-    if (!isSearch || !search.trim()) return options;
-
-    const query = search.toLowerCase();
-
-    return options.filter((option) => option.label.toLowerCase().includes(query));
-  }, [options, search, isSearch]);
-
-  const focusOption = useCallback(
-    (index: number) => {
-      if (!filteredOptions.length) {
-        setFocusedOptionIndex(-1);
-        return;
-      }
-
-      const nextIndex = Math.max(0, Math.min(index, filteredOptions.length - 1));
-
-      setFocusedOptionIndex(nextIndex);
-
-      requestAnimationFrame(() => {
-        optionRefs.current[nextIndex]?.scrollIntoView({
-          block: 'nearest',
-        });
-      });
-    },
-    [filteredOptions.length],
-  );
-
-  const findOptions = useCallback((options: Option[], values: Array<string | number>): Option[] => {
-    const result: Option[] = [];
-
-    const visit = (items: Option[]) => {
-      for (const option of items) {
-        if (values.includes(option.value)) {
-          result.push(option);
-        }
-
-        if (option.children?.length) {
-          visit(option.children);
+          if (n === opt.children.length - 1) {
+            allParents.push(opt.value);
+            return true;
+          }
         }
       }
-    };
-
-    visit(options);
-
-    return result;
-  }, []);
-
-  const displayValue = useMemo(() => {
-    if (!selectedValues.length) {
-      return placeholder;
     }
+  };
 
-    const selectedOptions = findOptions(options, selectedValues);
+  const updateTreeSelection = (option: Option, isMulti: boolean) => {
+    const allChilds: (string | number)[] = [option.value];
+    const allParents: (string | number)[] = [option.value];
+    const isSelection = !selectedValues.includes(option.value);
+    if (option.children && option.children.length > 0) checkChildrens(option.children, allChilds);
+    checkParents(option, options, allParents, isSelection);
 
-    if (isMulti) {
-      return selectedOptions.map((option) => option.label).join(', ');
-    }
-
-    return selectedOptions[0]?.label || placeholder;
-  }, [findOptions, isMulti, options, placeholder, selectedValues]);
-
-  const isSelected = (option: Option) => selectedValues.includes(option.value);
+    if (isMulti)
+      isSelection
+        ? updateValue([...new Set([...allParents, ...allChilds, ...selectedValues])])
+        : updateValue(selectedValues.filter((s) => ![...allParents, ...allChilds].includes(s)));
+    else isSelection ? updateValue(allChilds) : updateValue([]);
+  };
 
   const handleOptionClick = (option: Option) => {
-    if (disabled) {
+    if (disabled) return;
+
+    if (isTree) {
+      updateTreeSelection(option, isMulti);
       return;
     }
 
@@ -444,9 +474,6 @@ export default function Select({
           ])}
           role="option"
           aria-selected={selected}
-          style={{
-            paddingLeft: `${level * 20 + 8}px`,
-          }}
           onClick={() => {
             handleOptionClick(option);
           }}
@@ -466,14 +493,20 @@ export default function Select({
             </Button>
           )}
 
-          {isTree && !hasChildOptions && <span className={styles.treeArrowPlaceholder} />}
-
           {isMulti && <span className={classNames([styles.checkbox, selected ? styles.checkboxChecked : ''])} />}
 
           <span className={styles.optionLabel}>{option.label}</span>
         </div>
 
-        {isTree && expanded && option.children?.map((child) => renderOption(child, index, level + 1))}
+        {isTree && expanded && (
+          <div
+            style={{
+              paddingLeft: 20,
+            }}
+          >
+            {option.children?.map((child) => renderOption(child, index, level + 1))}
+          </div>
+        )}
       </div>
     );
   };

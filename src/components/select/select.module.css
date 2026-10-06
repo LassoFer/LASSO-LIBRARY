@@ -20,6 +20,7 @@
     border-color 0.25s ease,
     color 0.08s ease,
     outline-color 0.25s ease;
+  max-width: 100%;
 }
 
 .Select:hover {
@@ -34,7 +35,6 @@
 
 .Select[aria-expanded='true'] {
   border-color: var(--color-neutral-focus);
-  outline-color: var(--color-neutral-focus);
 }
 
 .Select.focusByMouse {
@@ -83,7 +83,7 @@
 }
 
 .arrowContainer:active {
-  background: var(--color-neutral-default) !important;
+  background: transparent !important;
 }
 
 .arrow {
@@ -191,6 +191,7 @@
 .option {
   display: flex;
   align-items: center;
+  justify-content: left;
   color: var(--color-neutral-900);
   cursor: pointer;
   transition: background 0.1s ease;
@@ -248,8 +249,19 @@
 }
 
 .treeArrowContainer:active {
-  background: var(--color-neutral-default) !important;
+  background: transparent !important;
 }
+
+.treeArrow {
+  display: block;
+  flex: 0 0 auto;
+  transition: transform 0.15s ease;
+}
+
+.treeArrowOpen {
+  transform: rotate(90deg);
+}
+
 /* ==========================================================================
    Popup Empty
    ========================================================================== */

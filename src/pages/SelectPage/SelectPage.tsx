@@ -22,85 +22,122 @@ const users = [
   { value: 5, label: 'Miguel' },
 ];
 
-const projectOptions = [
+const companyOptions = [
   {
-    value: 'project-1',
-    label: 'Proyecto BIM 01',
+    value: 'company',
+    label: 'Empresa',
     children: [
       {
-        value: 'project-1-models',
-        label: 'Modelos',
+        value: 'company-management',
+        label: 'Dirección',
         children: [
           {
-            value: 'project-1-model-architecture',
-            label: 'Arquitectura',
+            value: 'company-management-general',
+            label: 'Dirección General',
           },
           {
-            value: 'project-1-model-structure',
-            label: 'Estructura',
-          },
-          {
-            value: 'project-1-model-mep',
-            label: 'Instalaciones',
+            value: 'company-management-finance',
+            label: 'Finanzas',
+            children: [
+              {
+                value: 'company-management-finance-accounting',
+                label: 'Contabilidad',
+              },
+              {
+                value: 'company-management-finance-treasury',
+                label: 'Tesorería',
+              },
+              {
+                value: 'company-management-finance-control',
+                label: 'Control de Gestión',
+              },
+            ],
           },
         ],
       },
       {
-        value: 'project-1-documents',
-        label: 'Documentación',
+        value: 'company-technology',
+        label: 'Tecnología',
         children: [
           {
-            value: 'project-1-doc-plans',
-            label: 'Planos',
+            value: 'company-technology-development',
+            label: 'Desarrollo',
+            children: [
+              {
+                value: 'company-technology-development-frontend',
+                label: 'Frontend',
+              },
+              {
+                value: 'company-technology-development-backend',
+                label: 'Backend',
+              },
+              {
+                value: 'company-technology-development-mobile',
+                label: 'Mobile',
+              },
+            ],
           },
           {
-            value: 'project-1-doc-reports',
-            label: 'Informes',
+            value: 'company-technology-infrastructure',
+            label: 'Infraestructura',
+            children: [
+              {
+                value: 'company-technology-infrastructure-cloud',
+                label: 'Cloud',
+              },
+              {
+                value: 'company-technology-infrastructure-devops',
+                label: 'DevOps',
+              },
+            ],
+          },
+          {
+            value: 'company-technology-security',
+            label: 'Seguridad',
+          },
+        ],
+      },
+      {
+        value: 'company-operations',
+        label: 'Operaciones',
+        children: [
+          {
+            value: 'company-operations-production',
+            label: 'Producción',
+            children: [
+              {
+                value: 'company-operations-production-planning',
+                label: 'Planificación',
+              },
+              {
+                value: 'company-operations-production-quality',
+                label: 'Calidad',
+              },
+            ],
+          },
+          {
+            value: 'company-operations-logistics',
+            label: 'Logística',
+          },
+        ],
+      },
+      {
+        value: 'company-human-resources',
+        label: 'Recursos Humanos',
+        children: [
+          {
+            value: 'company-human-resources-recruitment',
+            label: 'Selección',
+          },
+          {
+            value: 'company-human-resources-training',
+            label: 'Formación',
           },
         ],
       },
     ],
-  },
-  {
-    value: 'project-2',
-    label: 'Proyecto BIM 02',
-    children: [
-      {
-        value: 'project-2-models',
-        label: 'Modelos',
-        children: [
-          {
-            value: 'project-2-model-architecture',
-            label: 'Arquitectura',
-          },
-          {
-            value: 'project-2-model-structure',
-            label: 'Estructura',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    value: 'project-3',
-    label: 'Proyecto BIM 03',
-    children: [
-      {
-        value: 'project-3-models',
-        label: 'Modelos',
-      },
-      {
-        value: 'project-3-documents',
-        label: 'Documentación',
-      },
-    ],
-  },
-  {
-    value: 'project-4',
-    label: 'Proyecto BIM 04',
   },
 ];
-
 export default function SelectPage() {
   const [selectedCountry, setSelectedCountry] = useState<string | number>('spain');
   const [selectedUsers, setSelectedUsers] = useState<Array<string | number>>([1, 3]);
@@ -246,7 +283,7 @@ export default function SelectPage() {
           contentClassName={styles.cardContent}
         >
           <div>
-            <Select mode="tree" options={projectOptions} placeholder="Selecciona un proyecto" />
+            <Select mode="tree" options={companyOptions} placeholder="Selecciona un proyecto" />
           </div>
         </Card>
       </Section>
@@ -262,7 +299,7 @@ export default function SelectPage() {
           contentClassName={styles.cardContent}
         >
           <div>
-            <Select mode={['search', 'tree']} options={projectOptions} placeholder="Busca un proyecto" />
+            <Select mode={['search', 'tree']} options={companyOptions} placeholder="Busca un proyecto" />
           </div>
         </Card>
       </Section>
@@ -278,7 +315,7 @@ export default function SelectPage() {
           contentClassName={styles.cardContent}
         >
           <div>
-            <Select mode={['tree', 'multi']} options={projectOptions} placeholder="Selecciona proyectos" />
+            <Select mode={['tree', 'multi']} options={companyOptions} placeholder="Selecciona proyectos" />
           </div>
         </Card>
       </Section>
@@ -294,7 +331,7 @@ export default function SelectPage() {
           contentClassName={styles.cardContent}
         >
           <div>
-            <Select mode={['search', 'tree', 'multi']} options={projectOptions} placeholder="Selecciona proyectos" />
+            <Select mode={['search', 'tree', 'multi']} options={companyOptions} placeholder="Selecciona proyectos" />
           </div>
         </Card>
       </Section>
