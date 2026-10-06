@@ -117,7 +117,24 @@ export default function Select({
 
     const query = search.toLowerCase();
 
-    return options.filter((option) => option.label.toLowerCase().includes(query));
+    const filterTree = (items: Option[]): Option[] => {
+      return items.reduce<Option[]>((result, option) => {
+        const matches = option.label.toLowerCase().includes(query);
+
+        const filteredChildren = option.children ? filterTree(option.children) : [];
+
+        if (matches || filteredChildren.length > 0) {
+          result.push({
+            ...option,
+            children: filteredChildren,
+          });
+        }
+
+        return result;
+      }, []);
+    };
+
+    return filterTree(options);
   }, [options, search, isSearch]);
 
   const findOptions = useCallback((options: Option[], values: Array<string | number>): Option[] => {
@@ -315,7 +332,19 @@ export default function Select({
     const allChilds: (string | number)[] = [option.value];
     const allParents: (string | number)[] = [option.value];
     const isSelection = !selectedValues.includes(option.value);
-    if (option.children && option.children.length > 0) checkChildrens(option.children, allChilds);
+
+    const findOption = (opt: Option, children: Option[]) => {
+      for (let i = 0; i < children.length; i++) {
+        const o = children[i];
+        if (opt.value === o.value) return o;
+        if (o.children && o.children.length > 0) return findOption(opt, o.children);
+      }
+    };
+
+    const foundOption = findOption(option, options);
+    if (option.children && option.children.length > 0 && foundOption && foundOption.children)
+      checkChildrens(foundOption.children, allChilds);
+
     checkParents(option, options, allParents, isSelection);
 
     if (isMulti)
